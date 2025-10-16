@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PhysicsDragFinal : MonoBehaviour
+public class PhysicsDrag : SingletonObject<PhysicsDrag>
 {
     private LineRenderer line1;
     private LineRenderer line2;
@@ -36,7 +36,15 @@ public class PhysicsDragFinal : MonoBehaviour
     [SerializeField] private float maxGrabDistance = 20f;
     private bool doubleGrapping = false;
 
-
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+    public void NotifyJointBroken()
+    {
+        Debug.LogWarning("조인트 파괴 신호를 감지했습니다!");
+        ReleaseAll();
+    }
 
     void Start()
     {
@@ -63,6 +71,7 @@ public class PhysicsDragFinal : MonoBehaviour
         {
             HandleMouseWheel();
         }
+
     }
 
     void FixedUpdate()
@@ -75,6 +84,12 @@ public class PhysicsDragFinal : MonoBehaviour
 
     void TryDoubleGrab()
     {
+        if (doubleGrapping)
+        {
+            Debug.Log("djkflasdjf");
+            ReleaseDoubleGrab();
+            return;
+        }
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit, grabMaxDistance))
         {
@@ -85,10 +100,7 @@ public class PhysicsDragFinal : MonoBehaviour
                 // 고정 오브젝트를 클릭하면 선택을 초기화하지 않고 무시
                 return;
             }
-            if (doubleGrapping)
-            {
-                ReleaseDoubleGrab();
-            }
+
             else if (firstPointRb == null)
             {
                 firstPointRb = rb;
@@ -117,6 +129,7 @@ public class PhysicsDragFinal : MonoBehaviour
 
                 ConfigureJoint(grabJoint2);
                 jointsOffset = hit.point - firstGlobalPoint;
+                grabbedRb.gameObject.AddComponent<JointBreakDetector>();
 
                 CreateLineRenderer(ref line1);
                 CreateLineRenderer(ref line2);
@@ -180,6 +193,7 @@ public class PhysicsDragFinal : MonoBehaviour
                 grabJoint.damper = springDamper;
 
                 grabJoint.breakForce = jointBreakForce;
+                grabbedRb.gameObject.AddComponent<JointBreakDetector>();
                 CreateLineRenderer(ref line1);
 
                 // 첫 프레임 원점 점프 방지: 즉시 connectedAnchor와 라인 좌표 초기화
@@ -193,6 +207,7 @@ public class PhysicsDragFinal : MonoBehaviour
             }
         }
     }
+
 
     void HandleMouseWheel()
     {
@@ -243,8 +258,10 @@ public class PhysicsDragFinal : MonoBehaviour
             Destroy(grabJoint2);
             grabJoint2 = null;
         }
+        firstPointRb = null;
         grabbedRb = null;
         doubleGrapping = false;
+        Debug.Log(doubleGrapping);
         if (line1 != null) Destroy(line1.gameObject);
         if (line2 != null) Destroy(line2.gameObject);
     }
@@ -252,8 +269,12 @@ public class PhysicsDragFinal : MonoBehaviour
     void OnJointBreak(float breakForce)
     {
         Debug.LogWarning("조인트가 끊어졌습니다! 가해진 힘: " + breakForce);
-        // grabJoint = null;
-        // grabbedRb = null;
+        Release();
+        ReleaseDoubleGrab();
+    }
+
+    void ReleaseAll()
+    {
         Release();
         ReleaseDoubleGrab();
     }
