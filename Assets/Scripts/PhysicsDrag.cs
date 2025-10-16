@@ -59,7 +59,7 @@ public class PhysicsDragFinal : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
             Release();
 
-        if (grabJoint != null)
+        if (grabJoint != null || grabJoint1 != null)
         {
             HandleMouseWheel();
         }
@@ -69,7 +69,7 @@ public class PhysicsDragFinal : MonoBehaviour
     {
         if (grabJoint != null)
             Drag();
-        if (grabJoint1 != null)
+        if (doubleGrapping)
             DragDoubleGrab();
     }
 
@@ -78,25 +78,31 @@ public class PhysicsDragFinal : MonoBehaviour
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit, grabMaxDistance))
         {
+            // 반드시 Rigidbody 위에서만 동작하도록 가드
+            var rb = hit.collider.attachedRigidbody;
+            if (rb == null)
+            {
+                // 고정 오브젝트를 클릭하면 선택을 초기화하지 않고 무시
+                return;
+            }
             if (doubleGrapping)
             {
                 ReleaseDoubleGrab();
             }
             else if (firstPointRb == null)
             {
-                firstPointRb = hit.collider.attachedRigidbody;
+                firstPointRb = rb;
                 firstPointAnchorLocal = firstPointRb.transform.InverseTransformPoint(hit.point);
                 firstGlobalPoint = hit.point;
             }
-            else if (hit.collider.attachedRigidbody != firstPointRb)
+            else if (rb != firstPointRb)
             {
-                firstPointRb = hit.collider.attachedRigidbody;
+                firstPointRb = rb;
                 firstPointAnchorLocal = firstPointRb.transform.InverseTransformPoint(hit.point);
                 firstGlobalPoint = hit.point;
             }
             else
             {
-                doubleGrapping = true;
                 grabbedRb = firstPointRb;
                 initialGrabDistance = hit.distance;
 
@@ -130,6 +136,7 @@ public class PhysicsDragFinal : MonoBehaviour
                     line2.SetPosition(0, grabJoint2.transform.TransformPoint(grabJoint2.anchor));
                     line2.SetPosition(1, grabJoint2.connectedAnchor);
                 }
+                doubleGrapping = true;
             }
         }
     }
