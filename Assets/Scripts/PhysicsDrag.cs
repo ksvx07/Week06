@@ -6,9 +6,9 @@ public class PhysicsDragFinal : MonoBehaviour
     private LineRenderer line2;
     [Header("라인 렌더러 설정")]
     [SerializeField] private Material lineMaterial; // 라인에 사용할 머티리얼
-    [SerializeField] private Color safeColor = Color.green; // 안전할 때의 색상
-    [SerializeField] private Color dangerColor = Color.red; // 위험할 때의 색상
+    [SerializeField] private Gradient stressGradient;
     [SerializeField] private float lineWidth = 0.05f; // 라인 두께
+    [SerializeField] private float dangerThreshold = 0.8f; // 위험 색상으로 바뀌는 임계값
     private Camera cam;
     private SpringJoint grabJoint;
     private Rigidbody grabbedRb;
@@ -114,6 +114,22 @@ public class PhysicsDragFinal : MonoBehaviour
 
                 CreateLineRenderer(ref line1);
                 CreateLineRenderer(ref line2);
+
+                // 첫 프레임 원점 점프 방지: 즉시 connectedAnchor와 라인 좌표 초기화
+                Vector3 targetPoint = ray.GetPoint(initialGrabDistance);
+                grabJoint1.connectedAnchor = targetPoint - jointsOffset;
+                grabJoint2.connectedAnchor = targetPoint;
+
+                if (line1 != null)
+                {
+                    line1.SetPosition(0, grabJoint1.transform.TransformPoint(grabJoint1.anchor));
+                    line1.SetPosition(1, grabJoint1.connectedAnchor);
+                }
+                if (line2 != null)
+                {
+                    line2.SetPosition(0, grabJoint2.transform.TransformPoint(grabJoint2.anchor));
+                    line2.SetPosition(1, grabJoint2.connectedAnchor);
+                }
             }
         }
     }
@@ -158,6 +174,15 @@ public class PhysicsDragFinal : MonoBehaviour
 
                 grabJoint.breakForce = jointBreakForce;
                 CreateLineRenderer(ref line1);
+
+                // 첫 프레임 원점 점프 방지: 즉시 connectedAnchor와 라인 좌표 초기화
+                Vector3 targetPoint = ray.GetPoint(initialGrabDistance);
+                grabJoint.connectedAnchor = targetPoint;
+                if (line1 != null)
+                {
+                    line1.SetPosition(0, grabJoint.transform.TransformPoint(grabJoint.anchor));
+                    line1.SetPosition(1, targetPoint);
+                }
             }
         }
     }
@@ -220,8 +245,10 @@ public class PhysicsDragFinal : MonoBehaviour
     void OnJointBreak(float breakForce)
     {
         Debug.LogWarning("조인트가 끊어졌습니다! 가해진 힘: " + breakForce);
-        grabJoint = null;
-        grabbedRb = null;
+        // grabJoint = null;
+        // grabbedRb = null;
+        Release();
+        ReleaseDoubleGrab();
     }
 
     void CreateLineRenderer(ref LineRenderer line)
@@ -234,6 +261,8 @@ public class PhysicsDragFinal : MonoBehaviour
         line.material = lineMaterial;
         line.startWidth = lineWidth;
         line.endWidth = lineWidth;
+        line.numCapVertices = 10;
+        line.useWorldSpace = true; // 월드 좌표 사용을 명시해 위치 초기화가 즉시 반영되도록
     }
 
     void UpdateLine(LineRenderer line, SpringJoint joint)
@@ -241,7 +270,7 @@ public class PhysicsDragFinal : MonoBehaviour
         // 조인트가 파괴되면 line은 있지만 joint는 null일 수 있음
         if (joint == null || joint.connectedBody != null)
         {
-            Destroy(line.gameObject);
+            if (line != null) Destroy(line.gameObject);
             return;
         }
 
@@ -249,9 +278,9 @@ public class PhysicsDragFinal : MonoBehaviour
         line.SetPosition(0, joint.transform.TransformPoint(joint.anchor));
         line.SetPosition(1, joint.connectedAnchor);
 
-        // 힘 계산 및 색상 변경
-        float stress = Mathf.Clamp01(joint.currentForce.magnitude / joint.breakForce);
-        Color stressColor = Color.Lerp(safeColor, dangerColor, stress);
+        float stress = Mathf.Clamp01((joint.currentForce.magnitude / joint.breakForce) / dangerThreshold);
+
+        Color stressColor = stressGradient.Evaluate(stress);
         line.startColor = stressColor;
         line.endColor = stressColor;
     }
