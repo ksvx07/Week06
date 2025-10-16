@@ -2,13 +2,6 @@
 
 public class PhysicsDragFinal : MonoBehaviour
 {
-    private LineRenderer line1;
-    private LineRenderer line2;
-    [Header("라인 렌더러 설정")]
-    [SerializeField] private Material lineMaterial; // 라인에 사용할 머티리얼
-    [SerializeField] private Color safeColor = Color.green; // 안전할 때의 색상
-    [SerializeField] private Color dangerColor = Color.red; // 위험할 때의 색상
-    [SerializeField] private float lineWidth = 0.05f; // 라인 두께
     private Camera cam;
     private SpringJoint grabJoint;
     private Rigidbody grabbedRb;
@@ -87,12 +80,14 @@ public class PhysicsDragFinal : MonoBehaviour
                 firstPointRb = hit.collider.attachedRigidbody;
                 firstPointAnchorLocal = firstPointRb.transform.InverseTransformPoint(hit.point);
                 firstGlobalPoint = hit.point;
+                Debug.Log("첫 번째 지점 선택! 같은 물체를 다시 우클릭하여 두 번째 지점을 선택하세요.");
             }
             else if (hit.collider.attachedRigidbody != firstPointRb)
             {
                 firstPointRb = hit.collider.attachedRigidbody;
                 firstPointAnchorLocal = firstPointRb.transform.InverseTransformPoint(hit.point);
                 firstGlobalPoint = hit.point;
+                Debug.Log("첫 번째 지점 선택! 같은 물체를 다시 우클릭하여 두 번째 지점을 선택하세요.");
             }
             else
             {
@@ -112,25 +107,12 @@ public class PhysicsDragFinal : MonoBehaviour
                 ConfigureJoint(grabJoint2);
                 jointsOffset = hit.point - firstGlobalPoint;
 
-                CreateLineRenderer(ref line1);
-                CreateLineRenderer(ref line2);
+                Debug.Log(grabbedRb.name + "을(를) 두 지점으로 잡았습니다.");
             }
         }
     }
 
-    void LateUpdate()
-    {
-        if (line1 != null)
-        {
-            // 단일 잡기일 경우 grabJoint, 두 지점 잡기일 경우 grabJoint1 사용
-            SpringJoint activeJoint = (grabJoint != null) ? grabJoint : grabJoint1;
-            UpdateLine(line1, activeJoint);
-        }
-        if (line2 != null)
-        {
-            UpdateLine(line2, grabJoint2);
-        }
-    }
+
 
     void ConfigureJoint(SpringJoint joint)
     {
@@ -157,7 +139,6 @@ public class PhysicsDragFinal : MonoBehaviour
                 grabJoint.damper = springDamper;
 
                 grabJoint.breakForce = jointBreakForce;
-                CreateLineRenderer(ref line1);
             }
         }
     }
@@ -194,7 +175,6 @@ public class PhysicsDragFinal : MonoBehaviour
             Destroy(grabJoint);
             grabJoint = null;
             grabbedRb = null;
-            if (line1 != null) Destroy(line1.gameObject);
         }
     }
 
@@ -213,8 +193,6 @@ public class PhysicsDragFinal : MonoBehaviour
         }
         grabbedRb = null;
         doubleGrapping = false;
-        if (line1 != null) Destroy(line1.gameObject);
-        if (line2 != null) Destroy(line2.gameObject);
     }
 
     void OnJointBreak(float breakForce)
@@ -222,38 +200,6 @@ public class PhysicsDragFinal : MonoBehaviour
         Debug.LogWarning("조인트가 끊어졌습니다! 가해진 힘: " + breakForce);
         grabJoint = null;
         grabbedRb = null;
-    }
-
-    void CreateLineRenderer(ref LineRenderer line)
-    {
-        if (line != null) Destroy(line.gameObject);
-
-        GameObject lineObj = new GameObject("GrabLine");
-        line = lineObj.AddComponent<LineRenderer>();
-        line.positionCount = 2;
-        line.material = lineMaterial;
-        line.startWidth = lineWidth;
-        line.endWidth = lineWidth;
-    }
-
-    void UpdateLine(LineRenderer line, SpringJoint joint)
-    {
-        // 조인트가 파괴되면 line은 있지만 joint는 null일 수 있음
-        if (joint == null || joint.connectedBody != null)
-        {
-            Destroy(line.gameObject);
-            return;
-        }
-
-        // 라인의 시작점 (오브젝트의 앵커)과 끝점 (조인트의 목표) 설정
-        line.SetPosition(0, joint.transform.TransformPoint(joint.anchor));
-        line.SetPosition(1, joint.connectedAnchor);
-
-        // 힘 계산 및 색상 변경
-        float stress = Mathf.Clamp01(joint.currentForce.magnitude / joint.breakForce);
-        Color stressColor = Color.Lerp(safeColor, dangerColor, stress);
-        line.startColor = stressColor;
-        line.endColor = stressColor;
     }
 }
 
