@@ -7,9 +7,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Fixed
+  m_Name: HotPink
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-  m_Parent: {fileID: 2100000, guid: 21a4d3ca04bad5c419a76bb8e3666e95, type: 2}
+  m_Parent: {fileID: 2100000, guid: 999321c2317523642a79c3d0cb5d4b78, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -28,11 +28,11 @@ Material:
     m_Ints: []
     m_Floats: []
     m_Colors:
-    - _BaseColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
-    - _Color: {r: 0.17924526, g: 0.17924526, b: 0.17924526, a: 1}
+    - _BaseColor: {r: 1, g: 0.8443396, b: 0.8755629, a: 1}
+    - _Color: {r: 1, g: 0.8443396, b: 0.8755629, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &3932613221094619979
+--- !u!114 &5560036967257793700
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
