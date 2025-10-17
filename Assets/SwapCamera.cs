@@ -1,10 +1,27 @@
-﻿using UnityEngine;
+﻿using Unity.Cinemachine;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+
 
 public class SwapCamera : MonoBehaviour
 {
-    public GameObject cam1;
-    public GameObject cam2;
+    [SerializeField] private GameObject cam1;
+    [SerializeField] private GameObject cam2;
+
+    [SerializeField] private CinemachineInputAxisController cinemachineInputAxisController;
+
+    private void Awake()
+    {
+        Init();
+
+    }
+
+    private void Init()
+    {
+        cinemachineInputAxisController.Controllers[0].Enabled = false;
+        cinemachineInputAxisController.Controllers[1].Enabled = false;
+        cinemachineInputAxisController.Controllers[1].Enabled = false;
+    }
 
     // Update is called once per frame
     void Update()
@@ -23,5 +40,19 @@ public class SwapCamera : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            cinemachineInputAxisController.Controllers[0].Enabled = true;
+            cinemachineInputAxisController.Controllers[1].Enabled = true;
+            cinemachineInputAxisController.Controllers[1].Enabled = true;
+        }
+        else if (Input.GetKeyUp(KeyCode.Mouse1))
+        {
+            cinemachineInputAxisController.Controllers[0].Enabled = false;
+            cinemachineInputAxisController.Controllers[1].Enabled = false;
+            cinemachineInputAxisController.Controllers[1].Enabled = false;
+        }
+
     }
 }

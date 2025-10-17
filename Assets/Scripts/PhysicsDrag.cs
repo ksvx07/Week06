@@ -1,3 +1,4 @@
+using UnityEditor.Callbacks;
 using UnityEngine;
 
 public class PhysicsDrag : SingletonObject<PhysicsDrag>
@@ -20,6 +21,9 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
     private SpringJoint grabJoint2;
     private float initialGrabDistance;
     Vector3 jointsOffset = Vector3.zero;
+    private float originalAngularDrag;
+    private RigidbodyInterpolation originalInterpolation;
+    private CollisionDetectionMode originalCollisionMode;
 
 
     [Header("잡기 설정")]
@@ -27,7 +31,6 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
     [SerializeField] private float grabMaxDistance = 10f;
     [Tooltip("물체를 잡았을 때 적용할 각마찰(회전 저항) 값입니다.")]
     [SerializeField] private float grabAngularDrag = 5.0f; // <<< 추가: 잡았을 때 적용할 각마찰 값
-    private float originalAngularDrag; // <<< 추가: 원래 각마찰 값을 저장할 변수
 
     [Header("조인트 설정")]
     [SerializeField] private float springStiffness = 2000f;
@@ -118,11 +121,8 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
             {
                 grabbedRb = firstPointRb;
                 initialGrabDistance = hit.distance;
-                if (grabbedRb != null)
-                {
-                    originalAngularDrag = grabbedRb.angularDamping;
-                    grabbedRb.angularDamping = grabAngularDrag;
-                }
+
+                ApplyGrabSettings(grabbedRb);
 
                 grabJoint1 = grabbedRb.gameObject.AddComponent<SpringJoint>();
                 grabJoint1.autoConfigureConnectedAnchor = false;
@@ -173,6 +173,31 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
             UpdateLine(line2, grabJoint2);
         }
     }
+    void ApplyGrabSettings(Rigidbody rb)
+    {
+        if (rb != null)
+        {
+            // <<< 추가: 잡는 순간, 원래 물리 설정을 저장
+            originalAngularDrag = rb.angularDamping;
+            originalInterpolation = rb.interpolation;
+            originalCollisionMode = rb.collisionDetectionMode;
+
+            // <<< 추가: 잡는 동안 사용할 고품질 물리 설정으로 변경
+            rb.angularDamping = grabAngularDrag;
+            rb.interpolation = RigidbodyInterpolation.Interpolate;
+            rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+        }
+    }
+
+    void RestoreOriginalSettings(Rigidbody rb)
+    {
+        if (rb != null)
+        {
+            rb.angularDamping = originalAngularDrag;
+            rb.interpolation = originalInterpolation;
+            rb.collisionDetectionMode = originalCollisionMode;
+        }
+    }
 
     void ConfigureJoint(SpringJoint joint)
     {
@@ -192,11 +217,7 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
                 grabbedRb = hit.collider.attachedRigidbody;
                 initialGrabDistance = hit.distance;
 
-                if (grabbedRb != null)
-                {
-                    originalAngularDrag = grabbedRb.angularDamping;
-                    grabbedRb.angularDamping = grabAngularDrag;
-                }
+                ApplyGrabSettings(grabbedRb);
 
                 grabJoint = grabbedRb.gameObject.AddComponent<SpringJoint>();
                 grabJoint.autoConfigureConnectedAnchor = false;
@@ -252,6 +273,7 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
         {
             if (grabbedRb != null)
             {
+                RestoreOriginalSettings(grabbedRb);
                 grabbedRb.angularDamping = originalAngularDrag;
             }
             Destroy(grabJoint);
@@ -266,6 +288,7 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
     {
         if (grabbedRb != null)
         {
+            RestoreOriginalSettings(grabbedRb);
             grabbedRb.angularDamping = originalAngularDrag;
         }
         if (grabJoint1 != null)
