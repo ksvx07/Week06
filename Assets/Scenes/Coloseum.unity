@@ -4873,6 +4873,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 128097239}
   m_SourcePrefab: {fileID: 100100000, guid: d3671a3f7aa7830488dbc0112272fb61, type: 3}
+--- !u!114 &294420106 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6789110094304765498, guid: d3671a3f7aa7830488dbc0112272fb61, type: 3}
+  m_PrefabInstance: {fileID: 294420105}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 128097225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89875cdc57c54474a8a74efd9b2a3b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!54 &318324309
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -22771,6 +22782,7 @@ MonoBehaviour:
   lineWidth: 0.05
   dangerThreshold: 0.8
   grabMaxDistance: 3000
+  grabAngularDrag: 5
   springStiffness: 1000
   springDamper: 300
   jointBreakForce: 1000
@@ -27266,8 +27278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5ae1cf4e998e3845b7f707752b8a373, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam1: {fileID: 0}
-  cam2: {fileID: 0}
+  cinemachineInputAxisController: {fileID: 294420106}
 --- !u!4 &2035787382
 Transform:
   m_ObjectHideFlags: 0
