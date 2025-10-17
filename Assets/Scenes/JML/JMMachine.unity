@@ -703,11 +703,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: CameraController
       objectReference: {fileID: 0}
+    - target: {fileID: 8464227151379606000, guid: cc93b9625d926dc458399f0746451da2, type: 3}
+      propertyPath: cinemachineInputAxisController
+      value: 
+      objectReference: {fileID: 1863144548}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc93b9625d926dc458399f0746451da2, type: 3}
+--- !u!114 &1863144548 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6789110094304765498, guid: d3671a3f7aa7830488dbc0112272fb61, type: 3}
+  m_PrefabInstance: {fileID: 1591291645}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89875cdc57c54474a8a74efd9b2a3b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

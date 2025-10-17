@@ -242,8 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5ae1cf4e998e3845b7f707752b8a373, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam1: {fileID: 0}
-  cam2: {fileID: 0}
+  cinemachineInputAxisController: {fileID: 487846063}
 --- !u!1 &29417962
 GameObject:
   m_ObjectHideFlags: 0
@@ -1142,7 +1141,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.20876522, y: 0.000000014572828, z: -0.0000000031108447, w: 0.97796583}
-  m_LocalPosition: {x: 0, y: 12.7479515, z: -15.335613}
+  m_LocalPosition: {x: 0, y: 13.925552, z: -15.335613}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1745,7 +1744,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1864118709422409409, guid: d3671a3f7aa7830488dbc0112272fb61, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 12.7479515
+      value: 13.925552
       objectReference: {fileID: 0}
     - target: {fileID: 1864118709422409409, guid: d3671a3f7aa7830488dbc0112272fb61, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1805,6 +1804,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1864118709422409409, guid: d3671a3f7aa7830488dbc0112272fb61, type: 3}
   m_PrefabInstance: {fileID: 455570008}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &487846063 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6789110094304765498, guid: d3671a3f7aa7830488dbc0112272fb61, type: 3}
+  m_PrefabInstance: {fileID: 455570008}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89875cdc57c54474a8a74efd9b2a3b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &639550451
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2129,15 +2139,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 727238051}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1833811291}
   - {fileID: 887793841}
   - {fileID: 279192790}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 874117167}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &730911684
 PrefabInstance:
@@ -2374,6 +2384,7 @@ Transform:
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 1575382554}
+  - {fileID: 727238052}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &877574687
@@ -3293,6 +3304,7 @@ MonoBehaviour:
   lineWidth: 0.05
   dangerThreshold: 0.8
   grabMaxDistance: 3000
+  grabAngularDrag: 5
   springStiffness: 1000
   springDamper: 300
   jointBreakForce: 1000
@@ -4199,4 +4211,3 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 874117167}
-  - {fileID: 727238052}
