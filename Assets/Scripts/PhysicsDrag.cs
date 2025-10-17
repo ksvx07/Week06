@@ -63,7 +63,7 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
     {
         if (Input.GetMouseButtonDown(0))
             TryGrab();
-        else if (Input.GetMouseButtonDown(1))
+        else if (Input.GetMouseButtonDown(2))
         {
             Release();
             TryDoubleGrab();
