@@ -1,6 +1,7 @@
+using UnityEditor.Callbacks;
 using UnityEngine;
 
-public class PhysicsDragFinal : MonoBehaviour
+public class PhysicsDrag : SingletonObject<PhysicsDrag>
 {
     private LineRenderer line1;
     private LineRenderer line2;
@@ -20,10 +21,16 @@ public class PhysicsDragFinal : MonoBehaviour
     private SpringJoint grabJoint2;
     private float initialGrabDistance;
     Vector3 jointsOffset = Vector3.zero;
+    private float originalAngularDrag;
+    private RigidbodyInterpolation originalInterpolation;
+    private CollisionDetectionMode originalCollisionMode;
 
 
     [Header("잡기 설정")]
+    [Header("잡기 설정")]
     [SerializeField] private float grabMaxDistance = 10f;
+    [Tooltip("물체를 잡았을 때 적용할 각마찰(회전 저항) 값입니다.")]
+    [SerializeField] private float grabAngularDrag = 5.0f; // <<< 추가: 잡았을 때 적용할 각마찰 값
 
     [Header("조인트 설정")]
     [SerializeField] private float springStiffness = 2000f;
@@ -34,9 +41,18 @@ public class PhysicsDragFinal : MonoBehaviour
     [SerializeField] private float scrollSensitivity = 2f;
     [SerializeField] private float minGrabDistance = 1f;
     [SerializeField] private float maxGrabDistance = 20f;
+
+
     private bool doubleGrapping = false;
 
-
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+    public void NotifyJointBroken()
+    {
+        ReleaseAll();
+    }
 
     void Start()
     {
@@ -45,12 +61,9 @@ public class PhysicsDragFinal : MonoBehaviour
 
     void Update()
     {
-        Ray rayForDebug = cam.ScreenPointToRay(Input.mousePosition);
-        Debug.DrawRay(rayForDebug.origin, rayForDebug.direction * grabMaxDistance, Color.green);
-
         if (Input.GetMouseButtonDown(0))
             TryGrab();
-        else if (Input.GetMouseButtonDown(1))
+        else if (Input.GetMouseButtonDown(2))
         {
             Release();
             TryDoubleGrab();
@@ -63,6 +76,7 @@ public class PhysicsDragFinal : MonoBehaviour
         {
             HandleMouseWheel();
         }
+
     }
 
     void FixedUpdate()
@@ -75,6 +89,11 @@ public class PhysicsDragFinal : MonoBehaviour
 
     void TryDoubleGrab()
     {
+        if (doubleGrapping)
+        {
+            ReleaseDoubleGrab();
+            return;
+        }
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit, grabMaxDistance))
         {
@@ -85,10 +104,7 @@ public class PhysicsDragFinal : MonoBehaviour
                 // 고정 오브젝트를 클릭하면 선택을 초기화하지 않고 무시
                 return;
             }
-            if (doubleGrapping)
-            {
-                ReleaseDoubleGrab();
-            }
+
             else if (firstPointRb == null)
             {
                 firstPointRb = rb;
@@ -106,6 +122,8 @@ public class PhysicsDragFinal : MonoBehaviour
                 grabbedRb = firstPointRb;
                 initialGrabDistance = hit.distance;
 
+                ApplyGrabSettings(grabbedRb);
+
                 grabJoint1 = grabbedRb.gameObject.AddComponent<SpringJoint>();
                 grabJoint1.autoConfigureConnectedAnchor = false;
                 grabJoint1.anchor = firstPointAnchorLocal;
@@ -117,6 +135,7 @@ public class PhysicsDragFinal : MonoBehaviour
 
                 ConfigureJoint(grabJoint2);
                 jointsOffset = hit.point - firstGlobalPoint;
+                grabbedRb.gameObject.AddComponent<JointBreakDetector>();
 
                 CreateLineRenderer(ref line1);
                 CreateLineRenderer(ref line2);
@@ -154,6 +173,31 @@ public class PhysicsDragFinal : MonoBehaviour
             UpdateLine(line2, grabJoint2);
         }
     }
+    void ApplyGrabSettings(Rigidbody rb)
+    {
+        if (rb != null)
+        {
+            // <<< 추가: 잡는 순간, 원래 물리 설정을 저장
+            originalAngularDrag = rb.angularDamping;
+            originalInterpolation = rb.interpolation;
+            originalCollisionMode = rb.collisionDetectionMode;
+
+            // <<< 추가: 잡는 동안 사용할 고품질 물리 설정으로 변경
+            rb.angularDamping = grabAngularDrag;
+            rb.interpolation = RigidbodyInterpolation.Interpolate;
+            rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+        }
+    }
+
+    void RestoreOriginalSettings(Rigidbody rb)
+    {
+        if (rb != null)
+        {
+            rb.angularDamping = originalAngularDrag;
+            rb.interpolation = originalInterpolation;
+            rb.collisionDetectionMode = originalCollisionMode;
+        }
+    }
 
     void ConfigureJoint(SpringJoint joint)
     {
@@ -173,6 +217,8 @@ public class PhysicsDragFinal : MonoBehaviour
                 grabbedRb = hit.collider.attachedRigidbody;
                 initialGrabDistance = hit.distance;
 
+                ApplyGrabSettings(grabbedRb);
+
                 grabJoint = grabbedRb.gameObject.AddComponent<SpringJoint>();
                 grabJoint.autoConfigureConnectedAnchor = false;
                 grabJoint.anchor = grabbedRb.transform.InverseTransformPoint(hit.point);
@@ -180,6 +226,7 @@ public class PhysicsDragFinal : MonoBehaviour
                 grabJoint.damper = springDamper;
 
                 grabJoint.breakForce = jointBreakForce;
+                grabbedRb.gameObject.AddComponent<JointBreakDetector>();
                 CreateLineRenderer(ref line1);
 
                 // 첫 프레임 원점 점프 방지: 즉시 connectedAnchor와 라인 좌표 초기화
@@ -193,6 +240,7 @@ public class PhysicsDragFinal : MonoBehaviour
             }
         }
     }
+
 
     void HandleMouseWheel()
     {
@@ -223,6 +271,11 @@ public class PhysicsDragFinal : MonoBehaviour
     {
         if (grabJoint != null)
         {
+            if (grabbedRb != null)
+            {
+                RestoreOriginalSettings(grabbedRb);
+                grabbedRb.angularDamping = originalAngularDrag;
+            }
             Destroy(grabJoint);
             grabJoint = null;
             grabbedRb = null;
@@ -233,6 +286,11 @@ public class PhysicsDragFinal : MonoBehaviour
 
     void ReleaseDoubleGrab()
     {
+        if (grabbedRb != null)
+        {
+            RestoreOriginalSettings(grabbedRb);
+            grabbedRb.angularDamping = originalAngularDrag;
+        }
         if (grabJoint1 != null)
         {
             Destroy(grabJoint1);
@@ -243,6 +301,7 @@ public class PhysicsDragFinal : MonoBehaviour
             Destroy(grabJoint2);
             grabJoint2 = null;
         }
+        firstPointRb = null;
         grabbedRb = null;
         doubleGrapping = false;
         if (line1 != null) Destroy(line1.gameObject);
@@ -251,9 +310,12 @@ public class PhysicsDragFinal : MonoBehaviour
 
     void OnJointBreak(float breakForce)
     {
-        Debug.LogWarning("조인트가 끊어졌습니다! 가해진 힘: " + breakForce);
-        // grabJoint = null;
-        // grabbedRb = null;
+        Release();
+        ReleaseDoubleGrab();
+    }
+
+    void ReleaseAll()
+    {
         Release();
         ReleaseDoubleGrab();
     }

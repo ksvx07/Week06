@@ -29,13 +29,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8170384220303628758}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.20876522, y: 0.000000014572828, z: -0.0000000031108447, w: 0.97796583}
+  m_LocalRotation: {x: 0.20876522, y: 0, z: 0, w: 0.97796583}
   m_LocalPosition: {x: 37.1, y: 16.152433, z: -21.08647}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 24.1, y: 0, z: 0}
 --- !u!114 &2236946963330721911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,7 +94,7 @@ MonoBehaviour:
   TargetOffset: {x: 0, y: 0, z: 0}
   TrackerSettings:
     BindingMode: 4
-    PositionDamping: {x: 1, y: 1, z: 1}
+    PositionDamping: {x: 0, y: 0, z: 0}
     AngularDampingMode: 0
     RotationDamping: {x: 1, y: 1, z: 1}
     QuaternionDamping: 1
@@ -125,7 +125,7 @@ MonoBehaviour:
   VerticalAxis:
     Value: 24.1
     Center: 17.5
-    Range: {x: -10, y: 45}
+    Range: {x: -10, y: 80}
     Wrap: 0
     Recentering:
       Enabled: 0
@@ -165,7 +165,7 @@ MonoBehaviour:
       Offset: {x: 0, y: 0}
   CenterOnActivate: 1
   TargetOffset: {x: 0, y: 0, z: 0}
-  Damping: {x: 0.5, y: 0.5}
+  Damping: {x: 0, y: 0}
   Lookahead:
     Enabled: 0
     Time: 0
@@ -210,33 +210,33 @@ MonoBehaviour:
       Enabled: 1
       Input:
         InputAction: {fileID: -3235261843511930911, guid: 0a4e9e8f8591a3c4bb514b0a3f163e24, type: 3}
-        Gain: 50
+        Gain: 10
         LegacyInput: 
         LegacyGain: 1
         CancelDeltaTime: 0
       InputValue: 0
       Driver:
-        AccelTime: 0.2
-        DecelTime: 0.2
+        AccelTime: 0
+        DecelTime: 0
     - Name: Look Orbit Y
       Owner: {fileID: 2807379917065418104}
       Enabled: 1
       Input:
         InputAction: {fileID: -7291064500956332684, guid: 0a4e9e8f8591a3c4bb514b0a3f163e24, type: 3}
-        Gain: 50
+        Gain: -10
         LegacyInput: 
-        LegacyGain: 1
+        LegacyGain: -1
         CancelDeltaTime: 0
       InputValue: 0
       Driver:
-        AccelTime: 0.2
-        DecelTime: 0.2
+        AccelTime: 0
+        DecelTime: 0
     - Name: Orbit Scale
       Owner: {fileID: 2807379917065418104}
       Enabled: 1
       Input:
         InputAction: {fileID: 8269579793523762939, guid: 0a4e9e8f8591a3c4bb514b0a3f163e24, type: 3}
-        Gain: -1
+        Gain: -5
         LegacyInput: 
         LegacyGain: 1
         CancelDeltaTime: 0
