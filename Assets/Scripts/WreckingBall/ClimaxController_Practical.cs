@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 
 /// <summary>
-/// WaitForSecondsRealtime 대신 unscaledDeltaTime을 사용하여 시네머신과의 충돌을 회피하는 최종 버전입니다.
+/// Time.timeScale 에러를 방지하는 안전장치가 추가된 최종 버전입니다.
 /// </summary>
 public class ClimaxController_Advanced : MonoBehaviour
 {
@@ -65,7 +65,6 @@ public class ClimaxController_Advanced : MonoBehaviour
 
     private IEnumerator ClimaxCoroutine()
     {
-        // 1. 폭탄 생성 및 투하
         if (bombPrefab != null && bombSpawnPoint != null)
         {
             GameObject bombInstance = Instantiate(bombPrefab, bombSpawnPoint.position, bombSpawnPoint.rotation);
@@ -78,10 +77,7 @@ public class ClimaxController_Advanced : MonoBehaviour
 
         yield return new WaitForSeconds(delayBeforeExplosion);
 
-        // 2. 충격파 폭발 실행
         TriggerExplosion();
-
-        // 3. 히트스탑 연출 코루틴 시작
         StartCoroutine(HitStopCoroutine());
     }
 
@@ -98,36 +94,36 @@ public class ClimaxController_Advanced : MonoBehaviour
 
     private IEnumerator HitStopCoroutine()
     {
-        // 1. 지정된 프레임만큼 대기
         for (int i = 0; i < hitstopDelayFrames; i++)
         {
             yield return null;
         }
 
-        // 2. 히트스탑 시작
         float originalTimeScale = Time.timeScale;
         Time.timeScale = 0f;
 
-        // 3. [수정됨] WaitForSecondsRealtime 대신, unscaledDeltaTime으로 직접 시간을 계산하며 대기
         float waitTimer = 0f;
         while (waitTimer < hitstopDuration)
         {
             waitTimer += Time.unscaledDeltaTime;
-            yield return null; // 다음 프레임까지 대기하여 시네머신이 업데이트될 시간을 줍니다.
+            yield return null;
         }
 
-        // 4. Lerp와 AnimationCurve를 사용하여 Time.timeScale을 부드럽게 복구
         float elapsedTime = 0f;
         while (elapsedTime < timeScaleRecoveryDuration)
         {
             elapsedTime += Time.unscaledDeltaTime;
-            float curveSamplePoint = elapsedTime / timeScaleRecoveryDuration;
+
+            // [수정됨] curveSamplePoint가 1을 넘지 않도록 Clamp01 처리
+            float curveSamplePoint = Mathf.Clamp01(elapsedTime / timeScaleRecoveryDuration);
             float curveValue = timeScaleRecoveryCurve.Evaluate(curveSamplePoint);
-            Time.timeScale = Mathf.LerpUnclamped(0f, originalTimeScale, curveValue);
+
+            // [수정됨] LerpUnclamped 대신 Lerp를 사용하여 결과값이 0과 originalTimeScale 사이를 벗어나지 않도록 보장
+            Time.timeScale = Mathf.Lerp(0f, originalTimeScale, curveValue);
+
             yield return null;
         }
 
-        // 5. 복구가 끝난 후, 확실하게 원래 시간 속도로 맞춰줍니다.
         Time.timeScale = originalTimeScale;
     }
 
