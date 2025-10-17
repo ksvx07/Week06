@@ -78,6 +78,7 @@ MonoBehaviour:
   lineWidth: 0.2
   dangerThreshold: 1
   grabMaxDistance: 3000
+  grabAngularDrag: 2
   springStiffness: 1000
   springDamper: 300
   jointBreakForce: 1000

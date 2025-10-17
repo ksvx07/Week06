@@ -23,7 +23,11 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
 
 
     [Header("잡기 설정")]
+    [Header("잡기 설정")]
     [SerializeField] private float grabMaxDistance = 10f;
+    [Tooltip("물체를 잡았을 때 적용할 각마찰(회전 저항) 값입니다.")]
+    [SerializeField] private float grabAngularDrag = 5.0f; // <<< 추가: 잡았을 때 적용할 각마찰 값
+    private float originalAngularDrag; // <<< 추가: 원래 각마찰 값을 저장할 변수
 
     [Header("조인트 설정")]
     [SerializeField] private float springStiffness = 2000f;
@@ -34,6 +38,8 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
     [SerializeField] private float scrollSensitivity = 2f;
     [SerializeField] private float minGrabDistance = 1f;
     [SerializeField] private float maxGrabDistance = 20f;
+
+
     private bool doubleGrapping = false;
 
     protected override void Awake()
@@ -42,7 +48,6 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
     }
     public void NotifyJointBroken()
     {
-        Debug.LogWarning("조인트 파괴 신호를 감지했습니다!");
         ReleaseAll();
     }
 
@@ -53,9 +58,6 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
 
     void Update()
     {
-        Ray rayForDebug = cam.ScreenPointToRay(Input.mousePosition);
-        Debug.DrawRay(rayForDebug.origin, rayForDebug.direction * grabMaxDistance, Color.green);
-
         if (Input.GetMouseButtonDown(0))
             TryGrab();
         else if (Input.GetMouseButtonDown(1))
@@ -86,7 +88,6 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
     {
         if (doubleGrapping)
         {
-            Debug.Log("djkflasdjf");
             ReleaseDoubleGrab();
             return;
         }
@@ -117,6 +118,11 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
             {
                 grabbedRb = firstPointRb;
                 initialGrabDistance = hit.distance;
+                if (grabbedRb != null)
+                {
+                    originalAngularDrag = grabbedRb.angularDamping;
+                    grabbedRb.angularDamping = grabAngularDrag;
+                }
 
                 grabJoint1 = grabbedRb.gameObject.AddComponent<SpringJoint>();
                 grabJoint1.autoConfigureConnectedAnchor = false;
@@ -186,6 +192,12 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
                 grabbedRb = hit.collider.attachedRigidbody;
                 initialGrabDistance = hit.distance;
 
+                if (grabbedRb != null)
+                {
+                    originalAngularDrag = grabbedRb.angularDamping;
+                    grabbedRb.angularDamping = grabAngularDrag;
+                }
+
                 grabJoint = grabbedRb.gameObject.AddComponent<SpringJoint>();
                 grabJoint.autoConfigureConnectedAnchor = false;
                 grabJoint.anchor = grabbedRb.transform.InverseTransformPoint(hit.point);
@@ -238,6 +250,10 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
     {
         if (grabJoint != null)
         {
+            if (grabbedRb != null)
+            {
+                grabbedRb.angularDamping = originalAngularDrag;
+            }
             Destroy(grabJoint);
             grabJoint = null;
             grabbedRb = null;
@@ -248,6 +264,10 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
 
     void ReleaseDoubleGrab()
     {
+        if (grabbedRb != null)
+        {
+            grabbedRb.angularDamping = originalAngularDrag;
+        }
         if (grabJoint1 != null)
         {
             Destroy(grabJoint1);
@@ -261,14 +281,12 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
         firstPointRb = null;
         grabbedRb = null;
         doubleGrapping = false;
-        Debug.Log(doubleGrapping);
         if (line1 != null) Destroy(line1.gameObject);
         if (line2 != null) Destroy(line2.gameObject);
     }
 
     void OnJointBreak(float breakForce)
     {
-        Debug.LogWarning("조인트가 끊어졌습니다! 가해진 힘: " + breakForce);
         Release();
         ReleaseDoubleGrab();
     }
