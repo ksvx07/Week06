@@ -20,7 +20,7 @@ public class SwapCamera : MonoBehaviour
     {
         cinemachineInputAxisController.Controllers[0].Enabled = false;
         cinemachineInputAxisController.Controllers[1].Enabled = false;
-        cinemachineInputAxisController.Controllers[1].Enabled = false;
+        cinemachineInputAxisController.Controllers[2].Enabled = false;
     }
 
     // Update is called once per frame
@@ -45,13 +45,13 @@ public class SwapCamera : MonoBehaviour
         {
             cinemachineInputAxisController.Controllers[0].Enabled = true;
             cinemachineInputAxisController.Controllers[1].Enabled = true;
-            cinemachineInputAxisController.Controllers[1].Enabled = true;
+            cinemachineInputAxisController.Controllers[2].Enabled = true;
         }
         else if (Input.GetKeyUp(KeyCode.Mouse1))
         {
             cinemachineInputAxisController.Controllers[0].Enabled = false;
             cinemachineInputAxisController.Controllers[1].Enabled = false;
-            cinemachineInputAxisController.Controllers[1].Enabled = false;
+            cinemachineInputAxisController.Controllers[2].Enabled = false;
         }
 
     }
