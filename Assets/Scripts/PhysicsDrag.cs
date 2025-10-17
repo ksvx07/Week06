@@ -48,6 +48,8 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
     protected override void Awake()
     {
         base.Awake();
+        cam = Camera.main;
+        // Cursor.lockState = CursorLockMode.Locked;
     }
     public void NotifyJointBroken()
     {
@@ -56,7 +58,7 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
 
     void Start()
     {
-        cam = Camera.main;
+
     }
 
     void Update()
@@ -94,7 +96,7 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
             ReleaseDoubleGrab();
             return;
         }
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        Ray ray = cam.ScreenPointToRay(CursorManager.Instance.CursorPosition);
         if (Physics.Raycast(ray, out RaycastHit hit, grabMaxDistance))
         {
             // 반드시 Rigidbody 위에서만 동작하도록 가드
@@ -208,7 +210,7 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
 
     void TryGrab()
     {
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        Ray ray = cam.ScreenPointToRay(CursorManager.Instance.CursorPosition);
         if (Physics.Raycast(ray, out RaycastHit hit, grabMaxDistance))
         {
             if (hit.collider.attachedRigidbody != null)
@@ -254,14 +256,14 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
 
     void Drag()
     {
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        Ray ray = cam.ScreenPointToRay(CursorManager.Instance.CursorPosition);
         Vector3 targetPoint = ray.GetPoint(initialGrabDistance);
         grabJoint.connectedAnchor = targetPoint;
     }
 
     void DragDoubleGrab()
     {
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        Ray ray = cam.ScreenPointToRay(CursorManager.Instance.CursorPosition);
         Vector3 targetPoint = ray.GetPoint(initialGrabDistance);
         grabJoint1.connectedAnchor = targetPoint - jointsOffset;
         grabJoint2.connectedAnchor = targetPoint;
