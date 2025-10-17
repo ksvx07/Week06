@@ -13,6 +13,7 @@ public class CursorManager : SingletonObject<CursorManager>
     {
         base.Awake();
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()

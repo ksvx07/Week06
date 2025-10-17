@@ -1,4 +1,3 @@
-using UnityEditor.Callbacks;
 using UnityEngine;
 
 public class PhysicsDrag : SingletonObject<PhysicsDrag>
@@ -49,7 +48,6 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
     {
         base.Awake();
         cam = Camera.main;
-        // Cursor.lockState = CursorLockMode.Locked;
     }
     public void NotifyJointBroken()
     {
@@ -65,11 +63,11 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
     {
         if (Input.GetMouseButtonDown(0))
             TryGrab();
-        else if (Input.GetMouseButtonDown(2))
-        {
-            Release();
-            TryDoubleGrab();
-        }
+        // else if (Input.GetMouseButtonDown(2))
+        // {
+        //     Release();
+        //     TryDoubleGrab();
+        // }
 
         if (Input.GetMouseButtonUp(0))
             Release();
