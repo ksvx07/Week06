@@ -96,26 +96,21 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
             }
         }
 
-        if (grabJoint != null)
-        {
-            CursorManager.Instance.StartTrackingWorldPoint(currentGrabPoint);
-            Ray ray = cam.ScreenPointToRay(CursorManager.Instance.CursorPosition);
-            Vector3 vectorToPoint = currentGrabPoint - ray.origin;
-            currentGrabDistance = vectorToPoint.magnitude;
-            CursorManager.Instance.AfterTrackingWorldPoint();
+    }
 
-        }
-        else if (grabJoint != null)
-            StopTracking();
-
+    public void UpdateGrabDistance()
+    {
+        Ray ray = cam.ScreenPointToRay(CursorManager.Instance.CursorPosition);
+        Vector3 vectorToPoint = currentGrabPoint - ray.origin;
+        currentGrabDistance = vectorToPoint.magnitude;
     }
 
     void FixedUpdate()
     {
         if (!Input.GetMouseButton(1))
         {
-            if (grabJoint != null)
-                Drag();
+            // if (grabJoint != null)
+            //     Drag();
         }
     }
 

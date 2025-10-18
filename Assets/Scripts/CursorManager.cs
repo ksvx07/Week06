@@ -62,6 +62,9 @@ public class CursorManager : SingletonObject<CursorManager>
 
         if (isGrabbed)
         {
+            trackedWorldPoint = PhysicsDrag.Instance.currentGrabPoint;
+            PhysicsDrag.Instance.UpdateGrabDistance();
+
             // 월드 좌표 추적 모드: 3D 포인트를 화면 좌표로 변환하여 커서 위치를 업데이트합니다.
             Vector3 screenPoint = mainCamera.WorldToScreenPoint(trackedWorldPoint);
 
@@ -85,13 +88,14 @@ public class CursorManager : SingletonObject<CursorManager>
             currentStress = 0f;
         Color stressColor = stressGradient.Evaluate(currentStress);
         cursorUIImage.color = stressColor;
+
+        if (isGrabbed)
+        {
+            PhysicsDrag.Instance.Drag();
+        }
     }
 
 
-    public void AfterTrackingWorldPoint()
-    {
-
-    }
 
     // --- Public Methods for other scripts to call ---
 
@@ -150,11 +154,11 @@ public class CursorManager : SingletonObject<CursorManager>
     /// <summary>
     /// 지정된 월드 좌표를 커서가 추적하도록 시작합니다.
     /// </summary>
-    public void StartTrackingWorldPoint(Vector3 worldPoint)
-    {
-        trackedWorldPoint = worldPoint;
-        ShowCursor(); // 추적 중에는 커서가 항상 보이도록 합니다.
-    }
+    // public void StartTrackingWorldPoint(Vector3 worldPoint)
+    // {
+    //     trackedWorldPoint = worldPoint;
+    //     ShowCursor(); // 추적 중에는 커서가 항상 보이도록 합니다.
+    // }
 
     /// <summary>
     /// 월드 좌표 추적을 멈추고 기본 수동 조작 모드로 돌아갑니다.
