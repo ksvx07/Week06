@@ -83,7 +83,7 @@ public class StageUIManager : MonoBehaviour
     void SetStageBtnEvent(string sceneName, StageDataSO stage)
     {
         stage.IsTried = true;
-        StageSaveManager.Save(stageDataSOs);
+        StageManager.Instance.SetStageData(stage, stageDataSOs);
         SceneManager.LoadScene(sceneName);
         ClearStageBtnEvent();
     }

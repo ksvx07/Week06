@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class StageManager : MonoBehaviour
 {
@@ -8,9 +9,10 @@ public class StageManager : MonoBehaviour
     #endregion
 
     #region Public Methods
-    public void SetStageData(StageDataSO data)
+    public void SetStageData(StageDataSO data, List<StageDataSO> datum)
     {
         CurrentStageData = data;
+        StageSaveManager.Save(datum);
     }
 
     // 스테이지 이미지 및 별 업데이트

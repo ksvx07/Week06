@@ -14,7 +14,7 @@ public static class StageSaveManager
         {
             saveList.Add(new StageSaveData
             {
-                stageName = stage.StageName,
+                sceneName = stage.SceneName,
                 isTried = stage.IsTried,
                 clearStar = stage.ClearStar
             });
@@ -39,11 +39,12 @@ public static class StageSaveManager
 
         foreach (var data in wrapper.list)
         {
-            StageDataSO so = stages.Find(s => s.StageName == data.stageName);
+            StageDataSO so = stages.Find(s => s.SceneName == data.sceneName);
             if (so != null)
             {
                 so.IsTried = data.isTried;
                 so.ClearStar = data.clearStar;
+                so.StageImagePath = data.stageImagePath;
             }
         }
 
@@ -51,9 +52,12 @@ public static class StageSaveManager
     }
 
     // 스테이지 클리어 별 업데이트
-    public static void UpdateStageData(StageDataSO stage, int earnedStars, string stageImagePath)
+    public static void UpdateStageData(StageDataSO stage, int earnedStars, string snapShotPath)
     {
         Wrapper wrapper;
+
+        // 경로 확인
+        snapShotPath = snapShotPath.Replace("\\", "/");
 
         // 기존 데이터 호출
         if (File.Exists(savePath))
@@ -67,18 +71,18 @@ public static class StageSaveManager
         }
 
         // 스테이지 검색 및 업데이트
-        var existing = wrapper.list.Find(s => s.stageName == stage.StageName);
+        var existing = wrapper.list.Find(s => s.sceneName == stage.SceneName);
         if(existing != null)
         {
             existing.isTried = true;
             existing.clearStar = Mathf.Max(existing.clearStar, stage.ClearStar);
-            existing.stageImagePath = stage.StageImagePath;
+            existing.stageImagePath = snapShotPath;
         }
         else
         {
             wrapper.list.Add(new StageSaveData
             {
-                stageName = stage.StageName,
+                sceneName = stage.SceneName,
                 isTried = stage.IsTried,
                 clearStar = stage.ClearStar,
                 stageImagePath = stage.StageImagePath
@@ -88,7 +92,7 @@ public static class StageSaveManager
         string newJson = JsonUtility.ToJson(wrapper, true);
         File.WriteAllText(savePath, newJson);
 
-        Debug.Log($"StageSaveManager: {stage.StageName} 저장 완료 ( {stage.ClearStar}, {stage.StageImagePath})");
+        Debug.Log($"StageSaveManager: {stage.SceneName} 저장 완료 ( {stage.ClearStar}, {stage.StageImagePath})");
     }
 
 
