@@ -1881,6 +1881,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4800799759466396948, guid: e3b815a1c38ec1c4e9646c4987b13013, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 13.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4800799759466396948, guid: e3b815a1c38ec1c4e9646c4987b13013, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 4800799759466396948, guid: e3b815a1c38ec1c4e9646c4987b13013, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.19
+      objectReference: {fileID: 0}
     - target: {fileID: 5053362209322214700, guid: e3b815a1c38ec1c4e9646c4987b13013, type: 3}
       propertyPath: m_LocalScale.x
       value: 1000
@@ -2328,7 +2340,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b58131bb2ab0df44991ae7e0fa05f71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  limitLineTag: LimitLine
+  bombTag: Bomb
   onBombCollision:
     m_PersistentCalls:
       m_Calls: []
@@ -6417,7 +6429,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b58131bb2ab0df44991ae7e0fa05f71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  limitLineTag: LimitLine
+  bombTag: Bomb
   onBombCollision:
     m_PersistentCalls:
       m_Calls: []
