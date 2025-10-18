@@ -20,7 +20,7 @@ public class FakeCursorClicker : MonoBehaviour
 
             List<RaycastResult> results = new List<RaycastResult>();
             EventSystem.current.RaycastAll(pointerData, results);
-
+            Debug.Log("레이캐스트 결과 수: " + results.Count);
             // 4. 레이캐스트 결과 확인
             if (results.Count > 0)
             {

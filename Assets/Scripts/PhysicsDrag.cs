@@ -52,10 +52,6 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
         base.Awake();
         cam = Camera.main;
     }
-    public void NotifyJointBroken()
-    {
-        ReleaseAll();
-    }
 
 
     void Update()
@@ -221,13 +217,15 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
             Destroy(grabJoint);
             grabJoint = null;
             grabbedRb = null;
-            if (line1 != null) Destroy(line1.gameObject);
+            if (line1 != null)
+            {
+                Destroy(line1.gameObject);
+                line1 = null;
+            }
         }
     }
 
-
-
-    void OnJointBreak(float breakForce)
+    public void NotifyJointBroken()
     {
         ReleaseAll();
         CursorManager.Instance.SetCursorColor(1.0f);
@@ -301,6 +299,6 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
         float currentWidth = Mathf.Lerp(maxLineWidth, minLineWidth, stress);
         line.startWidth = currentWidth;
         line.endWidth = currentWidth;
-        CursorManager.Instance.SetCursorColor(1.0f);
+        CursorManager.Instance.SetCursorColor(stress);
     }
 }
