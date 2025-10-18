@@ -435,14 +435,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 378914167}
-  - {fileID: 1330997100}
   - {fileID: 627894182}
   - {fileID: 1827251970}
   - {fileID: 1969488376}
   - {fileID: 2103242653}
-  - {fileID: 1229387610}
-  - {fileID: 2014644749}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &17216033 stripped
@@ -1977,6 +1973,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5564051036679696138, guid: e3b815a1c38ec1c4e9646c4987b13013, type: 3}
+      propertyPath: jengaBlocksContainer
+      value: 
+      objectReference: {fileID: 16752195}
+    - target: {fileID: 5564051036679696138, guid: e3b815a1c38ec1c4e9646c4987b13013, type: 3}
       propertyPath: bombObjects.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -3237,10 +3237,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2745187867334907740, guid: 6f0fec86602a0f548abf0dfd9b89d497, type: 3}
-      insertIndex: 2
-      addedObject: {fileID: 1431798627}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f0fec86602a0f548abf0dfd9b89d497, type: 3}
 --- !u!4 &283489319 stripped
 Transform:
@@ -4025,7 +4022,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 16752195}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &379274301 stripped
 Transform:
@@ -6000,10 +5997,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2745187867334907740, guid: 6f0fec86602a0f548abf0dfd9b89d497, type: 3}
-      insertIndex: 2
-      addedObject: {fileID: 1785271962}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f0fec86602a0f548abf0dfd9b89d497, type: 3}
 --- !u!4 &551028751 stripped
 Transform:
@@ -9181,10 +9175,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2745187867334907740, guid: 6f0fec86602a0f548abf0dfd9b89d497, type: 3}
-      insertIndex: 2
-      addedObject: {fileID: 2107874909}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f0fec86602a0f548abf0dfd9b89d497, type: 3}
 --- !u!1001 &849042494
 PrefabInstance:
@@ -13104,7 +13095,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 16752195}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1229584996
 PrefabInstance:
@@ -13844,7 +13835,7 @@ Transform:
   m_Children:
   - {fileID: 1555569580}
   - {fileID: 1814864523}
-  m_Father: {fileID: 16752195}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1332071488
 PrefabInstance:
@@ -14757,24 +14748,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2745187867334907740, guid: 6f0fec86602a0f548abf0dfd9b89d497, type: 3}
   m_PrefabInstance: {fileID: 283489318}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1431798627
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1431798622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b58131bb2ab0df44991ae7e0fa05f71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  limitLineTag: LimitLine
-  onBombCollision:
-    m_PersistentCalls:
-      m_Calls: []
-  explosionVFX: {fileID: 0}
-  vfxLifetime: 3
 --- !u!4 &1432467379 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 581614738366052081, guid: 42a37a53e6e7da545975f4d99024f5c4, type: 3}
@@ -17630,24 +17603,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2745187867334907740, guid: 6f0fec86602a0f548abf0dfd9b89d497, type: 3}
   m_PrefabInstance: {fileID: 551028750}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1785271962
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1785271957}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b58131bb2ab0df44991ae7e0fa05f71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  limitLineTag: LimitLine
-  onBombCollision:
-    m_PersistentCalls:
-      m_Calls: []
-  explosionVFX: {fileID: 0}
-  vfxLifetime: 3
 --- !u!1001 &1791906479
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20330,7 +20285,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2014644748}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -20338,7 +20293,7 @@ Transform:
   - {fileID: 551028751}
   - {fileID: 2107874904}
   - {fileID: 283489319}
-  m_Father: {fileID: 16752195}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2016785447 stripped
 Transform:
@@ -21375,24 +21330,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2789240120291492577, guid: 6f0fec86602a0f548abf0dfd9b89d497, type: 3}
   m_PrefabInstance: {fileID: 848589339}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2107874909
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 352787163}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b58131bb2ab0df44991ae7e0fa05f71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  limitLineTag: LimitLine
-  onBombCollision:
-    m_PersistentCalls:
-      m_Calls: []
-  explosionVFX: {fileID: 0}
-  vfxLifetime: 3
 --- !u!4 &2110302014 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 581614738366052081, guid: 42a37a53e6e7da545975f4d99024f5c4, type: 3}
@@ -21756,3 +21693,7 @@ SceneRoots:
   - {fileID: 655403465}
   - {fileID: 16752195}
   - {fileID: 203011526}
+  - {fileID: 1229387610}
+  - {fileID: 2014644749}
+  - {fileID: 1330997100}
+  - {fileID: 378914167}
