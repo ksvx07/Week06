@@ -46,43 +46,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jengaBlocksContainer: {fileID: 0}
   floorBlocksContainer: {fileID: 0}
-  bombPrefab: {fileID: 6633451778248309340, guid: 6b2bdaadd7f533b46b5db8e40fb10e81, type: 3}
-  bombSpawnPoint: {fileID: 5711793199609858481}
-  delayBeforeExplosion: 1
-  explosionCenter: {fileID: 0}
-  explosionForce: 8000
-  explosionRadius: 50
+  bombTag: Bomb
+  bombObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  tickingDuration: 3
+  explosionForce: 5000
+  explosionRadius: 10
   upwardModifier: 2
+  explosionDelayFrames: 00000000280000002800000028000000780000007800000078000000
   impulseSource: {fileID: 3510440998931995291}
   hitstopDelayFrames: 20
-  hitstopDuration: 0.2
-  timeScaleRecoveryDuration: 0.6
+  hitstopDuration: 0.1
+  timeScaleRecoveryDuration: 0.5
   timeScaleRecoveryCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: 2
+      outSlope: 2
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.7116499
-      value: 0.19187352
-      inSlope: 0.8994897
-      outSlope: 0.8994897
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.11004929
-      outWeight: 0.33333334
-    - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 2
-      outSlope: 2
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
@@ -96,7 +93,7 @@ MonoBehaviour:
     angularDamping: 0.2
     interpolation: 1
     collisionDetectionMode: 2
---- !u!1 &5151404230207751801
+--- !u!1 &2992361504827974818
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -104,29 +101,44 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5674147148359051235}
+  - component: {fileID: 7949673573074976652}
+  - component: {fileID: 5395414012877440959}
   m_Layer: 0
-  m_Name: WreakingBallPos
+  m_Name: BombManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5674147148359051235
+--- !u!4 &7949673573074976652
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5151404230207751801}
+  m_GameObject: {fileID: 2992361504827974818}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.653076, y: -3.5278647, z: 16.41}
+  m_LocalPosition: {x: -3.468811, y: -10.774994, z: -8.618301}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 296703956851926993}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5395414012877440959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2992361504827974818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0dace97e2407914fad19372b69ded6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bombTag: Bomb
+  enableAutoDebugLog: 1
 --- !u!1 &6332270405196964631
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,9 +200,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5711793199609858481}
-  - {fileID: 5674147148359051235}
   - {fileID: 6490076850688804252}
   - {fileID: 4800799759466396948}
+  - {fileID: 7949673573074976652}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6934310700551098729

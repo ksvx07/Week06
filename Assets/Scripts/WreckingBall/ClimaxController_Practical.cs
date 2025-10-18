@@ -76,9 +76,13 @@ public class ClimaxController_Advanced : MonoBehaviour
         public GameObject bombObject;
         public int frameCount;
     }
-
+    public enum ExplosionMode
+    {
+        FullExplosion,      // floor Rigidbody 추가 O
+        CollisionExplosion  // floor 처리 스킵 X
+    }
     private HashSet<Rigidbody> processedRigidbodies = new HashSet<Rigidbody>();
-    private HashSet<GameObject> explodedBombs = new HashSet<GameObject>(); // [추가] 이미 폭발한 폭탄 추적
+    private HashSet<GameObject> explodedBombs = new HashSet<GameObject>();
     private bool isSequenceRunning = false;
 
     private void OnEnable()
@@ -96,7 +100,7 @@ public class ClimaxController_Advanced : MonoBehaviour
     }
 
     /// <summary>
-    /// [추가] 충돌 감지 시 호출되는 이벤트 핸들러
+    /// [개선] 충돌 감지 시 호출되는 이벤트 핸들러 (CollisionExplosion 모드 사용)
     /// </summary>
     private void HandleBombCollision(GameObject bomb)
     {
@@ -116,19 +120,20 @@ public class ClimaxController_Advanced : MonoBehaviour
         // 활성화 상태 확인
         if (!bomb.activeInHierarchy)
         {
-            Debug.LogWarning($"[ClimaxController] {bomb.name}이(가) 비활성화 상태입니다.");
+            Debug.LogWarning($"[클라이맥스컨트롤러] {bomb.name}이(가) 비활성화 상태입니다.");
             return;
         }
 
-        Debug.Log($"[ClimaxController] 충돌 감지: {bomb.name} 즉시 폭발 처리");
-        ExplosionIndividualBomb(bomb);
+        Debug.Log($"[ClimaxController] 충돌 감지: {bomb.name} 즉시 폭발 처리 (CollisionExplosion 모드)");
+        ExplosionIndividualBomb(bomb, ExplosionMode.CollisionExplosion);
     }
 
     /// <summary>
-    /// [추가] 개별 폭탄을 즉시 폭발시킵니다. (외부 호출 가능)
+    /// [개선] 개별 폭탄을 즉시 폭발시킵니다. (외부 호출 가능)
     /// </summary>
     /// <param name="bomb">폭발시킬 폭탄 GameObject</param>
-    public void ExplosionIndividualBomb(GameObject bomb)
+    /// <param name="mode">폭발 모드 (기본값: FullExplosion)</param>
+    public void ExplosionIndividualBomb(GameObject bomb, ExplosionMode mode = ExplosionMode.FullExplosion)
     {
         if (bomb == null || explodedBombs.Contains(bomb))
         {
@@ -137,7 +142,7 @@ public class ClimaxController_Advanced : MonoBehaviour
 
         // 폭발 처리
         explodedBombs.Add(bomb);
-        TriggerExplosion(bomb);
+        TriggerExplosion(bomb, mode);
     }
 
     /// <summary>
@@ -255,15 +260,8 @@ public class ClimaxController_Advanced : MonoBehaviour
             {
                 var scheduled = explosionSchedule[scheduleIndex];
 
-                // [수정] 이미 충돌로 폭발한 폭탄은 스킵
-                if (!explodedBombs.Contains(scheduled.bombObject))
-                {
-                    ExplosionIndividualBomb(scheduled.bombObject);
-                }
-                else
-                {
-                    Debug.Log($"[ClimaxController] {scheduled.bombObject.name}은(는) 이미 충돌로 폭발했습니다. 스킵.");
-                }
+                // [개선] FullExplosion 모드로 폭발
+                ExplosionIndividualBomb(scheduled.bombObject, ExplosionMode.FullExplosion);
 
                 scheduleIndex++;
             }
@@ -279,7 +277,12 @@ public class ClimaxController_Advanced : MonoBehaviour
         isSequenceRunning = false;
     }
 
-    private void TriggerExplosion(GameObject bombObject)
+    /// <summary>
+    /// [개선] 폭발을 실행합니다. ExplosionMode에 따라 처리가 달라집니다.
+    /// </summary>
+    /// <param name="bombObject">폭발시킬 폭탄</param>
+    /// <param name="mode">폭발 모드</param>
+    private void TriggerExplosion(GameObject bombObject, ExplosionMode mode)
     {
         if (bombObject == null) return;
 
@@ -292,15 +295,34 @@ public class ClimaxController_Advanced : MonoBehaviour
         // 폭발 위치는 폭탄 오브젝트의 위치
         Vector3 explosionPos = bombObject.transform.position;
 
-        // 폭발 적용
-        if (jengaBlocksContainer != null)
+        // 모드별 처리
+        switch (mode)
         {
-            ApplyExplosionOptimized(jengaBlocksContainer, explosionPos, explosionForce, explosionRadius, upwardModifier, false);
-        }
+            case ExplosionMode.FullExplosion:
+                // 스케줄 폭발: 모든 컨테이너 처리 + floor에 Rigidbody 추가
+                Debug.Log($"[ClimaxController] FullExplosion 모드: {bombObject.name}");
+                
+                if (jengaBlocksContainer != null)
+                {
+                    ApplyExplosionOptimized(jengaBlocksContainer, explosionPos, explosionForce, explosionRadius, upwardModifier, false);
+                }
 
-        if (floorBlocksContainer != null)
-        {
-            ApplyExplosionOptimized(floorBlocksContainer, explosionPos, explosionForce, explosionRadius, upwardModifier, true);
+                if (floorBlocksContainer != null)
+                {
+                    ApplyExplosionOptimized(floorBlocksContainer, explosionPos, explosionForce, explosionRadius, upwardModifier, true);
+                }
+                break;
+
+            case ExplosionMode.CollisionExplosion:
+                // 충돌 폭발: 젠가 블록만 처리 (floor Rigidbody 추가 스킵)
+                Debug.Log($"[ClimaxController] CollisionExplosion 모드: {bombObject.name}");
+                
+                if (jengaBlocksContainer != null)
+                {
+                    ApplyExplosionOptimized(jengaBlocksContainer, explosionPos, explosionForce, explosionRadius, upwardModifier, false);
+                }
+                // floor 처리 생략 ✅
+                break;
         }
 
         // 폭탄 비활성화
