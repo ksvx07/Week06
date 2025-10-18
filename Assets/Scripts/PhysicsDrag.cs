@@ -193,6 +193,7 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
                     line1.SetPosition(0, grabJoint.transform.TransformPoint(grabJoint.anchor));
                     line1.SetPosition(1, targetPoint);
                 }
+                CursorManager.Instance.SetCursorToGrab();
             }
         }
     }
@@ -235,6 +236,7 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
     {
         Release();
         CursorManager.Instance.StopTracking();
+        CursorManager.Instance.SetCursorToDefault();
     }
 
     void StopTracking()
@@ -298,5 +300,6 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
         float currentWidth = Mathf.Lerp(maxLineWidth, minLineWidth, stress);
         line.startWidth = currentWidth;
         line.endWidth = currentWidth;
+        CursorManager.Instance.SetCursorColor(stress);
     }
 }

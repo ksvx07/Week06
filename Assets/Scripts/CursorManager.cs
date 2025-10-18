@@ -1,9 +1,15 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 // Manages the visual custom cursor, including a manual positioning mode.
 public class CursorManager : SingletonObject<CursorManager>
 {
+    [SerializeField] private Sprite cursorSprite;
+    [SerializeField] private Sprite grabSprite;
+    [SerializeField] private Gradient stressGradient;
+
     [SerializeField] private RectTransform cursorUITransform;
+    [SerializeField] private Image cursorUIImage;
     [SerializeField] private float manualMoveSpeed = 15f;
     public Vector3 CursorPosition;
 
@@ -19,6 +25,8 @@ public class CursorManager : SingletonObject<CursorManager>
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         mainCamera = Camera.main; // <<< 추가: Camera.main을 캐싱하여 성능 향상
+        SetCursorToDefault();
+        cursorUIImage.color = Color.white;
     }
 
     void Update()
@@ -52,12 +60,29 @@ public class CursorManager : SingletonObject<CursorManager>
 
     public void ShowCursor()
     {
+
         cursorUITransform.gameObject.SetActive(true);
     }
 
     public void HideCursor()
     {
         cursorUITransform.gameObject.SetActive(false);
+    }
+
+    public void SetCursorToDefault()
+    {
+        cursorUIImage.color = Color.white;
+        cursorUIImage.sprite = cursorSprite;
+    }
+    public void SetCursorToGrab()
+    {
+        cursorUIImage.sprite = grabSprite;
+    }
+
+    public void SetCursorColor(float stress)
+    {
+        Color stressColor = stressGradient.Evaluate(stress);
+        cursorUIImage.color = stressColor;
     }
 
     // --- Helper Method ---
