@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: c56e28e54cac24b04ae3dd957d214534, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -2014,6 +2014,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 8b31252d71fae85499e8b27b7fdb3da9, type: 2}
+    - target: {fileID: 2487791031508257660, guid: 69cb14cae0a31024ebacc09b01c43f41, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2671325805100124340, guid: 69cb14cae0a31024ebacc09b01c43f41, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -2816,6 +2820,74 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2789240120291492577, guid: 2aa580f0deec9a9489d928ce95bed15a, type: 3}
   m_PrefabInstance: {fileID: 1207664548}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1026784931
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1026784932}
+  - component: {fileID: 1026784933}
+  m_Layer: 0
+  m_Name: CloudManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1026784932
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1026784931}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1676288676}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1026784933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1026784931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0f5f0299af78fd4ea1e822432b06ff4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cloudGameobjects:
+  - cloudGameObject: {fileID: 100000, guid: 09062dc0008857b46aaacdb7206f1453, type: 3}
+    weight: 6
+  - cloudGameObject: {fileID: 100000, guid: 73ef0b63ffe19f94ab35e4475b345d70, type: 3}
+    weight: 5
+  - cloudGameObject: {fileID: 100000, guid: 2df72ec125264584faa40cb1beef0481, type: 3}
+    weight: 4
+  - cloudGameObject: {fileID: 100000, guid: 420bde364644a314396dc8ed24ee99d6, type: 3}
+    weight: 3
+  - cloudGameObject: {fileID: 100000, guid: c37b1ccfbc7ed274eb99f9d40e72c4e6, type: 3}
+    weight: 2
+  - cloudGameObject: {fileID: 100000, guid: c2391e8a6bdf5424194b61e41952a40a, type: 3}
+    weight: 1
+  genStart: 20
+  genMax: 20
+  genPosXmin: -200
+  genPosXmax: 200
+  genPosZmin: -200
+  genPosZmax: 200
+  genPosYmin: 20
+  genPosYmax: 25
+  genCoolmin: 20
+  genCoolmax: 25
+  canGenerate: 1
 --- !u!43 &1029252604
 Mesh:
   m_ObjectHideFlags: 0
@@ -3208,7 +3280,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6615268351107095612, guid: 2d956ff1a0b5f154892d61889bc1edaf, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1026784932}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d956ff1a0b5f154892d61889bc1edaf, type: 3}
 --- !u!43 &1085482694
@@ -4116,6 +4191,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2aa580f0deec9a9489d928ce95bed15a, type: 3}
+--- !u!4 &1676288676 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6615268351107095612, guid: 2d956ff1a0b5f154892d61889bc1edaf, type: 3}
+  m_PrefabInstance: {fileID: 1051417582}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1811021947 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6534803313851932961, guid: 69cb14cae0a31024ebacc09b01c43f41, type: 3}
