@@ -1,0 +1,144 @@
+using UnityEngine;
+using UnityEngine.UI;
+
+// Manages the visual custom cursor, including a manual positioning mode.
+public class CursorManager : SingletonObject<CursorManager>
+{
+    [SerializeField] private Sprite cursorSprite;
+    [SerializeField] private Sprite grabSprite;
+    [SerializeField] private Gradient stressGradient;
+
+    [SerializeField] private RectTransform cursorUITransform;
+    [SerializeField] private Image cursorUIImage;
+    [SerializeField] private float manualMoveSpeed = 15f;
+    [SerializeField] private float stressDecayRate = 1f;
+    public Vector3 CursorPosition;
+
+    private float currentStress = 0f;
+    private bool isGrabbed = false;
+
+    // --- 추가된 변수들 ---
+    private bool isTrackingWorldPoint = false;
+    private Vector3 trackedWorldPoint;
+    private Camera mainCamera;
+    // ---
+
+    protected override void Awake()
+    {
+        base.Awake();
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        mainCamera = Camera.main; // <<< 추가: Camera.main을 캐싱하여 성능 향상
+        SetCursorToDefault();
+        cursorUIImage.color = Color.white;
+        currentStress = 0f;
+        isGrabbed = false;
+    }
+
+    void Update()
+    {
+        if (!cursorUITransform.gameObject.activeInHierarchy) return;
+
+        // <<< --- 로직 전체 변경 --- >>>
+        if (isTrackingWorldPoint)
+        {
+            // 월드 좌표 추적 모드: 3D 포인트를 화면 좌표로 변환하여 커서 위치를 업데이트합니다.
+            Vector3 screenPoint = mainCamera.WorldToScreenPoint(trackedWorldPoint);
+
+            // 오브젝트가 카메라 뒤로 가면 z값이 음수가 되어 좌표가 뒤집히는 현상 방지
+            if (screenPoint.z > 0)
+            {
+                cursorUITransform.position = screenPoint;
+                CursorPosition = screenPoint;
+            }
+        }
+        else
+        {
+            // 기존의 수동 조작 모드: 마우스 움직임으로 커서를 이동시킵니다.
+            Vector2 delta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")) * manualMoveSpeed;
+            cursorUITransform.position += new Vector3(delta.x, delta.y, 0);
+            ClampCursorToScreen();
+            CursorPosition = cursorUITransform.position;
+        }
+
+        if (!isGrabbed)
+        {
+            currentStress -= stressDecayRate * Time.deltaTime;
+            if (currentStress < 0f) currentStress = 0f;
+            SetCursorColor(currentStress);
+        }
+    }
+
+    // --- Public Methods for other scripts to call ---
+
+    public void ShowCursor()
+    {
+
+        cursorUITransform.gameObject.SetActive(true);
+    }
+
+    public void HideCursor()
+    {
+        cursorUITransform.gameObject.SetActive(false);
+    }
+
+    public void SetCursorToDefault()
+    {
+        isGrabbed = false;
+        cursorUIImage.sprite = cursorSprite;
+    }
+    public void SetCursorToGrab()
+    {
+        isGrabbed = true;
+        cursorUIImage.sprite = grabSprite;
+    }
+
+    public void SetCursorColor(float stress)
+    {
+        currentStress = stress;
+        Color stressColor = stressGradient.Evaluate(stress);
+        cursorUIImage.color = stressColor;
+    }
+
+    // --- Helper Method ---
+
+    private void ClampCursorToScreen()
+    {
+        Vector3 pos = cursorUITransform.position;
+        pos.x = Mathf.Clamp(pos.x, 0, Screen.width);
+        pos.y = Mathf.Clamp(pos.y, 0, Screen.height);
+        cursorUITransform.position = pos;
+    }
+
+    public bool CheckAndClampCursorPosition()
+    {
+        Vector3 originalPos = cursorUITransform.position;
+        Vector3 clampedPos = originalPos;
+        clampedPos.x = Mathf.Clamp(originalPos.x, 0, Screen.width);
+        clampedPos.y = Mathf.Clamp(originalPos.y, 0, Screen.height);
+
+        bool wasClamped = (originalPos.x != clampedPos.x || originalPos.y != clampedPos.y);
+
+        return wasClamped;
+    }
+
+    // --- 추가된 Public 메서드 ---
+
+    /// <summary>
+    /// 지정된 월드 좌표를 커서가 추적하도록 시작합니다.
+    /// </summary>
+    public void StartTrackingWorldPoint(Vector3 worldPoint)
+    {
+        trackedWorldPoint = worldPoint;
+        isTrackingWorldPoint = true;
+        ShowCursor(); // 추적 중에는 커서가 항상 보이도록 합니다.
+    }
+
+    /// <summary>
+    /// 월드 좌표 추적을 멈추고 기본 수동 조작 모드로 돌아갑니다.
+    /// </summary>
+    public void StopTracking()
+    {
+        isTrackingWorldPoint = false;
+    }
+}
