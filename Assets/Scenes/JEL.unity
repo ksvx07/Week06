@@ -21216,12 +21216,16 @@ PrefabInstance:
       value: Managers
       objectReference: {fileID: 0}
     - target: {fileID: 2660148696074591189, guid: 2d956ff1a0b5f154892d61889bc1edaf, type: 3}
-      propertyPath: scrollAcceleration
-      value: 100
+      propertyPath: maxLineWidth
+      value: 0.2
       objectReference: {fileID: 0}
-    - target: {fileID: 4797197610105470062, guid: 2d956ff1a0b5f154892d61889bc1edaf, type: 3}
-      propertyPath: m_SortingOrder
-      value: 100
+    - target: {fileID: 2660148696074591189, guid: 2d956ff1a0b5f154892d61889bc1edaf, type: 3}
+      propertyPath: minLineWidth
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 2660148696074591189, guid: 2d956ff1a0b5f154892d61889bc1edaf, type: 3}
+      propertyPath: dangerThreshold
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 6615268351107095612, guid: 2d956ff1a0b5f154892d61889bc1edaf, type: 3}
       propertyPath: m_LocalPosition.x

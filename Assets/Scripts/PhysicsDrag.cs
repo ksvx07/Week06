@@ -4,25 +4,20 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
 {
     // ... (기존 변수들은 그대로) ...
     private LineRenderer line1;
-    private LineRenderer line2;
+
     [Header("라인 렌더러 설정")]
     [SerializeField] private Material lineMaterial; // 라인에 사용할 머티리얼
     [SerializeField] private Gradient stressGradient;
-    [SerializeField] private float lineWidth = 0.05f; // 라인 두께
+    [SerializeField] private float maxLineWidth = 0.05f;
+    [SerializeField] private float minLineWidth = 0.01f;
     [SerializeField] private float dangerThreshold = 0.8f; // 위험 색상으로 바뀌는 임계값
     private Camera cam;
     private SpringJoint grabJoint;
     private Rigidbody grabbedRb;
-
-    private Rigidbody firstPointRb;
-    private Vector3 firstPointAnchorLocal;
-    private Vector3 firstGlobalPoint;
-    private SpringJoint grabJoint1;
-    private SpringJoint grabJoint2;
     // private float initialGrabDistance;
     private float currentGrabDistance;
-    Vector3 jointsOffset = Vector3.zero;
     private float originalAngularDrag;
+    private float originalLinearDamping;
     private RigidbodyInterpolation originalInterpolation;
     private CollisionDetectionMode originalCollisionMode;
 
@@ -33,11 +28,13 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
     [SerializeField] private float grabMaxDistance = 10f;
     [Tooltip("물체를 잡았을 때 적용할 각마찰(회전 저항) 값입니다.")]
     [SerializeField] private float grabAngularDrag = 5.0f; // <<< 추가: 잡았을 때 적용할 각마찰 값
+    [SerializeField] private float grabLinearDrag = 5.0f;
 
     [Header("조인트 설정")]
     [SerializeField] private float springStiffness = 2000f;
     [SerializeField] private float springDamper = 20f;
     [SerializeField] private float jointBreakForce = 500f;
+
 
     [Header("마우스 휠 줌 설정")]
     [SerializeField] private float minGrabDistance = 1f;
@@ -49,8 +46,6 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
     [SerializeField] private float scrollDamping = 5f;
     private float distanceChangeVelocity = 0f;
 
-
-    private bool doubleGrapping = false;
 
     protected override void Awake()
     {
@@ -71,15 +66,7 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
         if (Input.GetMouseButtonUp(0))
             ReleaseAll(); // <<< 변경: Release() 대신 ReleaseAll()을 호출하여 모든 상태를 확실히 초기화합니다.
 
-        // if (grabJoint != null || grabJoint1 != null)
-        // {
-        //     if (!Input.GetMouseButton(1))
-        //     {
-        //         HandleMouseWheel();
-        //     }
-        // }
-
-        if (grabJoint != null || grabJoint1 != null)
+        if (grabJoint != null)
         {
             // 우클릭(카메라 회전) 중이 아닐 때만 휠 입력을 받습니다.
             float scrollInput = 0f;
@@ -140,13 +127,8 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
     {
         if (line1 != null)
         {
-            // 단일 잡기일 경우 grabJoint, 두 지점 잡기일 경우 grabJoint1 사용
-            SpringJoint activeJoint = (grabJoint != null) ? grabJoint : grabJoint1;
+            SpringJoint activeJoint = grabJoint;
             UpdateLine(line1, activeJoint);
-        }
-        if (line2 != null)
-        {
-            UpdateLine(line2, grabJoint2);
         }
     }
     void ApplyGrabSettings(Rigidbody rb)
@@ -155,11 +137,13 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
         {
             // <<< 추가: 잡는 순간, 원래 물리 설정을 저장
             originalAngularDrag = rb.angularDamping;
+            originalLinearDamping = rb.linearDamping;
             originalInterpolation = rb.interpolation;
             originalCollisionMode = rb.collisionDetectionMode;
 
             // <<< 추가: 잡는 동안 사용할 고품질 물리 설정으로 변경
             rb.angularDamping = grabAngularDrag;
+            rb.linearDamping = grabLinearDrag;
             rb.interpolation = RigidbodyInterpolation.Interpolate;
             rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
         }
@@ -169,18 +153,13 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
     {
         if (rb != null)
         {
+            rb.linearDamping = originalLinearDamping;
             rb.angularDamping = originalAngularDrag;
             rb.interpolation = originalInterpolation;
             rb.collisionDetectionMode = originalCollisionMode;
         }
     }
 
-    void ConfigureJoint(SpringJoint joint)
-    {
-        joint.spring = springStiffness;
-        joint.damper = springDamper;
-        joint.breakForce = jointBreakForce;
-    }
 
     void TryGrab()
     {
@@ -219,15 +198,6 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
     }
 
 
-    // void HandleMouseWheel()
-    // {
-    //     float scrollInput = Input.mouseScrollDelta.y;
-    //     if (scrollInput != 0)
-    //     {
-    //         initialGrabDistance += scrollInput * scrollSensitivity;
-    //         initialGrabDistance = Mathf.Clamp(initialGrabDistance, minGrabDistance, maxGrabDistance);
-    //     }
-    // }
 
     void Drag()
     {
@@ -246,7 +216,6 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
             if (grabbedRb != null)
             {
                 RestoreOriginalSettings(grabbedRb);
-                grabbedRb.angularDamping = originalAngularDrag;
             }
             Destroy(grabJoint);
             grabJoint = null;
@@ -284,11 +253,13 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
         line = lineObj.AddComponent<LineRenderer>();
         line.positionCount = 2;
         line.material = lineMaterial;
-        line.startWidth = lineWidth;
-        line.endWidth = lineWidth;
+        line.startWidth = maxLineWidth;
+        line.endWidth = maxLineWidth;
         line.numCapVertices = 10;
         line.useWorldSpace = true; // 월드 좌표 사용을 명시해 위치 초기화가 즉시 반영되도록
     }
+
+
 
     void UpdateLine(LineRenderer line, SpringJoint joint)
     {
@@ -303,11 +274,29 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
         line.SetPosition(0, joint.transform.TransformPoint(joint.anchor));
         line.SetPosition(1, joint.connectedAnchor);
 
-        float stress = Mathf.Clamp01((joint.currentForce.magnitude / joint.breakForce) / dangerThreshold);
+        // 1. breakForce가 0이거나 무한대(기본값)인지 체크
+        float currentBreakForce = joint.breakForce;
+        float forceRatio = 0f;
 
+        // breakForce가 유효한 값일 때만(0보다 크고 무한대가 아닐 때) 비율 계산
+        if (currentBreakForce > 0 && !float.IsInfinity(currentBreakForce))
+        {
+            forceRatio = joint.currentForce.magnitude / currentBreakForce;
+        }
+
+        // 2. 색상/두께에 사용할 '스트레스' 값 계산 (0.0 ~ 1.0)
+        // dangerThreshold 기준으로 1.0에 도달하도록 함
+        float stress = Mathf.Clamp01(forceRatio / dangerThreshold);
+
+        // 3. 색상 변경 (기존 로직)
         Color stressColor = stressGradient.Evaluate(stress);
         line.startColor = stressColor;
         line.endColor = stressColor;
-    }
 
+        // 4. 두께 변경 (새로 추가된 로직)
+        // stress가 0일 때 maxLineWidth, 1일 때 minLineWidth가 되도록 보간(Lerp)
+        float currentWidth = Mathf.Lerp(maxLineWidth, minLineWidth, stress);
+        line.startWidth = currentWidth;
+        line.endWidth = currentWidth;
+    }
 }

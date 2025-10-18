@@ -130,7 +130,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!114 &8670385056775690837
 MonoBehaviour:
@@ -409,9 +409,9 @@ MonoBehaviour:
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
     ctime0: 0
-    ctime1: 16384
-    ctime2: 32768
-    ctime3: 49151
+    ctime1: 21203
+    ctime2: 29105
+    ctime3: 37779
     ctime4: 0
     ctime5: 0
     ctime6: 0
@@ -428,13 +428,16 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 4
     m_NumAlphaKeys: 2
-  lineWidth: 0.2
-  dangerThreshold: 1
+  maxLineWidth: 0.2
+  minLineWidth: 0.05
+  dangerThreshold: 0.9
   grabMaxDistance: 3000
   grabAngularDrag: 2
+  grabLinearDrag: 0.5
   springStiffness: 1000
   springDamper: 300
   jointBreakForce: 1000
-  scrollSensitivity: 0.5
-  minGrabDistance: 1.19
-  maxGrabDistance: 20
+  minGrabDistance: 5
+  maxGrabDistance: 3000
+  scrollAcceleration: 100
+  scrollDamping: 5
