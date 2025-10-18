@@ -6,7 +6,8 @@ public class StageDataSO : ScriptableObject
     #region Serialized Fields
     [SerializeField] private Sprite _stageImage;
     [SerializeField] private string _stageName;
-    [SerializeField] private string _clearDay;
+    [SerializeField] private int _clearStar = 0;
+    [SerializeField] private bool _isTried = false;
     #endregion
 
     #region 내부 변수
@@ -26,10 +27,16 @@ public class StageDataSO : ScriptableObject
         set => _stageName = value;
     }
 
-    public string ClearDay
+    public int ClearStar
     {
-        get => _clearDay;
-        set => _clearDay = value;
+        get => _clearStar;
+        set => _clearStar = value;
+    }
+
+    public bool IsTried
+    {
+        get => _isTried;
+        set => _isTried = value;
     }
 
     public string SceneName => _sceneName;

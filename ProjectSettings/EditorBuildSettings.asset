@@ -12,11 +12,29 @@ EditorBuildSettings:
     path: Assets/Scenes/STAGE.unity
     guid: 5549fd295e77d944fb5093fc36aefdf1
   - enabled: 1
+    path: Assets/Scenes/JML/JMMachine.unity
+    guid: d0be3a554447adb449011e524be0a3e0
+  - enabled: 1
+    path: Assets/Scenes/JML/JMObservatory.unity
+    guid: 8871ec25d86ff014f920371075652e31
+  - enabled: 1
     path: Assets/Scenes/Sphinx.unity
     guid: 123974046093c9740ac46ac91d4b6285
   - enabled: 1
     path: Assets/Scenes/Freedom.unity
     guid: 141ca50bee2799c4fb0a360c28b4b8c9
+  - enabled: 1
+    path: Assets/Scenes/Roma.unity
+    guid: 17c5081634582d7408b73cb06fe2f454
+  - enabled: 1
+    path: Assets/Scenes/Coloseum.unity
+    guid: ef15c4aa012c467419e871ad1123a855
+  - enabled: 1
+    path: Assets/Scenes/DokripMoon.unity
+    guid: f3920a35b77488242ae19714671d1ed3
+  - enabled: 1
+    path: Assets/Scenes/JML/JMKey.unity
+    guid: 51e12b8a8051ba440a091e60cfb70ae1
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
