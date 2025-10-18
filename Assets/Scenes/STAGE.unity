@@ -767,6 +767,7 @@ MonoBehaviour:
   _stagePrefab: {fileID: 6184227153334379887, guid: 3a51918fb5e8c8945bc5862c55dcdc19, type: 3}
   _stageTarget: {fileID: 1764066413}
   _stageGroupSO: {fileID: 11400000, guid: 1fcfdf969c3b34642b9376e8e6a95095, type: 2}
+  _exitBtn: {fileID: 661346609}
 --- !u!4 &1263214933
 Transform:
   m_ObjectHideFlags: 0

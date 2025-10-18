@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _stageImage: {fileID: 21300000, guid: 38564588e500e1146a7be533a27ef02b, type: 3}
   _stageName: "\uBBF8\uAD6D: \uC790\uC720\uC758 \uC5EC\uC2E0\uC0C1"
+  _sceneName: Freedom
+  _scenePath: Assets/Scenes/Freedom.unity
   _clearStar: 0
-  _isTried: 0
+  _isTried: 1
