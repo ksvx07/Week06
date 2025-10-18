@@ -15,12 +15,6 @@ public class Stage: MonoBehaviour
     #endregion
 
     private StageDataSO _stageDataSO;
-    
-    // so를 통해서 트라이도 하지 않았으면 setActive(flase)
-    // 했으면 setActive(true)하고 별 그리기 메소드 호출
-    // 별은 최대 3개, 3 - fill 개수 = empty 별로 오른쪽부터 채우기
-
-
 
     public void Init(StageDataSO stageSO)
     {

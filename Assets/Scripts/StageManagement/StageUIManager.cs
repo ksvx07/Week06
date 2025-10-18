@@ -15,10 +15,18 @@ public class StageUIManager : MonoBehaviour
     #region Private Fields
     private List<StageDataSO> stageDataSOs = new();
     private List<Button> stageBtns = new();
+    private bool isAllCleared = false;  // 히든 스테이지 해금용도
+    private GameObject hiddenStage;
     #endregion
+
+    #region Initialize Methods
+
     // StageGroupSO 호출 및 UI 세팅
     void OnEnable()
     {
+        stageDataSOs = _stageGroupSO.stages;
+        StageSaveManager.Load(stageDataSOs);
+
         SetStageUI();
 
         _exitBtn.onClick.AddListener(ExitGame);
@@ -29,19 +37,20 @@ public class StageUIManager : MonoBehaviour
         _exitBtn.onClick.RemoveAllListeners();
     }
 
-    private void ExitGame()
+    private void Update()
     {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-    Application.Quit();
-#endif
+        // F1 누르면 히든 스테이지 해제
+        if (Input.GetKeyDown(KeyCode.F1)){
+            ActiveHiddenStage();
+        }
     }
+    #endregion
 
     #region Private Methods
     void SetStageUI()
     {
-        stageDataSOs = _stageGroupSO.stages;
+
+        AllStagesCleared();
 
         // 스테이지 프리팹 Instantiage 및 초기화
         foreach (var stage in stageDataSOs)
@@ -57,6 +66,16 @@ public class StageUIManager : MonoBehaviour
 
             objBtn.onClick.AddListener(() => SetStageBtnEvent(stage.SceneName, stage));
 
+            // 히든 스테이지 해제 확인
+            if(stage.SceneName == "JMKey")
+            {
+                hiddenStage = obj;
+                if (!isAllCleared)
+                {
+                    obj.SetActive(false);
+                }
+            }
+
         }
     }
 
@@ -64,6 +83,7 @@ public class StageUIManager : MonoBehaviour
     void SetStageBtnEvent(string sceneName, StageDataSO stage)
     {
         stage.IsTried = true;
+        StageSaveManager.Save(stageDataSOs);
         SceneManager.LoadScene(sceneName);
         ClearStageBtnEvent();
     }
@@ -77,6 +97,47 @@ public class StageUIManager : MonoBehaviour
         }
     }
 
-#endregion
+    // 히든 스테이지[Key]해제 용, UI 세팅 전 호출 필요
+    void AllStagesCleared()
+    {
+        int starCount = 0;
+        int maxStar = (stageDataSOs.Count - 1) * 3;
+        foreach(var stage in stageDataSOs)
+        {
+            if(stage.ClearStar < 3)
+            {
+                return;
+            }
 
+            starCount += stage.ClearStar;
+        }
+
+        if(starCount < maxStar)
+        {
+            return;
+        }
+
+        isAllCleared = true;
+        return;
     }
+
+    private void ExitGame()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+    Application.Quit();
+#endif
+    }
+
+    #endregion
+
+    #region 디버깅용
+    private void ActiveHiddenStage()
+    {
+        isAllCleared = true;
+        hiddenStage.SetActive(true);
+    }
+    #endregion
+
+}

@@ -17,4 +17,4 @@ MonoBehaviour:
   _sceneName: Freedom
   _scenePath: Assets/Scenes/Freedom.unity
   _clearStar: 0
-  _isTried: 1
+  _isTried: 0

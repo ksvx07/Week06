@@ -41,15 +41,15 @@ public class StageDataSO : ScriptableObject
 
     #endregion
 
-#if UNITY_EDITOR
     #region Editor 전용 외부 메소드
-
+#if UNITY_EDITOR
     public void SetSceneInfo(string name, string path)
     {
         _sceneName = name;
         _scenePath = path;
     }
-    #endregion
 #endif
+
+    #endregion
 
 }
