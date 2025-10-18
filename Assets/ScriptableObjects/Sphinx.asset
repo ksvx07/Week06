@@ -15,6 +15,7 @@ MonoBehaviour:
   _stageImage: {fileID: 21300000, guid: 38564588e500e1146a7be533a27ef02b, type: 3}
   _stageName: "\uC774\uC9D1\uD2B8: \uC2A4\uD551\uD06C\uC2A4"
   _sceneName: Sphinx
-  _scenePath: Assets/Scenes/Sphinx.unity
   _clearStar: 0
-  _isTried: 0
+  _isTried: 1
+  _stageImagePath: C:/Users/jungle/AppData/LocalLow/DefaultCompany/Week06/StageImages/Sphinx.png
+  _scenePath: Assets/Scenes/Sphinx.unity
