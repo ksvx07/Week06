@@ -205,7 +205,6 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
     {
         Ray ray = cam.ScreenPointToRay(CursorManager.Instance.CursorPosition);
         Vector3 targetPoint = ray.GetPoint(initialGrabDistance);
-        Debug.Log(targetPoint);
         grabJoint.connectedAnchor = targetPoint;
         currentGrabPoint = targetPoint;
     }
