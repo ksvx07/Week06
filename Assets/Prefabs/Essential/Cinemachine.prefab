@@ -117,7 +117,9 @@ MonoBehaviour:
   distance: 30
   xSpeed: 300
   ySpeed: 300
+  keyOrbitSpeed: 80
   zoomSpeed: 5
+  keyZoomSpeed: 20
   yMinLimit: -20
   yMaxLimit: 80
   distanceMin: 5

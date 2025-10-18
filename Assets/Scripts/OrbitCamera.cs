@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// 마우스 입력을 사용해 타겟 주위를 공전하고 줌하는 카메라 스크립트입니다.
+/// 마우스와 키보드(WASD/QE) 입력을 사용해 타겟 주위를 공전하고 줌하는 카메라 스크립트입니다.
 /// </summary>
 public class OrbitCamera : MonoBehaviour
 {
@@ -9,14 +9,23 @@ public class OrbitCamera : MonoBehaviour
     [Tooltip("카메라가 바라볼 타겟 오브젝트입니다.")]
     [SerializeField] private Transform target;
 
-    [Header("궤도 및 줌 설정")]
+    [Header("궤도 설정")]
     [Tooltip("타겟으로부터의 초기 거리입니다.")]
     [SerializeField] private float distance = 5.0f;
     [Tooltip("마우스를 사용한 수평/수직 회전 속도입니다.")]
     [SerializeField] private float xSpeed = 120.0f;
     [SerializeField] private float ySpeed = 120.0f;
-    [Tooltip("마우스 휠을 사용한 줌 속도입니다.")]
+
+    [Header("키보드 설정")]
+    // <<< 1번 요청: WASD 회전 속도 변수 추가
+    [Tooltip("WASD 키를 사용한 수평/수직 회전 속도입니다.")]
+    [SerializeField] private float keyOrbitSpeed = 60.0f;
+
+    [Header("줌 설정")]
+    // <<< 3, 4번 요청: 줌 속도 툴팁 변경
+    [Tooltip("마우스 휠 및 QE 키를 사용한 줌 속도입니다.")]
     [SerializeField] private float zoomSpeed = 5.0f;
+    [SerializeField] private float keyZoomSpeed = 20.0f;
 
     [Header("제한 값")]
     [Tooltip("카메라의 최소/최대 고도(수직 각도)입니다.")]
@@ -40,27 +49,67 @@ public class OrbitCamera : MonoBehaviour
     }
 
     // 모든 Update 함수가 호출된 후 프레임마다 호출됩니다.
-    // 카메라 관련 로직은 LateUpdate에 작성하는 것이 좋습니다.
     void LateUpdate()
     {
         // 타겟이 설정되어 있는지 확인합니다.
         if (target)
         {
-            // 마우스 우클릭을 누르고 있는 동안에만 카메라를 조작합니다.
+            // --- 1. 마우스 궤도 회전 (우클릭) ---
             if (Input.GetMouseButton(1))
             {
-                // 마우스의 움직임에 따라 x, y 회전 값을 업데이트합니다.
-                // Time.deltaTime을 곱해주면 프레임 속도에 관계없이 일정한 속도를 유지할 수 있습니다.
                 x += Input.GetAxis("Mouse X") * xSpeed * Time.deltaTime;
                 y -= Input.GetAxis("Mouse Y") * ySpeed * Time.deltaTime;
 
-                // y(수직) 회전 각도를 지정된 최소/최대 값 사이로 제한합니다.
-                y = ClampAngle(y, yMinLimit, yMaxLimit);
-
-                // 마우스 스크롤 휠 입력으로 거리를 조절합니다.
-                float scroll = Input.GetAxis("Mouse ScrollWheel");
-                distance = Mathf.Clamp(distance - scroll * zoomSpeed, distanceMin, distanceMax);
+                // <<< 2번 요청: 마우스 우클릭 중 휠 줌 기능 제거 (해당 코드 삭제)
             }
+
+            // --- 2. 키보드 궤도 회전 (WASD) ---
+            // <<< 1번 요청: WASD로 궤도 회전 기능 추가
+            if (Input.GetKey(KeyCode.W))
+            {
+                y += keyOrbitSpeed * Time.deltaTime; // 상
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                y -= keyOrbitSpeed * Time.deltaTime; // 하
+            }
+            if (Input.GetKey(KeyCode.A))
+            {
+                x += keyOrbitSpeed * Time.deltaTime; // 좌
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                x -= keyOrbitSpeed * Time.deltaTime; // 우
+            }
+
+            // --- 3. 줌 (휠 & QE) ---
+
+            // <<< 3번 요청: 좌클릭을 안 할 때 마우스 휠 줌
+            if (!Input.GetMouseButton(0))
+            {
+                float scroll = Input.GetAxis("Mouse ScrollWheel");
+                distance -= scroll * zoomSpeed;
+            }
+
+            // <<< 4번 요청: QE 키로 줌
+            if (Input.GetKey(KeyCode.Q))
+            {
+                distance += keyZoomSpeed * Time.deltaTime; // 줌 아웃
+            }
+            if (Input.GetKey(KeyCode.E))
+            {
+                distance -= keyZoomSpeed * Time.deltaTime; // 줌 인
+            }
+
+            // --- 4. 값 제한 (Clamping) ---
+
+            // y(수직) 회전 각도를 지정된 최소/최대 값 사이로 제한합니다. (마우스, 키보드 입력 모두 적용)
+            y = ClampAngle(y, yMinLimit, yMaxLimit);
+
+            // 거리를 최소/최대 값 사이로 제한합니다. (휠, QE 입력 모두 적용)
+            distance = Mathf.Clamp(distance, distanceMin, distanceMax);
+
+            // --- 5. 카메라 위치/회전 최종 적용 ---
 
             // 계산된 회전 값으로 Quaternion을 생성합니다.
             Quaternion rotation = Quaternion.Euler(y, x, 0);

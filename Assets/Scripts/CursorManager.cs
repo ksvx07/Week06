@@ -18,7 +18,6 @@ public class CursorManager : SingletonObject<CursorManager>
     private bool isGrabbed = false;
 
     // --- 추가된 변수들 ---
-    private bool isTrackingWorldPoint = false;
     private Vector3 trackedWorldPoint;
     private Camera mainCamera;
     // ---
@@ -39,8 +38,29 @@ public class CursorManager : SingletonObject<CursorManager>
     {
         if (!cursorUITransform.gameObject.activeInHierarchy) return;
 
-        // <<< --- 로직 전체 변경 --- >>>
-        if (isTrackingWorldPoint)
+        // // <<< --- 로직 전체 변경 --- >>>
+        // if (isTrackingWorldPoint)
+        // {
+        //     // 월드 좌표 추적 모드: 3D 포인트를 화면 좌표로 변환하여 커서 위치를 업데이트합니다.
+        //     Vector3 screenPoint = mainCamera.WorldToScreenPoint(trackedWorldPoint);
+
+        //     // 오브젝트가 카메라 뒤로 가면 z값이 음수가 되어 좌표가 뒤집히는 현상 방지
+        //     if (screenPoint.z > 0)
+        //     {
+        //         cursorUITransform.position = screenPoint;
+        //         CursorPosition = screenPoint;
+        //     }
+        // }
+        // else
+        // {
+        //     // 기존의 수동 조작 모드: 마우스 움직임으로 커서를 이동시킵니다.
+        //     Vector2 delta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")) * manualMoveSpeed;
+        //     cursorUITransform.position += new Vector3(delta.x, delta.y, 0);
+        //     ClampCursorToScreen();
+        //     CursorPosition = cursorUITransform.position;
+        // }
+
+        if (isGrabbed)
         {
             // 월드 좌표 추적 모드: 3D 포인트를 화면 좌표로 변환하여 커서 위치를 업데이트합니다.
             Vector3 screenPoint = mainCamera.WorldToScreenPoint(trackedWorldPoint);
@@ -49,24 +69,28 @@ public class CursorManager : SingletonObject<CursorManager>
             if (screenPoint.z > 0)
             {
                 cursorUITransform.position = screenPoint;
-                CursorPosition = screenPoint;
             }
-        }
-        else
-        {
-            // 기존의 수동 조작 모드: 마우스 움직임으로 커서를 이동시킵니다.
-            Vector2 delta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")) * manualMoveSpeed;
-            cursorUITransform.position += new Vector3(delta.x, delta.y, 0);
-            ClampCursorToScreen();
-            CursorPosition = cursorUITransform.position;
+
+
         }
 
-        if (!isGrabbed)
-        {
-            currentStress -= stressDecayRate * Time.deltaTime;
-            if (currentStress < 0f) currentStress = 0f;
-            SetCursorColor(currentStress);
-        }
+        // 기존의 수동 조작 모드: 마우스 움직임으로 커서를 이동시킵니다.
+        Vector2 delta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")) * manualMoveSpeed;
+        cursorUITransform.position += new Vector3(delta.x, delta.y, 0);
+        ClampCursorToScreen();
+        CursorPosition = cursorUITransform.position;
+
+        currentStress -= stressDecayRate * Time.deltaTime;
+        if (currentStress < 0f)
+            currentStress = 0f;
+        Color stressColor = stressGradient.Evaluate(currentStress);
+        cursorUIImage.color = stressColor;
+    }
+
+
+    public void AfterTrackingWorldPoint()
+    {
+
     }
 
     // --- Public Methods for other scripts to call ---
@@ -95,9 +119,8 @@ public class CursorManager : SingletonObject<CursorManager>
 
     public void SetCursorColor(float stress)
     {
-        currentStress = stress;
-        Color stressColor = stressGradient.Evaluate(stress);
-        cursorUIImage.color = stressColor;
+        if (stress > currentStress)
+            currentStress = stress;
     }
 
     // --- Helper Method ---
@@ -130,7 +153,6 @@ public class CursorManager : SingletonObject<CursorManager>
     public void StartTrackingWorldPoint(Vector3 worldPoint)
     {
         trackedWorldPoint = worldPoint;
-        isTrackingWorldPoint = true;
         ShowCursor(); // 추적 중에는 커서가 항상 보이도록 합니다.
     }
 
@@ -139,6 +161,5 @@ public class CursorManager : SingletonObject<CursorManager>
     /// </summary>
     public void StopTracking()
     {
-        isTrackingWorldPoint = false;
     }
 }
