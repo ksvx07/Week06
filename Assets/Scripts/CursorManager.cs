@@ -11,7 +11,11 @@ public class CursorManager : SingletonObject<CursorManager>
     [SerializeField] private RectTransform cursorUITransform;
     [SerializeField] private Image cursorUIImage;
     [SerializeField] private float manualMoveSpeed = 15f;
+    [SerializeField] private float stressDecayRate = 1f;
     public Vector3 CursorPosition;
+
+    private float currentStress = 0f;
+    private bool isGrabbed = false;
 
     // --- 추가된 변수들 ---
     private bool isTrackingWorldPoint = false;
@@ -27,6 +31,8 @@ public class CursorManager : SingletonObject<CursorManager>
         mainCamera = Camera.main; // <<< 추가: Camera.main을 캐싱하여 성능 향상
         SetCursorToDefault();
         cursorUIImage.color = Color.white;
+        currentStress = 0f;
+        isGrabbed = false;
     }
 
     void Update()
@@ -54,6 +60,13 @@ public class CursorManager : SingletonObject<CursorManager>
             ClampCursorToScreen();
             CursorPosition = cursorUITransform.position;
         }
+
+        if (!isGrabbed)
+        {
+            currentStress -= stressDecayRate * Time.deltaTime;
+            if (currentStress < 0f) currentStress = 0f;
+            SetCursorColor(currentStress);
+        }
     }
 
     // --- Public Methods for other scripts to call ---
@@ -71,16 +84,18 @@ public class CursorManager : SingletonObject<CursorManager>
 
     public void SetCursorToDefault()
     {
-        cursorUIImage.color = Color.white;
+        isGrabbed = false;
         cursorUIImage.sprite = cursorSprite;
     }
     public void SetCursorToGrab()
     {
+        isGrabbed = true;
         cursorUIImage.sprite = grabSprite;
     }
 
     public void SetCursorColor(float stress)
     {
+        currentStress = stress;
         Color stressColor = stressGradient.Evaluate(stress);
         cursorUIImage.color = stressColor;
     }

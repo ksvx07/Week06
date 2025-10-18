@@ -229,7 +229,8 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
 
     void OnJointBreak(float breakForce)
     {
-        ReleaseAll(); // <<< 변경: 모든 잡기 상태를 해제하도록 통일
+        ReleaseAll();
+        CursorManager.Instance.SetCursorColor(1.0f);
     }
 
     void ReleaseAll()
@@ -300,6 +301,6 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
         float currentWidth = Mathf.Lerp(maxLineWidth, minLineWidth, stress);
         line.startWidth = currentWidth;
         line.endWidth = currentWidth;
-        CursorManager.Instance.SetCursorColor(stress);
+        CursorManager.Instance.SetCursorColor(1.0f);
     }
 }
