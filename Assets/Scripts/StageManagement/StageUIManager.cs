@@ -9,21 +9,36 @@ public class StageUIManager : MonoBehaviour
     [SerializeField] private GameObject _stagePrefab;
     [SerializeField] private GameObject _stageTarget;
     [SerializeField] private StageGroupSO _stageGroupSO;
+    [SerializeField] private Button _exitBtn;
     #endregion
 
     #region Private Fields
     private List<StageDataSO> stageDataSOs = new();
     private List<Button> stageBtns = new();
     #endregion
-
-
-    #region Private Methods
     // StageGroupSO 호출 및 UI 세팅
     void OnEnable()
     {
         SetStageUI();
+
+        _exitBtn.onClick.AddListener(ExitGame);
     }
 
+    private void OnDisable()
+    {
+        _exitBtn.onClick.RemoveAllListeners();
+    }
+
+    private void ExitGame()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+    Application.Quit();
+#endif
+    }
+
+    #region Private Methods
     void SetStageUI()
     {
         stageDataSOs = _stageGroupSO.stages;
