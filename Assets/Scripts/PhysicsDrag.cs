@@ -1,6 +1,4 @@
-using UnityEditor.Callbacks;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class PhysicsDrag : SingletonObject<PhysicsDrag>
 {
@@ -77,7 +75,7 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
         if (Input.GetMouseButtonUp(0))
             ReleaseAll(); // <<< 변경: Release() 대신 ReleaseAll()을 호출하여 모든 상태를 확실히 초기화합니다.
 
-        if ((grabJoint != null || grabJoint1 != null))
+        if (grabJoint != null || grabJoint1 != null)
         {
             if (!Input.GetMouseButton(1))
             {
@@ -88,9 +86,10 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
         if (Input.GetMouseButton(1) && grabJoint != null)
         {
             CursorManager.Instance.StartTrackingWorldPoint(currentGrabPoint);
-            initialGrabDistance = Vector3.Distance(cam.transform.position, currentGrabPoint);
+            Ray ray = cam.ScreenPointToRay(CursorManager.Instance.CursorPosition);
+            Vector3 vectorToPoint = currentGrabPoint - ray.origin;
+            initialGrabDistance = vectorToPoint.magnitude;
         }
-
         else if (grabJoint != null)
             StopTracking();
 
