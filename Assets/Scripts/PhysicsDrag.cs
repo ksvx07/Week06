@@ -19,7 +19,8 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
     private Vector3 firstGlobalPoint;
     private SpringJoint grabJoint1;
     private SpringJoint grabJoint2;
-    private float initialGrabDistance;
+    // private float initialGrabDistance;
+    private float currentGrabDistance;
     Vector3 jointsOffset = Vector3.zero;
     private float originalAngularDrag;
     private RigidbodyInterpolation originalInterpolation;
@@ -28,7 +29,6 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
     public Vector3 currentGrabPoint { get; private set; }
 
 
-    [Header("잡기 설정")]
     [Header("잡기 설정")]
     [SerializeField] private float grabMaxDistance = 10f;
     [Tooltip("물체를 잡았을 때 적용할 각마찰(회전 저항) 값입니다.")]
@@ -39,10 +39,15 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
     [SerializeField] private float springDamper = 20f;
     [SerializeField] private float jointBreakForce = 500f;
 
-    [Header("마우스 휠 설정")]
-    [SerializeField] private float scrollSensitivity = 2f;
+    [Header("마우스 휠 줌 설정")]
     [SerializeField] private float minGrabDistance = 1f;
     [SerializeField] private float maxGrabDistance = 20f;
+
+    [Tooltip("마우스 휠 입력이 줌 속도에 얼마나 영향을 주는지 (가속도)")]
+    [SerializeField] private float scrollAcceleration = 20f;
+    [Tooltip("휠을 멈췄을 때 줌 속도가 얼마나 빨리 0으로 줄어드는지 (감속)")]
+    [SerializeField] private float scrollDamping = 5f;
+    private float distanceChangeVelocity = 0f;
 
 
     private bool doubleGrapping = false;
@@ -57,29 +62,56 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
         ReleaseAll();
     }
 
-    void Start()
-    {
-
-    }
 
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
             TryGrab();
-        // else if (Input.GetMouseButtonDown(2))
-        // {
-        //     Release();
-        //     TryDoubleGrab();
-        // }
 
         if (Input.GetMouseButtonUp(0))
             ReleaseAll(); // <<< 변경: Release() 대신 ReleaseAll()을 호출하여 모든 상태를 확실히 초기화합니다.
 
+        // if (grabJoint != null || grabJoint1 != null)
+        // {
+        //     if (!Input.GetMouseButton(1))
+        //     {
+        //         HandleMouseWheel();
+        //     }
+        // }
+
         if (grabJoint != null || grabJoint1 != null)
         {
+            // 우클릭(카메라 회전) 중이 아닐 때만 휠 입력을 받습니다.
+            float scrollInput = 0f;
             if (!Input.GetMouseButton(1))
             {
-                HandleMouseWheel();
+                scrollInput = Input.mouseScrollDelta.y;
+            }
+
+            // 1. 휠 입력으로 속도(가속도)를 더합니다.
+            if (scrollInput != 0)
+            {
+                distanceChangeVelocity += scrollInput * scrollAcceleration * Time.deltaTime;
+            }
+
+            // // 2. 현재 속도를 감속(Damping)시킵니다. (서서히 멈춤)
+            // // Time.deltaTime을 곱해 프레임에 독립적으로 만듭니다.
+            distanceChangeVelocity = Mathf.Lerp(distanceChangeVelocity, 0, scrollDamping * Time.deltaTime);
+
+            // // 3. 현재 거리에 속도를 적용합니다.
+            currentGrabDistance += distanceChangeVelocity * Time.deltaTime;
+
+            // // 4. 거리가 경계에 닿았는지 확인합니다.
+            bool hitBoundary = (currentGrabDistance <= minGrabDistance && distanceChangeVelocity < 0) ||
+                               (currentGrabDistance >= maxGrabDistance && distanceChangeVelocity > 0);
+
+            // // 5. 거리를 경계 내로 제한합니다.
+            currentGrabDistance = Mathf.Clamp(currentGrabDistance, minGrabDistance, maxGrabDistance);
+
+            // // 6. 경계에 닿았다면, 속도를 0으로 만들어 "튕김"이나 "달라붙음" 현상을 방지합니다.
+            if (hitBoundary)
+            {
+                distanceChangeVelocity = 0f;
             }
         }
 
@@ -88,7 +120,7 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
             CursorManager.Instance.StartTrackingWorldPoint(currentGrabPoint);
             Ray ray = cam.ScreenPointToRay(CursorManager.Instance.CursorPosition);
             Vector3 vectorToPoint = currentGrabPoint - ray.origin;
-            initialGrabDistance = vectorToPoint.magnitude;
+            currentGrabDistance = vectorToPoint.magnitude;
         }
         else if (grabJoint != null)
             StopTracking();
@@ -101,10 +133,7 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
         {
             if (grabJoint != null)
                 Drag();
-            if (doubleGrapping)
-                DragDoubleGrab();
         }
-
     }
 
     void LateUpdate()
@@ -160,9 +189,8 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
         {
             if (hit.collider.attachedRigidbody != null)
             {
-                ReleaseDoubleGrab();
                 grabbedRb = hit.collider.attachedRigidbody;
-                initialGrabDistance = hit.distance;
+                currentGrabDistance = hit.distance;
 
                 ApplyGrabSettings(grabbedRb);
 
@@ -176,7 +204,7 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
                 grabbedRb.gameObject.AddComponent<JointBreakDetector>();
                 CreateLineRenderer(ref line1);
 
-                Vector3 targetPoint = ray.GetPoint(initialGrabDistance);
+                Vector3 targetPoint = ray.GetPoint(currentGrabDistance);
                 grabJoint.connectedAnchor = targetPoint;
                 currentGrabPoint = targetPoint;
 
@@ -191,20 +219,20 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
     }
 
 
-    void HandleMouseWheel()
-    {
-        float scrollInput = Input.mouseScrollDelta.y;
-        if (scrollInput != 0)
-        {
-            initialGrabDistance += scrollInput * scrollSensitivity;
-            initialGrabDistance = Mathf.Clamp(initialGrabDistance, minGrabDistance, maxGrabDistance);
-        }
-    }
+    // void HandleMouseWheel()
+    // {
+    //     float scrollInput = Input.mouseScrollDelta.y;
+    //     if (scrollInput != 0)
+    //     {
+    //         initialGrabDistance += scrollInput * scrollSensitivity;
+    //         initialGrabDistance = Mathf.Clamp(initialGrabDistance, minGrabDistance, maxGrabDistance);
+    //     }
+    // }
 
     void Drag()
     {
         Ray ray = cam.ScreenPointToRay(CursorManager.Instance.CursorPosition);
-        Vector3 targetPoint = ray.GetPoint(initialGrabDistance);
+        Vector3 targetPoint = ray.GetPoint(currentGrabDistance);
         grabJoint.connectedAnchor = targetPoint;
         currentGrabPoint = targetPoint;
     }
@@ -281,116 +309,5 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
         line.startColor = stressColor;
         line.endColor = stressColor;
     }
-
-
-    void DragDoubleGrab()
-    {
-        Ray ray = cam.ScreenPointToRay(CursorManager.Instance.CursorPosition);
-        Vector3 targetPoint = ray.GetPoint(initialGrabDistance);
-        grabJoint1.connectedAnchor = targetPoint - jointsOffset;
-        grabJoint2.connectedAnchor = targetPoint;
-    }
-
-    void ReleaseDoubleGrab()
-    {
-        if (grabbedRb != null)
-        {
-            RestoreOriginalSettings(grabbedRb);
-            grabbedRb.angularDamping = originalAngularDrag;
-        }
-        if (grabJoint1 != null)
-        {
-            Destroy(grabJoint1);
-            grabJoint1 = null;
-        }
-        if (grabJoint2 != null)
-        {
-            Destroy(grabJoint2);
-            grabJoint2 = null;
-        }
-        firstPointRb = null;
-        grabbedRb = null;
-        doubleGrapping = false;
-        if (line1 != null) Destroy(line1.gameObject);
-        if (line2 != null) Destroy(line2.gameObject);
-    }
-
-
-    void TryDoubleGrab()
-    {
-        if (doubleGrapping)
-        {
-            ReleaseDoubleGrab();
-            return;
-        }
-        Ray ray = cam.ScreenPointToRay(CursorManager.Instance.CursorPosition);
-        if (Physics.Raycast(ray, out RaycastHit hit, grabMaxDistance))
-        {
-            // 반드시 Rigidbody 위에서만 동작하도록 가드
-            var rb = hit.collider.attachedRigidbody;
-            if (rb == null)
-            {
-                // 고정 오브젝트를 클릭하면 선택을 초기화하지 않고 무시
-                return;
-            }
-
-            else if (firstPointRb == null)
-            {
-                firstPointRb = rb;
-                firstPointAnchorLocal = firstPointRb.transform.InverseTransformPoint(hit.point);
-                firstGlobalPoint = hit.point;
-            }
-            else if (rb != firstPointRb)
-            {
-                firstPointRb = rb;
-                firstPointAnchorLocal = firstPointRb.transform.InverseTransformPoint(hit.point);
-                firstGlobalPoint = hit.point;
-            }
-            else
-            {
-                grabbedRb = firstPointRb;
-                initialGrabDistance = hit.distance;
-
-                ApplyGrabSettings(grabbedRb);
-
-                grabJoint1 = grabbedRb.gameObject.AddComponent<SpringJoint>();
-                grabJoint1.autoConfigureConnectedAnchor = false;
-                grabJoint1.anchor = firstPointAnchorLocal;
-                ConfigureJoint(grabJoint1);
-
-                grabJoint2 = grabbedRb.gameObject.AddComponent<SpringJoint>();
-                grabJoint2.autoConfigureConnectedAnchor = false;
-                grabJoint2.anchor = grabbedRb.transform.InverseTransformPoint(hit.point);
-
-                ConfigureJoint(grabJoint2);
-                jointsOffset = hit.point - firstGlobalPoint;
-                grabbedRb.gameObject.AddComponent<JointBreakDetector>();
-
-                CreateLineRenderer(ref line1);
-                CreateLineRenderer(ref line2);
-
-                // 첫 프레임 원점 점프 방지: 즉시 connectedAnchor와 라인 좌표 초기화
-                Vector3 targetPoint = ray.GetPoint(initialGrabDistance);
-                grabJoint1.connectedAnchor = targetPoint - jointsOffset;
-                grabJoint2.connectedAnchor = targetPoint;
-
-                // <<< 추가: 두 점 잡기 시에도 커서 추적 시작 >>>
-                CursorManager.Instance.StartTrackingWorldPoint(targetPoint);
-
-                if (line1 != null)
-                {
-                    line1.SetPosition(0, grabJoint1.transform.TransformPoint(grabJoint1.anchor));
-                    line1.SetPosition(1, grabJoint1.connectedAnchor);
-                }
-                if (line2 != null)
-                {
-                    line2.SetPosition(0, grabJoint2.transform.TransformPoint(grabJoint2.anchor));
-                    line2.SetPosition(1, grabJoint2.connectedAnchor);
-                }
-                doubleGrapping = true;
-            }
-        }
-    }
-
 
 }
