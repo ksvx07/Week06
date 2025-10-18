@@ -2328,24 +2328,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2789240120291492577, guid: 6f0fec86602a0f548abf0dfd9b89d497, type: 3}
   m_PrefabInstance: {fileID: 1015982180}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &236716673
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 236716668}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b58131bb2ab0df44991ae7e0fa05f71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bombTag: Bomb
-  onBombCollision:
-    m_PersistentCalls:
-      m_Calls: []
-  explosionVFX: {fileID: 0}
-  vfxLifetime: 3
 --- !u!4 &238179674 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 581614738366052081, guid: 42a37a53e6e7da545975f4d99024f5c4, type: 3}
@@ -3197,15 +3179,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2789240120291492577, guid: 6f0fec86602a0f548abf0dfd9b89d497, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.9900001
+      value: 1.98
       objectReference: {fileID: 0}
     - target: {fileID: 2789240120291492577, guid: 6f0fec86602a0f548abf0dfd9b89d497, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.9900001
+      value: 1.98
       objectReference: {fileID: 0}
     - target: {fileID: 2789240120291492577, guid: 6f0fec86602a0f548abf0dfd9b89d497, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.9900001
+      value: 1.98
       objectReference: {fileID: 0}
     - target: {fileID: 2789240120291492577, guid: 6f0fec86602a0f548abf0dfd9b89d497, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5997,15 +5979,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2789240120291492577, guid: 6f0fec86602a0f548abf0dfd9b89d497, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.9899999
+      value: 1.98
       objectReference: {fileID: 0}
     - target: {fileID: 2789240120291492577, guid: 6f0fec86602a0f548abf0dfd9b89d497, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.9899999
+      value: 1.98
       objectReference: {fileID: 0}
     - target: {fileID: 2789240120291492577, guid: 6f0fec86602a0f548abf0dfd9b89d497, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.9899999
+      value: 1.98
       objectReference: {fileID: 0}
     - target: {fileID: 2789240120291492577, guid: 6f0fec86602a0f548abf0dfd9b89d497, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6417,24 +6399,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2789240120291492577, guid: 6f0fec86602a0f548abf0dfd9b89d497, type: 3}
   m_PrefabInstance: {fileID: 1448612534}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &589015190
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 589015185}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b58131bb2ab0df44991ae7e0fa05f71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bombTag: Bomb
-  onBombCollision:
-    m_PersistentCalls:
-      m_Calls: []
-  explosionVFX: {fileID: 0}
-  vfxLifetime: 3
 --- !u!1001 &593495993
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11242,10 +11206,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2745187867334907740, guid: 6f0fec86602a0f548abf0dfd9b89d497, type: 3}
-      insertIndex: 2
-      addedObject: {fileID: 236716673}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f0fec86602a0f548abf0dfd9b89d497, type: 3}
 --- !u!4 &1024078661 stripped
 Transform:
@@ -15196,10 +15157,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2745187867334907740, guid: 6f0fec86602a0f548abf0dfd9b89d497, type: 3}
-      insertIndex: 2
-      addedObject: {fileID: 589015190}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f0fec86602a0f548abf0dfd9b89d497, type: 3}
 --- !u!4 &1457934597 stripped
 Transform:
