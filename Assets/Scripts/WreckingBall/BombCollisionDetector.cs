@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 using System;
+using System.Collections.Generic;
 
 /// <summary>
-/// LimitLine에 부착되어 폭탄의 충돌을 감지하고 폭발 이벤트를 발생시킵니다.
-/// OnTriggerEnter를 사용하여 Bomb 태그를 가진 오브젝트를 감지합니다.
+/// LimitLine에 부착되어 폭탄 및 Draggable 오브젝트의 충돌을 감지하고 이벤트를 발생시킵니다.
+/// OnTriggerEnter를 사용하여 Bomb 및 Draggable 태그를 가진 오브젝트를 감지합니다.
 /// </summary>
 [RequireComponent(typeof(Collider))]
 public class BombCollisionDetector : MonoBehaviour
@@ -12,6 +13,8 @@ public class BombCollisionDetector : MonoBehaviour
     [Header("Collision Detection")]
     [Tooltip("폭발을 트리거할 오브젝트의 태그입니다.")]
     [SerializeField] private string bombTag = "Bomb";
+    [Tooltip("낙하 감지할 Draggable 오브젝트의 태그입니다.")]
+    [SerializeField] private string draggableTag = "Draggable";
     
     [Header("Events")]
     [Tooltip("충돌 시 발생하는 UnityEvent입니다. Inspector에서 연결할 수 있습니다.")]
@@ -23,10 +26,21 @@ public class BombCollisionDetector : MonoBehaviour
     [Tooltip("VFX가 자동으로 소멸되는 시간(초)입니다. 0이면 자동 소멸 안 함.")]
     [SerializeField] private float vfxLifetime = 3.0f;
 
+    [Header("Draggable Settings")]
+    [Tooltip("Draggable 오브젝트 파괴 지연 시간(초)입니다.")]
+    [SerializeField] private float draggableDestroyDelay = 0.5f;
+
     // C# Event (코드에서 구독용)
     public static event Action<GameObject> OnBombCollisionDetected;
 
+    // Draggable 트리거 추적
+    private HashSet<GameObject> triggeredDraggables = new HashSet<GameObject>();
     private Collider triggerCollider;
+
+    /// <summary>
+    /// 트리거된 Draggable 오브젝트의 개수를 반환합니다.
+    /// </summary>
+    public int TriggeredDraggableCount => triggeredDraggables.Count;
 
     private void Awake()
     {
@@ -50,13 +64,19 @@ public class BombCollisionDetector : MonoBehaviour
         if (other.CompareTag(bombTag))
         {
             GameObject bomb = other.gameObject;
-            HandleTrigger(bomb, other.ClosestPoint(transform.position));
+            HandleBombTrigger(bomb, other.ClosestPoint(transform.position));
+        }
+        // Draggable 태그 체크
+        else if (other.CompareTag(draggableTag))
+        {
+            GameObject draggable = other.gameObject;
+            HandleDraggableTrigger(draggable, other.ClosestPoint(transform.position));
         }
     }
 
-    private void HandleTrigger(GameObject bomb, Vector3 contactPoint)
+    private void HandleBombTrigger(GameObject bomb, Vector3 contactPoint)
     {
-        Debug.Log($"[BombCollisionDetector] {gameObject.name}이(가) {bomb.name}을(를) 감지! 폭발 요청 전송.");
+        Debug.Log($"[BombCollisionDetector] {gameObject.name}이(가) 폭탄 {bomb.name}을(를) 감지! 폭발 요청 전송.");
 
         // VFX 생성 (접촉 지점)
         if (explosionVFX != null)
@@ -79,6 +99,38 @@ public class BombCollisionDetector : MonoBehaviour
         OnBombCollisionDetected?.Invoke(bomb);
     }
 
+    private void HandleDraggableTrigger(GameObject draggable, Vector3 contactPoint)
+    {
+        // 이미 트리거된 오브젝트인지 확인
+        if (triggeredDraggables.Contains(draggable))
+        {
+            return;
+        }
+
+        // 트리거된 Draggable 기록
+        triggeredDraggables.Add(draggable);
+
+        Debug.Log($"[BombCollisionDetector] Draggable 감지: {draggable.name} | 총 트리거된 개수: {triggeredDraggables.Count}");
+
+        // BombManager에 알림
+        if (BombManager.Instance != null)
+        {
+            BombManager.Instance.NotifyDraggableTriggered(draggable);
+        }
+
+        // 지연 후 파괴
+        Destroy(draggable, draggableDestroyDelay);
+    }
+
+    /// <summary>
+    /// 트리거된 Draggable 개수를 초기화합니다.
+    /// </summary>
+    public void ResetDraggableCount()
+    {
+        triggeredDraggables.Clear();
+        Debug.Log($"[BombCollisionDetector] Draggable 카운트 초기화됨.");
+    }
+
 #if UNITY_EDITOR
     private void OnValidate()
     {
@@ -86,6 +138,11 @@ public class BombCollisionDetector : MonoBehaviour
         if (!IsTagValid(bombTag))
         {
             Debug.LogWarning($"[BombCollisionDetector] '{bombTag}' 태그가 Tag Manager에 등록되어 있지 않습니다.");
+        }
+
+        if (!IsTagValid(draggableTag))
+        {
+            Debug.LogWarning($"[BombCollisionDetector] '{draggableTag}' 태그가 Tag Manager에 등록되어 있지 않습니다.");
         }
 
         // Collider가 Trigger인지 확인
