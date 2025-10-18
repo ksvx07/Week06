@@ -14,9 +14,9 @@ public class StageManager : MonoBehaviour
     }
 
     // 스테이지 이미지 및 별 업데이트
-    public void UpdateClearStar(int starCount)
+    public void UpdateClearData(int starCount, string snapShotPath)
     {
-        StageSaveManager.UpdateStageData(CurrentStageData, starCount);
+        StageSaveManager.UpdateStageData(CurrentStageData, starCount, snapShotPath);
     }
     #endregion
 

@@ -50,7 +50,8 @@ public static class StageSaveManager
         Debug.Log($"세이브 데이터 로드 완료 ({wrapper.list.Count}개)");
     }
 
-    public static void UpdateStageData(StageDataSO stage, int earnedStars)
+    // 스테이지 클리어 별 업데이트
+    public static void UpdateStageData(StageDataSO stage, int earnedStars, string stageImagePath)
     {
         Wrapper wrapper;
 
@@ -71,6 +72,7 @@ public static class StageSaveManager
         {
             existing.isTried = true;
             existing.clearStar = Mathf.Max(existing.clearStar, stage.ClearStar);
+            existing.stageImagePath = stage.StageImagePath;
         }
         else
         {
@@ -79,15 +81,16 @@ public static class StageSaveManager
                 stageName = stage.StageName,
                 isTried = stage.IsTried,
                 clearStar = stage.ClearStar,
-                stageImagePath = null
+                stageImagePath = stage.StageImagePath
             });
         }
 
         string newJson = JsonUtility.ToJson(wrapper, true);
         File.WriteAllText(savePath, newJson);
 
-        Debug.Log($"StageSaveManager: {stage.StageName} 저장 완료 ( {stage.ClearStar})");
+        Debug.Log($"StageSaveManager: {stage.StageName} 저장 완료 ( {stage.ClearStar}, {stage.StageImagePath})");
     }
+
 
     [System.Serializable]
     private class Wrapper
