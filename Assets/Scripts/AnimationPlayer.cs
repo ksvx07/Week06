@@ -78,9 +78,6 @@ public class AnimationPlayer : MonoBehaviour
             // Animator의 Trigger를 활성화합니다.
             animator.SetTrigger(triggerName);
 
-            // 디버깅을 위해 로그를 출력합니다.
-            Debug.Log($"'{triggerName}' Trigger를 호출했습니다. 다음 호출까지 {interval}초 대기...");
-
             // 설정된 간격만큼 기다립니다.
             yield return new WaitForSeconds(interval);
         }
