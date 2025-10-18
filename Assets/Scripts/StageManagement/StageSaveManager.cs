@@ -50,6 +50,45 @@ public static class StageSaveManager
         Debug.Log($"세이브 데이터 로드 완료 ({wrapper.list.Count}개)");
     }
 
+    public static void UpdateStageData(StageDataSO stage, int earnedStars)
+    {
+        Wrapper wrapper;
+
+        // 기존 데이터 호출
+        if (File.Exists(savePath))
+        {
+            string json = File.ReadAllText(savePath);
+            wrapper = JsonUtility.FromJson<Wrapper>(json);
+        }
+        else
+        {
+            wrapper = new Wrapper { list = new List<StageSaveData>() };
+        }
+
+        // 스테이지 검색 및 업데이트
+        var existing = wrapper.list.Find(s => s.stageName == stage.StageName);
+        if(existing != null)
+        {
+            existing.isTried = true;
+            existing.clearStar = Mathf.Max(existing.clearStar, stage.ClearStar);
+        }
+        else
+        {
+            wrapper.list.Add(new StageSaveData
+            {
+                stageName = stage.StageName,
+                isTried = stage.IsTried,
+                clearStar = stage.ClearStar,
+                stageImagePath = null
+            });
+        }
+
+        string newJson = JsonUtility.ToJson(wrapper, true);
+        File.WriteAllText(savePath, newJson);
+
+        Debug.Log($"StageSaveManager: {stage.StageName} 저장 완료 ( {stage.ClearStar})");
+    }
+
     [System.Serializable]
     private class Wrapper
     {

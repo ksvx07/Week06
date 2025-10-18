@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-// so를 직접 수정하는거 주의하기.
 public class StageManager : MonoBehaviour
 {
     #region Public Fields
@@ -12,6 +11,12 @@ public class StageManager : MonoBehaviour
     public void SetStageData(StageDataSO data)
     {
         CurrentStageData = data;
+    }
+
+    // 스테이지 이미지 및 별 업데이트
+    public void UpdateClearStar(int starCount)
+    {
+        StageSaveManager.UpdateStageData(CurrentStageData, starCount);
     }
     #endregion
 

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.Collections;
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "StageData", menuName = "Create SO/StageData", order = 1)]
 public class StageDataSO : ScriptableObject
@@ -7,9 +8,10 @@ public class StageDataSO : ScriptableObject
     [SerializeField] private Sprite _stageImage;
     [SerializeField] private string _stageName;
     [SerializeField] private string _sceneName;
-    [SerializeField] private string _scenePath;
     [SerializeField] private int _clearStar = 0;
     [SerializeField] private bool _isTried = false;
+    [SerializeField, HideInInspector] private string _stageImagePath;
+    [SerializeField, ReadOnly] private string _scenePath;
     #endregion
 
     #region 외부 전용 반환 메소드
@@ -38,6 +40,12 @@ public class StageDataSO : ScriptableObject
     }
 
     public string SceneName => _sceneName;
+
+    public string StageImagePath
+    {
+        get => _stageImagePath;
+        set => _stageImagePath = value;
+    }
 
     #endregion
 
