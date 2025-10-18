@@ -5,33 +5,49 @@ using System.Collections.Generic;
 
 public class FakeCursorClicker : MonoBehaviour
 {
-    // 1. 가짜 커서의 RectTransform
     [SerializeField]
     private RectTransform fakeCursorRect;
 
     void Update()
     {
-        // 2. "클릭" 입력을 받으면 (예: 마우스 왼쪽 클릭 또는 스페이스바)
         if (Input.GetButtonDown("Submit") || Input.GetMouseButtonDown(0))
         {
-            // 3. '가짜 커서'의 위치로 UI 레이캐스트를 실행
             PointerEventData pointerData = new PointerEventData(EventSystem.current);
             pointerData.position = fakeCursorRect.position;
 
             List<RaycastResult> results = new List<RaycastResult>();
             EventSystem.current.RaycastAll(pointerData, results);
-            Debug.Log("레이캐스트 결과 수: " + results.Count);
-            // 4. 레이캐스트 결과 확인
+
             if (results.Count > 0)
             {
-                // 5. 가장 위에 있는 UI 요소에서 'Button' 컴포넌트를 찾음
-                Button clickedButton = results[0].gameObject.GetComponent<Button>();
+                // 레이캐스트에 맞은 첫 번째 객체 (아마도 Text)
+                GameObject target = results[0].gameObject;
+                GameObject clickHandlerObject = null; // 클릭 이벤트를 실행할 객체
 
-                if (clickedButton != null)
+                // 1. target(Text)에 IPointerClickHandler가 있는지 확인
+                IPointerClickHandler clickHandler = target.GetComponent<IPointerClickHandler>();
+
+                if (clickHandler != null)
                 {
-                    // 6. 찾았다면, 수동으로 OnClick 이벤트를 실행!
-                    clickedButton.onClick.Invoke();
-                    Debug.Log(clickedButton.name + "이(가) 수동으로 클릭되었습니다.");
+                    // Text 자체에 클릭 핸들러가 있다면
+                    clickHandlerObject = target;
+                }
+                else if (target.transform.parent != null)
+                {
+                    // 2. 부모 객체(Button)에 IPointerClickHandler가 있는지 확인
+                    clickHandler = target.transform.parent.GetComponent<IPointerClickHandler>();
+                    if (clickHandler != null)
+                    {
+                        // 부모(Button)에 핸들러가 있다면
+                        clickHandlerObject = target.transform.parent.gameObject;
+                    }
+                }
+
+                // 3. 클릭 핸들러를 찾았다면 이벤트 전송
+                if (clickHandlerObject != null)
+                {
+                    ExecuteEvents.Execute(clickHandlerObject, pointerData, ExecuteEvents.pointerClickHandler);
+                    Debug.Log(clickHandlerObject.name + "에 클릭 이벤트를 전송했습니다.");
                 }
             }
         }
