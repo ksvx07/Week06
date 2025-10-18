@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Freedom.unity
     guid: 141ca50bee2799c4fb0a360c28b4b8c9
   - enabled: 1
-    path: Assets/Scenes/Roma.unity
+    path: Assets/Scenes/London.unity
     guid: 17c5081634582d7408b73cb06fe2f454
   - enabled: 1
     path: Assets/Scenes/Coloseum.unity

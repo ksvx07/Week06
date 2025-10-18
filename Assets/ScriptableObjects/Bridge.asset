@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _stageImage: {fileID: 21300000, guid: 38564588e500e1146a7be533a27ef02b, type: 3}
   _stageName: "\uC601\uAD6D : \uD0C0\uC6CC\uBE0C\uB9BF\uC9C0"
-  _sceneName: Roma
-  _scenePath: Assets/Scenes/Roma.unity
+  _sceneName: London
   _clearStar: 0
   _isTried: 0
+  _stageImagePath: 
+  _scenePath: Assets/Scenes/London.unity
