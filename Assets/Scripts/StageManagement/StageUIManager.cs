@@ -82,7 +82,6 @@ public class StageUIManager : MonoBehaviour
     // 버튼에 이벤트 할당(씬 전환)
     void SetStageBtnEvent(string sceneName, StageDataSO stage)
     {
-        stage.IsTried = true;
         StageManager.Instance.SetStageData(stage, stageDataSOs);
         SceneManager.LoadScene(sceneName);
         ClearStageBtnEvent();

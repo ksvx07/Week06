@@ -61,6 +61,12 @@ public class ClearManager: MonoBehaviour
 
         BombManager.Instance.OnBombCountChanged -= RemainBombTextUpdate;
         BombManager.Instance.OnDraggableCountChanged -= ClearStarChange;
+
+        if (_countDownCoroutine != null)
+        {
+            StopCoroutine(_countDownCoroutine);
+            _countDownCoroutine = null;
+        }
     }
 
     void RemainBombTextUpdate(int remainBomb)
@@ -204,10 +210,9 @@ public class ClearManager: MonoBehaviour
     // 찍힌 스냅샷, 클리어 별 개수 보여주기
     void ShowClearPanel()
     {
-        _clearPanel.SetActive(true);
-
         // 스냅샷 로드
-        _snapShotPath = StageManager.Instance.CurrentStageData.StageImagePath;
+        _snapShotPath = _snapShotPath.Replace("\\", "/");
+
         if (!string.IsNullOrEmpty(_snapShotPath))
         {
 #if UNITY_EDITOR
@@ -229,6 +234,8 @@ public class ClearManager: MonoBehaviour
                 new Vector2(0.5f, 0.5f)
             );
         }
+
+        _clearPanel.SetActive(true);
 
         // 별 개수 그리기
         int _emptyStarCount = 3 - _clearStarCount;
