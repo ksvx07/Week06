@@ -339,6 +339,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5053362209322214700, guid: e3b815a1c38ec1c4e9646c4987b13013, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5053362209322214700, guid: e3b815a1c38ec1c4e9646c4987b13013, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5564051036679696138, guid: e3b815a1c38ec1c4e9646c4987b13013, type: 3}
       propertyPath: jengaBlocksContainer
       value: 
@@ -709,6 +717,14 @@ PrefabInstance:
     - target: {fileID: 1278429828051546335, guid: 2d956ff1a0b5f154892d61889bc1edaf, type: 3}
       propertyPath: m_Name
       value: Managers
+      objectReference: {fileID: 0}
+    - target: {fileID: 2509778737029387331, guid: 2d956ff1a0b5f154892d61889bc1edaf, type: 3}
+      propertyPath: genPosYmax
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 2509778737029387331, guid: 2d956ff1a0b5f154892d61889bc1edaf, type: 3}
+      propertyPath: genPosYmin
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 6615268351107095612, guid: 2d956ff1a0b5f154892d61889bc1edaf, type: 3}
       propertyPath: m_LocalPosition.x
