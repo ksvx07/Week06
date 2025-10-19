@@ -15,10 +15,9 @@ public class CursorManager : SingletonObject<CursorManager>
     public Vector3 CursorPosition;
 
     private float currentStress = 0f;
-    private bool isGrabbed = false;
+    public bool isGrabbed = false;
 
     // --- 추가된 변수들 ---
-    private bool isTrackingWorldPoint = false;
     private Vector3 trackedWorldPoint;
     private Camera mainCamera;
     // ---
@@ -39,9 +38,11 @@ public class CursorManager : SingletonObject<CursorManager>
     {
         if (!cursorUITransform.gameObject.activeInHierarchy) return;
 
-        // <<< --- 로직 전체 변경 --- >>>
-        if (isTrackingWorldPoint)
+        if (isGrabbed)
         {
+            trackedWorldPoint = PhysicsDrag.Instance.currentGrabPoint;
+            PhysicsDrag.Instance.UpdateGrabDistance();
+
             // 월드 좌표 추적 모드: 3D 포인트를 화면 좌표로 변환하여 커서 위치를 업데이트합니다.
             Vector3 screenPoint = mainCamera.WorldToScreenPoint(trackedWorldPoint);
 
@@ -49,24 +50,42 @@ public class CursorManager : SingletonObject<CursorManager>
             if (screenPoint.z > 0)
             {
                 cursorUITransform.position = screenPoint;
-                CursorPosition = screenPoint;
             }
+
+
+        }
+
+
+        if (isGrabbed && Input.GetMouseButton(1))
+        {
+
         }
         else
         {
             // 기존의 수동 조작 모드: 마우스 움직임으로 커서를 이동시킵니다.
             Vector2 delta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")) * manualMoveSpeed;
             cursorUITransform.position += new Vector3(delta.x, delta.y, 0);
-            ClampCursorToScreen();
-            CursorPosition = cursorUITransform.position;
         }
 
-        if (!isGrabbed)
+        ClampCursorToScreen();
+        CursorPosition = cursorUITransform.position;
+
+        currentStress -= stressDecayRate * Time.deltaTime;
+        if (currentStress < 0f)
+            currentStress = 0f;
+        Color stressColor = stressGradient.Evaluate(currentStress);
+        cursorUIImage.color = stressColor;
+
+        if (isGrabbed)
         {
-            currentStress -= stressDecayRate * Time.deltaTime;
-            if (currentStress < 0f) currentStress = 0f;
-            SetCursorColor(currentStress);
+            // if (!Input.GetMouseButton(1))
+            // {
+            PhysicsDrag.Instance.UpdateDistance();
+            PhysicsDrag.Instance.Drag();
+            // }
         }
+
+
     }
 
     // --- Public Methods for other scripts to call ---
@@ -95,9 +114,8 @@ public class CursorManager : SingletonObject<CursorManager>
 
     public void SetCursorColor(float stress)
     {
-        currentStress = stress;
-        Color stressColor = stressGradient.Evaluate(stress);
-        cursorUIImage.color = stressColor;
+        if (stress > currentStress)
+            currentStress = stress;
     }
 
     // --- Helper Method ---
@@ -127,18 +145,16 @@ public class CursorManager : SingletonObject<CursorManager>
     /// <summary>
     /// 지정된 월드 좌표를 커서가 추적하도록 시작합니다.
     /// </summary>
-    public void StartTrackingWorldPoint(Vector3 worldPoint)
-    {
-        trackedWorldPoint = worldPoint;
-        isTrackingWorldPoint = true;
-        ShowCursor(); // 추적 중에는 커서가 항상 보이도록 합니다.
-    }
+    // public void StartTrackingWorldPoint(Vector3 worldPoint)
+    // {
+    //     trackedWorldPoint = worldPoint;
+    //     ShowCursor(); // 추적 중에는 커서가 항상 보이도록 합니다.
+    // }
 
     /// <summary>
     /// 월드 좌표 추적을 멈추고 기본 수동 조작 모드로 돌아갑니다.
     /// </summary>
     public void StopTracking()
     {
-        isTrackingWorldPoint = false;
     }
 }

@@ -12,7 +12,7 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
     [SerializeField] private float minLineWidth = 0.01f;
     [SerializeField] private float dangerThreshold = 0.8f; // 위험 색상으로 바뀌는 임계값
     private Camera cam;
-    private SpringJoint grabJoint;
+    public SpringJoint grabJoint;
     private Rigidbody grabbedRb;
     // private float initialGrabDistance;
     private float currentGrabDistance;
@@ -62,14 +62,16 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
         if (Input.GetMouseButtonUp(0))
             ReleaseAll(); // <<< 변경: Release() 대신 ReleaseAll()을 호출하여 모든 상태를 확실히 초기화합니다.
 
+    }
+
+    public void UpdateDistance()
+    {
         if (grabJoint != null)
         {
             // 우클릭(카메라 회전) 중이 아닐 때만 휠 입력을 받습니다.
             float scrollInput = 0f;
-            if (!Input.GetMouseButton(1))
-            {
-                scrollInput = Input.mouseScrollDelta.y;
-            }
+
+            scrollInput = Input.mouseScrollDelta.y;
 
             // 1. 휠 입력으로 속도(가속도)를 더합니다.
             if (scrollInput != 0)
@@ -97,26 +99,13 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
                 distanceChangeVelocity = 0f;
             }
         }
-
-        if (Input.GetMouseButton(1) && grabJoint != null)
-        {
-            CursorManager.Instance.StartTrackingWorldPoint(currentGrabPoint);
-            Ray ray = cam.ScreenPointToRay(CursorManager.Instance.CursorPosition);
-            Vector3 vectorToPoint = currentGrabPoint - ray.origin;
-            currentGrabDistance = vectorToPoint.magnitude;
-        }
-        else if (grabJoint != null)
-            StopTracking();
-
     }
 
-    void FixedUpdate()
+    public void UpdateGrabDistance()
     {
-        if (!Input.GetMouseButton(1))
-        {
-            if (grabJoint != null)
-                Drag();
-        }
+        Ray ray = cam.ScreenPointToRay(CursorManager.Instance.CursorPosition);
+        Vector3 vectorToPoint = currentGrabPoint - ray.origin;
+        currentGrabDistance = vectorToPoint.magnitude;
     }
 
     void LateUpdate()
@@ -162,7 +151,7 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
         Ray ray = cam.ScreenPointToRay(CursorManager.Instance.CursorPosition);
         if (Physics.Raycast(ray, out RaycastHit hit, grabMaxDistance))
         {
-            if (hit.collider.attachedRigidbody != null)
+            if (hit.collider.attachedRigidbody != null && (hit.transform.CompareTag("Draggable") || hit.transform.CompareTag("Bomb")))
             {
                 grabbedRb = hit.collider.attachedRigidbody;
                 currentGrabDistance = hit.distance;
@@ -196,7 +185,7 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
 
 
 
-    void Drag()
+    public void Drag()
     {
         Ray ray = cam.ScreenPointToRay(CursorManager.Instance.CursorPosition);
         Vector3 targetPoint = ray.GetPoint(currentGrabDistance);
@@ -236,6 +225,7 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
         Release();
         CursorManager.Instance.StopTracking();
         CursorManager.Instance.SetCursorToDefault();
+        distanceChangeVelocity = 0f;
     }
 
     void StopTracking()
