@@ -115,10 +115,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   distance: 30
-  xSpeed: 300
-  ySpeed: 300
+  xSpeed: 2000
+  ySpeed: 2000
   keyOrbitSpeed: 80
-  zoomSpeed: 5
+  zoomSpeed: 10
   keyZoomSpeed: 20
   yMinLimit: -20
   yMaxLimit: 80
