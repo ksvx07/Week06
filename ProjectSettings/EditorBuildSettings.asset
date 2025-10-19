@@ -32,6 +32,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/JML/JMKey.unity
     guid: 51e12b8a8051ba440a091e60cfb70ae1
+  - enabled: 1
+    path: Assets/Scenes/JML/Tutorial.unity
+    guid: 48b06755c8f8357458badc83f3018a3c
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
