@@ -131,6 +131,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Managers
       objectReference: {fileID: 0}
+    - target: {fileID: 2509778737029387331, guid: 2d956ff1a0b5f154892d61889bc1edaf, type: 3}
+      propertyPath: genPosYmax
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 2509778737029387331, guid: 2d956ff1a0b5f154892d61889bc1edaf, type: 3}
+      propertyPath: genPosYmin
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 6615268351107095612, guid: 2d956ff1a0b5f154892d61889bc1edaf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
