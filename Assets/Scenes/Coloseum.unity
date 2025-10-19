@@ -243,7 +243,7 @@ GameObject:
   - component: {fileID: 17841523}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -436,7 +436,7 @@ GameObject:
   - component: {fileID: 25873388}
   m_Layer: 0
   m_Name: Pillar_5
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -718,7 +718,7 @@ GameObject:
   - component: {fileID: 41355437}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -854,7 +854,7 @@ GameObject:
   - component: {fileID: 48819870}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1098,7 +1098,7 @@ GameObject:
   - component: {fileID: 52301062}
   m_Layer: 0
   m_Name: Pillar_33
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1235,7 +1235,7 @@ GameObject:
   - component: {fileID: 59007113}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1371,7 +1371,7 @@ GameObject:
   - component: {fileID: 59831437}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1917,7 +1917,7 @@ GameObject:
   - component: {fileID: 97749336}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2111,7 +2111,7 @@ GameObject:
   - component: {fileID: 99239353}
   m_Layer: 0
   m_Name: Pillar_30
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2248,7 +2248,7 @@ GameObject:
   - component: {fileID: 101864632}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2974,7 +2974,7 @@ GameObject:
   - component: {fileID: 155050145}
   m_Layer: 0
   m_Name: Pillar_7
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3545,7 +3545,7 @@ GameObject:
   - component: {fileID: 185751241}
   m_Layer: 0
   m_Name: Pillar_28
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3818,7 +3818,7 @@ GameObject:
   - component: {fileID: 209894907}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4062,7 +4062,7 @@ GameObject:
   - component: {fileID: 229464558}
   m_Layer: 0
   m_Name: Pillar_1
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4232,7 +4232,7 @@ GameObject:
   - component: {fileID: 240379753}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4585,7 +4585,7 @@ GameObject:
   - component: {fileID: 267152671}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4748,7 +4748,7 @@ GameObject:
   - component: {fileID: 279582089}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4911,7 +4911,7 @@ GameObject:
   - component: {fileID: 319733108}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5074,7 +5074,7 @@ GameObject:
   - component: {fileID: 327872405}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5210,7 +5210,7 @@ GameObject:
   - component: {fileID: 329539237}
   m_Layer: 0
   m_Name: Pillar_38
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5374,7 +5374,7 @@ GameObject:
   - component: {fileID: 337478648}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5618,7 +5618,7 @@ GameObject:
   - component: {fileID: 350530569}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5911,7 +5911,7 @@ GameObject:
   - component: {fileID: 393448588}
   m_Layer: 0
   m_Name: Pillar_12
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6218,7 +6218,7 @@ GameObject:
   - component: {fileID: 420369963}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6463,7 +6463,7 @@ GameObject:
   - component: {fileID: 431869104}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6649,7 +6649,7 @@ GameObject:
   - component: {fileID: 440376170}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6785,7 +6785,7 @@ GameObject:
   - component: {fileID: 441794187}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7187,7 +7187,7 @@ GameObject:
   - component: {fileID: 460670265}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7334,7 +7334,7 @@ GameObject:
   - component: {fileID: 467586855}
   m_Layer: 0
   m_Name: Pillar_39
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7471,7 +7471,7 @@ GameObject:
   - component: {fileID: 476423322}
   m_Layer: 0
   m_Name: Pillar_5
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7608,7 +7608,7 @@ GameObject:
   - component: {fileID: 478745043}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7771,7 +7771,7 @@ GameObject:
   - component: {fileID: 514078026}
   m_Layer: 0
   m_Name: Pillar_22
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8045,7 +8045,7 @@ GameObject:
   - component: {fileID: 524672640}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8451,7 +8451,7 @@ GameObject:
   - component: {fileID: 547958904}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8831,7 +8831,7 @@ GameObject:
   - component: {fileID: 571302788}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9124,7 +9124,7 @@ GameObject:
   - component: {fileID: 611502164}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9526,7 +9526,7 @@ GameObject:
   - component: {fileID: 628314421}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9662,7 +9662,7 @@ GameObject:
   - component: {fileID: 635347054}
   m_Layer: 0
   m_Name: Pillar_4
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9799,7 +9799,7 @@ GameObject:
   - component: {fileID: 636166723}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10152,7 +10152,7 @@ GameObject:
   - component: {fileID: 642510644}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10288,7 +10288,7 @@ GameObject:
   - component: {fileID: 642536211}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10750,7 +10750,7 @@ GameObject:
   - component: {fileID: 683673703}
   m_Layer: 0
   m_Name: Pillar_39
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10995,7 +10995,7 @@ GameObject:
   - component: {fileID: 689487481}
   m_Layer: 0
   m_Name: Pillar_13
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11852,7 +11852,7 @@ GameObject:
   - component: {fileID: 736699108}
   m_Layer: 0
   m_Name: Pillar_27
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12125,7 +12125,7 @@ GameObject:
   - component: {fileID: 756414670}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12369,7 +12369,7 @@ GameObject:
   - component: {fileID: 770488693}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12776,7 +12776,7 @@ GameObject:
   - component: {fileID: 794532537}
   m_Layer: 0
   m_Name: Pillar_14
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13022,7 +13022,7 @@ GameObject:
   - component: {fileID: 821912014}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13158,7 +13158,7 @@ GameObject:
   - component: {fileID: 829428963}
   m_Layer: 0
   m_Name: Pillar_3
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13295,7 +13295,7 @@ GameObject:
   - component: {fileID: 829867596}
   m_Layer: 0
   m_Name: Pillar_10
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13965,7 +13965,7 @@ GameObject:
   - component: {fileID: 948188398}
   m_Layer: 0
   m_Name: Pillar_34
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14233,7 +14233,7 @@ GameObject:
   - component: {fileID: 961775040}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14570,7 +14570,7 @@ GameObject:
   - component: {fileID: 992521710}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14848,7 +14848,7 @@ GameObject:
   - component: {fileID: 1012755357}
   m_Layer: 0
   m_Name: Pillar_2
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15094,7 +15094,7 @@ GameObject:
   - component: {fileID: 1021600435}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15800,7 +15800,7 @@ GameObject:
   - component: {fileID: 1063730462}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16201,7 +16201,7 @@ GameObject:
   - component: {fileID: 1108042400}
   m_Layer: 0
   m_Name: Pillar_11
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16338,7 +16338,7 @@ GameObject:
   - component: {fileID: 1115239787}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16609,7 +16609,7 @@ GameObject:
   - component: {fileID: 1155368855}
   m_Layer: 0
   m_Name: Pillar_18
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16963,7 +16963,7 @@ GameObject:
   - component: {fileID: 1184346126}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17246,7 +17246,7 @@ GameObject:
   - component: {fileID: 1195297618}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17382,7 +17382,7 @@ GameObject:
   - component: {fileID: 1218172845}
   m_Layer: 0
   m_Name: Pillar_24
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17756,7 +17756,7 @@ GameObject:
   - component: {fileID: 1231692395}
   m_Layer: 0
   m_Name: Pillar_36
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18001,7 +18001,7 @@ GameObject:
   - component: {fileID: 1254355447}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18263,6 +18263,71 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1267971586}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1288179179
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4113813036905422443, guid: 9a32c43089e80484486b07e652f5671e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4113813036905422443, guid: 9a32c43089e80484486b07e652f5671e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4113813036905422443, guid: 9a32c43089e80484486b07e652f5671e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4113813036905422443, guid: 9a32c43089e80484486b07e652f5671e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4113813036905422443, guid: 9a32c43089e80484486b07e652f5671e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4113813036905422443, guid: 9a32c43089e80484486b07e652f5671e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4113813036905422443, guid: 9a32c43089e80484486b07e652f5671e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4113813036905422443, guid: 9a32c43089e80484486b07e652f5671e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4113813036905422443, guid: 9a32c43089e80484486b07e652f5671e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4113813036905422443, guid: 9a32c43089e80484486b07e652f5671e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6896886703465577917, guid: 9a32c43089e80484486b07e652f5671e, type: 3}
+      propertyPath: climax
+      value: 
+      objectReference: {fileID: 465824357}
+    - target: {fileID: 6896886703465577917, guid: 9a32c43089e80484486b07e652f5671e, type: 3}
+      propertyPath: _mainCamera
+      value: 
+      objectReference: {fileID: 1413046131}
+    - target: {fileID: 7295409225842125869, guid: 9a32c43089e80484486b07e652f5671e, type: 3}
+      propertyPath: m_Name
+      value: InGameCanvas
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9a32c43089e80484486b07e652f5671e, type: 3}
 --- !u!54 &1288608713
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -18327,7 +18392,7 @@ GameObject:
   - component: {fileID: 1295083052}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18463,7 +18528,7 @@ GameObject:
   - component: {fileID: 1299466733}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18657,7 +18722,7 @@ GameObject:
   - component: {fileID: 1315123985}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18793,7 +18858,7 @@ GameObject:
   - component: {fileID: 1321525815}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19145,7 +19210,7 @@ GameObject:
   - component: {fileID: 1336297320}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19281,7 +19346,7 @@ GameObject:
   - component: {fileID: 1344295470}
   m_Layer: 0
   m_Name: Pillar_34
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19467,7 +19532,7 @@ GameObject:
   - component: {fileID: 1364846826}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19603,7 +19668,7 @@ GameObject:
   - component: {fileID: 1369839416}
   m_Layer: 0
   m_Name: Pillar_25
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19740,7 +19805,7 @@ GameObject:
   - component: {fileID: 1373933547}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20269,6 +20334,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 416be317fdb9d2042b0bbde9d8df6902, type: 3}
+--- !u!20 &1413046131 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 6068312953294404978, guid: 416be317fdb9d2042b0bbde9d8df6902, type: 3}
+  m_PrefabInstance: {fileID: 1413046130}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1422171693
 GameObject:
   m_ObjectHideFlags: 0
@@ -20284,7 +20354,7 @@ GameObject:
   - component: {fileID: 1422171695}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20578,7 +20648,7 @@ GameObject:
   - component: {fileID: 1440745901}
   m_Layer: 0
   m_Name: Pillar_15
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20869,7 +20939,7 @@ GameObject:
   - component: {fileID: 1472744037}
   m_Layer: 0
   m_Name: Pillar
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21074,7 +21144,7 @@ GameObject:
   - component: {fileID: 1490077934}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21558,7 +21628,7 @@ GameObject:
   - component: {fileID: 1535446465}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21882,7 +21952,7 @@ GameObject:
   - component: {fileID: 1562396151}
   m_Layer: 0
   m_Name: Pillar_0
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22019,7 +22089,7 @@ GameObject:
   - component: {fileID: 1564269676}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22155,7 +22225,7 @@ GameObject:
   - component: {fileID: 1567702295}
   m_Layer: 0
   m_Name: Pillar_9
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22400,7 +22470,7 @@ GameObject:
   - component: {fileID: 1591312697}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22645,7 +22715,7 @@ GameObject:
   - component: {fileID: 1640081455}
   m_Layer: 0
   m_Name: Pillar_35
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23292,7 +23362,7 @@ GameObject:
   - component: {fileID: 1716584106}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23428,7 +23498,7 @@ GameObject:
   - component: {fileID: 1733710668}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23564,7 +23634,7 @@ GameObject:
   - component: {fileID: 1776953556}
   m_Layer: 0
   m_Name: Pillar_20
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23837,7 +23907,7 @@ GameObject:
   - component: {fileID: 1794790894}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24049,7 +24119,7 @@ GameObject:
   - component: {fileID: 1816450043}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24631,7 +24701,7 @@ GameObject:
   - component: {fileID: 1876710391}
   m_Layer: 0
   m_Name: Pillar_17
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25120,7 +25190,7 @@ GameObject:
   - component: {fileID: 1935962640}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25364,7 +25434,7 @@ GameObject:
   - component: {fileID: 1958133820}
   m_Layer: 0
   m_Name: Pillar_35
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25717,7 +25787,7 @@ GameObject:
   - component: {fileID: 1986575314}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26092,7 +26162,7 @@ GameObject:
   - component: {fileID: 2022358813}
   m_Layer: 0
   m_Name: Pillar_29
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26229,7 +26299,7 @@ GameObject:
   - component: {fileID: 2023379715}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26660,7 +26730,7 @@ GameObject:
   - component: {fileID: 2043048744}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27111,7 +27181,7 @@ GameObject:
   - component: {fileID: 2070733767}
   m_Layer: 0
   m_Name: Pillar_19
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27406,7 +27476,7 @@ GameObject:
   - component: {fileID: 2096696791}
   m_Layer: 0
   m_Name: Pillar_26
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27543,7 +27613,7 @@ GameObject:
   - component: {fileID: 2097338587}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27864,7 +27934,7 @@ GameObject:
   - component: {fileID: 2122433701}
   m_Layer: 0
   m_Name: Pillar_32
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28137,7 +28207,7 @@ GameObject:
   - component: {fileID: 2134246388}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28538,7 +28608,7 @@ GameObject:
   - component: {fileID: 2145033743}
   m_Layer: 0
   m_Name: Pillar_21
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28835,7 +28905,7 @@ GameObject:
   - component: {fileID: 1833912375}
   m_Layer: 0
   m_Name: Pillar_12
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29133,7 +29203,7 @@ GameObject:
   - component: {fileID: 6440607820341089910}
   m_Layer: 0
   m_Name: Pillar_19
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29227,7 +29297,7 @@ GameObject:
   - component: {fileID: 1346999238}
   m_Layer: 0
   m_Name: Pillar_15
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29262,7 +29332,7 @@ GameObject:
   - component: {fileID: 2057897352}
   m_Layer: 0
   m_Name: Pillar_1
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29424,7 +29494,7 @@ GameObject:
   - component: {fileID: 794047459}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29557,7 +29627,7 @@ GameObject:
   - component: {fileID: 318324309}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29577,7 +29647,7 @@ GameObject:
   - component: {fileID: 578612861}
   m_Layer: 0
   m_Name: Pillar_24
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29627,7 +29697,7 @@ GameObject:
   - component: {fileID: 535980437}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29647,7 +29717,7 @@ GameObject:
   - component: {fileID: 723395344}
   m_Layer: 0
   m_Name: Pillar_11
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29796,7 +29866,7 @@ GameObject:
   - component: {fileID: 273682956}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29912,7 +29982,7 @@ GameObject:
   - component: {fileID: 1031550892}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30206,7 +30276,7 @@ GameObject:
   - component: {fileID: 543407527}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30377,7 +30447,7 @@ GameObject:
   - component: {fileID: 194496988}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30442,7 +30512,7 @@ GameObject:
   - component: {fileID: 325461778}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30580,7 +30650,7 @@ GameObject:
   - component: {fileID: 1308301654}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30882,7 +30952,7 @@ GameObject:
   - component: {fileID: 2034025392}
   m_Layer: 0
   m_Name: Pillar_31
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30963,7 +31033,7 @@ GameObject:
   - component: {fileID: 1226436216}
   m_Layer: 0
   m_Name: Pillar_4
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31036,7 +31106,7 @@ GameObject:
   - component: {fileID: 2104126433}
   m_Layer: 0
   m_Name: Pillar_28
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31071,7 +31141,7 @@ GameObject:
   - component: {fileID: 2124420211}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31232,7 +31302,7 @@ GameObject:
   - component: {fileID: 81791822}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31282,7 +31352,7 @@ GameObject:
   - component: {fileID: 1487668380}
   m_Layer: 0
   m_Name: Pillar_25
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31302,7 +31372,7 @@ GameObject:
   - component: {fileID: 1493324773}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31405,7 +31475,7 @@ GameObject:
   - component: {fileID: 330441367}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31478,7 +31548,7 @@ GameObject:
   - component: {fileID: 896978041}
   m_Layer: 0
   m_Name: Pillar_14
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31513,7 +31583,7 @@ GameObject:
   - component: {fileID: 750091589}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31533,7 +31603,7 @@ GameObject:
   - component: {fileID: 2071416527}
   m_Layer: 0
   m_Name: Pillar_23
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31553,7 +31623,7 @@ GameObject:
   - component: {fileID: 1454144582}
   m_Layer: 0
   m_Name: Pillar_22
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31581,7 +31651,7 @@ GameObject:
   - component: {fileID: 725983932}
   m_Layer: 0
   m_Name: Pillar_3
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31646,7 +31716,7 @@ GameObject:
   - component: {fileID: 1904058711}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31666,7 +31736,7 @@ GameObject:
   - component: {fileID: 450783767}
   m_Layer: 0
   m_Name: Pillar_10
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31694,112 +31764,11 @@ GameObject:
   - component: {fileID: 1084584314}
   m_Layer: 0
   m_Name: Pillar_33
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1001 &5179156098167995247
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2928214462660210274, guid: 2eae112475f1d7a4183e01f487d0cc0d, type: 3}
-      propertyPath: m_Name
-      value: Canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 6834848443941029957, guid: 2eae112475f1d7a4183e01f487d0cc0d, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6834848443941029957, guid: 2eae112475f1d7a4183e01f487d0cc0d, type: 3}
-      propertyPath: m_Pivot.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6834848443941029957, guid: 2eae112475f1d7a4183e01f487d0cc0d, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6834848443941029957, guid: 2eae112475f1d7a4183e01f487d0cc0d, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6834848443941029957, guid: 2eae112475f1d7a4183e01f487d0cc0d, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6834848443941029957, guid: 2eae112475f1d7a4183e01f487d0cc0d, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6834848443941029957, guid: 2eae112475f1d7a4183e01f487d0cc0d, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6834848443941029957, guid: 2eae112475f1d7a4183e01f487d0cc0d, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6834848443941029957, guid: 2eae112475f1d7a4183e01f487d0cc0d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6834848443941029957, guid: 2eae112475f1d7a4183e01f487d0cc0d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6834848443941029957, guid: 2eae112475f1d7a4183e01f487d0cc0d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6834848443941029957, guid: 2eae112475f1d7a4183e01f487d0cc0d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6834848443941029957, guid: 2eae112475f1d7a4183e01f487d0cc0d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6834848443941029957, guid: 2eae112475f1d7a4183e01f487d0cc0d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6834848443941029957, guid: 2eae112475f1d7a4183e01f487d0cc0d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6834848443941029957, guid: 2eae112475f1d7a4183e01f487d0cc0d, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6834848443941029957, guid: 2eae112475f1d7a4183e01f487d0cc0d, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6834848443941029957, guid: 2eae112475f1d7a4183e01f487d0cc0d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6834848443941029957, guid: 2eae112475f1d7a4183e01f487d0cc0d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6834848443941029957, guid: 2eae112475f1d7a4183e01f487d0cc0d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9031232999835667302, guid: 2eae112475f1d7a4183e01f487d0cc0d, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 465824357}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 2eae112475f1d7a4183e01f487d0cc0d, type: 3}
 --- !u!23 &5185414650308788803
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -32104,7 +32073,7 @@ GameObject:
   - component: {fileID: 373802392}
   m_Layer: 0
   m_Name: Pillar_32
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32331,7 +32300,7 @@ GameObject:
   - component: {fileID: 7577462663442514359}
   m_Layer: 0
   m_Name: Pillar_20
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32381,7 +32350,7 @@ GameObject:
   - component: {fileID: 136349551}
   m_Layer: 0
   m_Name: Pillar_30
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32638,7 +32607,7 @@ GameObject:
   - component: {fileID: 1408250760}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32703,7 +32672,7 @@ GameObject:
   - component: {fileID: 621629395}
   m_Layer: 0
   m_Name: Pillar_26
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32723,7 +32692,7 @@ GameObject:
   - component: {fileID: 784795641}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32788,7 +32757,7 @@ GameObject:
   - component: {fileID: 1815461458}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32899,7 +32868,7 @@ GameObject:
   - component: {fileID: 1782818378}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32964,7 +32933,7 @@ GameObject:
   - component: {fileID: 1815068423}
   m_Layer: 0
   m_Name: Pillar_2
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33094,7 +33063,7 @@ GameObject:
   - component: {fileID: 1841342250}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33114,7 +33083,7 @@ GameObject:
   - component: {fileID: 2066358427}
   m_Layer: 0
   m_Name: Pillar_16
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33416,7 +33385,7 @@ GameObject:
   - component: {fileID: 1651199983}
   m_Layer: 0
   m_Name: Pillar_13
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33481,7 +33450,7 @@ GameObject:
   - component: {fileID: 1288608714}
   m_Layer: 0
   m_Name: Pillar_29
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33597,7 +33566,7 @@ GameObject:
   - component: {fileID: 2135867791}
   m_Layer: 0
   m_Name: Pillar_17
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33617,7 +33586,7 @@ GameObject:
   - component: {fileID: 1871119849}
   m_Layer: 0
   m_Name: Pillar_21
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33637,7 +33606,7 @@ GameObject:
   - component: {fileID: 1432018108}
   m_Layer: 0
   m_Name: Pillar_18
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33665,7 +33634,7 @@ GameObject:
   - component: {fileID: 481863629}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33700,7 +33669,7 @@ GameObject:
   - component: {fileID: 402427217}
   m_Layer: 0
   m_Name: Pillar_27
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33789,7 +33758,7 @@ GameObject:
   - component: {fileID: 734614134}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33967,7 +33936,7 @@ GameObject:
   - component: {fileID: 1861116550}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34039,7 +34008,7 @@ GameObject:
   - component: {fileID: 1851327714}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34059,7 +34028,7 @@ GameObject:
   - component: {fileID: 1137142424}
   m_Layer: 0
   m_Name: Lintel
-  m_TagString: Untagged
+  m_TagString: Draggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34191,6 +34160,6 @@ SceneRoots:
   - {fileID: 7356543423672114769}
   - {fileID: 734909342}
   - {fileID: 971460164}
-  - {fileID: 5179156098167995247}
   - {fileID: 1229387610}
   - {fileID: 8684345724732628219}
+  - {fileID: 1288179179}
