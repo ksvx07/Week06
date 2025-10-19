@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Observatory
   m_EditorClassIdentifier: 
   _stageImage: {fileID: 21300000, guid: 38564588e500e1146a7be533a27ef02b, type: 3}
-  _stageName: "\uB300\uD55C\uBBFC\uAD6D: \uCCA8\uC131\uB300"
+  _stageName: "\uB300\uD55C\uBBFC\uAD6D : \uCCA8\uC131\uB300"
   _sceneName: JMObservatory
-  _clearStar: 0
-  _isTried: 0
+  _clearStar: 2
+  _isTried: 1
   _stageImagePath: C:/Users/jungle/AppData/LocalLow/DefaultCompany/Week06/StageImages/JMObservatory.png
   _scenePath: Assets/Scenes/JML/JMObservatory.unity
