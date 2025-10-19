@@ -9,6 +9,7 @@ public class FakeCursorClicker : MonoBehaviour
 
     void Update()
     {
+        // "Submit" 또는 마우스 왼쪽 버튼을 눌렀을 때 (프레임 시작 시)
         if (Input.GetButtonDown("Submit") || Input.GetMouseButtonDown(0))
         {
             PointerEventData pointerData = new PointerEventData(EventSystem.current);
@@ -19,35 +20,40 @@ public class FakeCursorClicker : MonoBehaviour
 
             if (results.Count > 0)
             {
-                // 레이캐스트에 맞은 첫 번째 객체 (아마도 Text)
+                // 레이캐스트에 맞은 가장 위에 있는 객체
                 GameObject target = results[0].gameObject;
-                GameObject clickHandlerObject = null; // 클릭 이벤트를 실행할 객체
 
-                // 1. target(Text)에 IPointerClickHandler가 있는지 확인
-                IPointerClickHandler clickHandler = target.GetComponent<IPointerClickHandler>();
+                // --- 여기부터 수정 ---
 
+                // 1. "Pointer Down" 이벤트 전송 (슬라이더 등이 반응)
+                // GetEventHandler가 계층 구조를 따라 올라가며 IPointerDownHandler를 찾습니다.
+                GameObject downHandler = ExecuteEvents.GetEventHandler<IPointerDownHandler>(target);
+                if (downHandler != null)
+                {
+                    ExecuteEvents.Execute(downHandler, pointerData, ExecuteEvents.pointerDownHandler);
+                    Debug.Log(downHandler.name + "에 PointerDown 전송");
+                }
+
+                // 2. "Pointer Click" 이벤트 전송 (버튼 등이 반응)
+                // GetEventHandler가 IPointerClickHandler를 찾습니다.
+                GameObject clickHandler = ExecuteEvents.GetEventHandler<IPointerClickHandler>(target);
                 if (clickHandler != null)
                 {
-                    // Text 자체에 클릭 핸들러가 있다면
-                    clickHandlerObject = target;
-                }
-                else if (target.transform.parent != null)
-                {
-                    // 2. 부모 객체(Button)에 IPointerClickHandler가 있는지 확인
-                    clickHandler = target.transform.parent.GetComponent<IPointerClickHandler>();
-                    if (clickHandler != null)
-                    {
-                        // 부모(Button)에 핸들러가 있다면
-                        clickHandlerObject = target.transform.parent.gameObject;
-                    }
+                    ExecuteEvents.Execute(clickHandler, pointerData, ExecuteEvents.pointerClickHandler);
+                    Debug.Log(clickHandler.name + "에 PointerClick 전송");
                 }
 
-                // 3. 클릭 핸들러를 찾았다면 이벤트 전송
-                if (clickHandlerObject != null)
+                // 3. "Pointer Up" 이벤트 전송 (클릭 완료)
+                // GetEventHandler가 IPointerUpHandler를 찾습니다.
+                // Down과 Up을 한 프레임에 보내면 '클릭'으로 인식됩니다.
+                GameObject upHandler = ExecuteEvents.GetEventHandler<IPointerUpHandler>(target);
+                if (upHandler != null)
                 {
-                    ExecuteEvents.Execute(clickHandlerObject, pointerData, ExecuteEvents.pointerClickHandler);
-                    Debug.Log(clickHandlerObject.name + "에 클릭 이벤트를 전송했습니다.");
+                    ExecuteEvents.Execute(upHandler, pointerData, ExecuteEvents.pointerUpHandler);
+                    Debug.Log(upHandler.name + "에 PointerUp 전송");
                 }
+
+                // --- 수정 끝 ---
             }
         }
     }
