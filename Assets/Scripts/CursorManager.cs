@@ -15,7 +15,7 @@ public class CursorManager : SingletonObject<CursorManager>
     public Vector3 CursorPosition;
 
     private float currentStress = 0f;
-    private bool isGrabbed = false;
+    public bool isGrabbed = false;
 
     // --- 추가된 변수들 ---
     private Vector3 trackedWorldPoint;
@@ -38,28 +38,6 @@ public class CursorManager : SingletonObject<CursorManager>
     {
         if (!cursorUITransform.gameObject.activeInHierarchy) return;
 
-        // // <<< --- 로직 전체 변경 --- >>>
-        // if (isTrackingWorldPoint)
-        // {
-        //     // 월드 좌표 추적 모드: 3D 포인트를 화면 좌표로 변환하여 커서 위치를 업데이트합니다.
-        //     Vector3 screenPoint = mainCamera.WorldToScreenPoint(trackedWorldPoint);
-
-        //     // 오브젝트가 카메라 뒤로 가면 z값이 음수가 되어 좌표가 뒤집히는 현상 방지
-        //     if (screenPoint.z > 0)
-        //     {
-        //         cursorUITransform.position = screenPoint;
-        //         CursorPosition = screenPoint;
-        //     }
-        // }
-        // else
-        // {
-        //     // 기존의 수동 조작 모드: 마우스 움직임으로 커서를 이동시킵니다.
-        //     Vector2 delta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")) * manualMoveSpeed;
-        //     cursorUITransform.position += new Vector3(delta.x, delta.y, 0);
-        //     ClampCursorToScreen();
-        //     CursorPosition = cursorUITransform.position;
-        // }
-
         if (isGrabbed)
         {
             trackedWorldPoint = PhysicsDrag.Instance.currentGrabPoint;
@@ -77,9 +55,18 @@ public class CursorManager : SingletonObject<CursorManager>
 
         }
 
-        // 기존의 수동 조작 모드: 마우스 움직임으로 커서를 이동시킵니다.
-        Vector2 delta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")) * manualMoveSpeed;
-        cursorUITransform.position += new Vector3(delta.x, delta.y, 0);
+
+        if (isGrabbed && Input.GetMouseButton(1))
+        {
+
+        }
+        else
+        {
+            // 기존의 수동 조작 모드: 마우스 움직임으로 커서를 이동시킵니다.
+            Vector2 delta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")) * manualMoveSpeed;
+            cursorUITransform.position += new Vector3(delta.x, delta.y, 0);
+        }
+
         ClampCursorToScreen();
         CursorPosition = cursorUITransform.position;
 
@@ -91,11 +78,15 @@ public class CursorManager : SingletonObject<CursorManager>
 
         if (isGrabbed)
         {
+            // if (!Input.GetMouseButton(1))
+            // {
+            PhysicsDrag.Instance.UpdateDistance();
             PhysicsDrag.Instance.Drag();
+            // }
         }
+
+
     }
-
-
 
     // --- Public Methods for other scripts to call ---
 

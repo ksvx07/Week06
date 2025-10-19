@@ -62,6 +62,10 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
         if (Input.GetMouseButtonUp(0))
             ReleaseAll(); // <<< 변경: Release() 대신 ReleaseAll()을 호출하여 모든 상태를 확실히 초기화합니다.
 
+    }
+
+    public void UpdateDistance()
+    {
         if (grabJoint != null)
         {
             // 우클릭(카메라 회전) 중이 아닐 때만 휠 입력을 받습니다.
@@ -95,7 +99,6 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
                 distanceChangeVelocity = 0f;
             }
         }
-
     }
 
     public void UpdateGrabDistance()
@@ -103,15 +106,6 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
         Ray ray = cam.ScreenPointToRay(CursorManager.Instance.CursorPosition);
         Vector3 vectorToPoint = currentGrabPoint - ray.origin;
         currentGrabDistance = vectorToPoint.magnitude;
-    }
-
-    void FixedUpdate()
-    {
-        if (!Input.GetMouseButton(1))
-        {
-            // if (grabJoint != null)
-            //     Drag();
-        }
     }
 
     void LateUpdate()

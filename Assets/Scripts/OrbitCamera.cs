@@ -85,7 +85,7 @@ public class OrbitCamera : MonoBehaviour
             // --- 3. 줌 (휠 & QE) ---
 
             // <<< 3번 요청: 좌클릭을 안 할 때 마우스 휠 줌
-            if (!Input.GetMouseButton(0))
+            if (!CursorManager.Instance.isGrabbed || (CursorManager.Instance.isGrabbed && Input.GetMouseButton(1)))
             {
                 float scroll = Input.GetAxis("Mouse ScrollWheel");
                 distance -= scroll * zoomSpeed;
