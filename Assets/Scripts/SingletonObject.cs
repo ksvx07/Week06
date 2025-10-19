@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SingletonObject<T> : MonoBehaviour where T : MonoBehaviour
 {
