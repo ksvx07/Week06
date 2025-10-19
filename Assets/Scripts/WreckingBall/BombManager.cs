@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 /// <summary>
 /// 씬에 존재하는 폭탄 및 Draggable 오브젝트의 개수를 관리하는 싱글톤 매니저입니다.
@@ -41,6 +42,10 @@ public class BombManager : MonoBehaviour
     private int lastActiveBombCount = -1;
     private HashSet<GameObject> triggeredDraggables = new HashSet<GameObject>();
 
+    // 폭탄 개수 변경 이벤트
+    public event Action<int> OnBombCountChanged;
+    public event Action<int> OnDraggableCountChanged;
+
     /// <summary>
     /// 트리거된 Draggable 오브젝트의 개수를 반환합니다.
     /// </summary>
@@ -78,6 +83,9 @@ public class BombManager : MonoBehaviour
             {
                 LogBombStatus("폭탄 개수 변경 감지");
                 lastActiveBombCount = currentCount;
+                
+                // 폭탄 개수 변경 이벤트 발생
+                OnBombCountChanged?.Invoke(currentCount);
             }
         }
     }
@@ -99,6 +107,9 @@ public class BombManager : MonoBehaviour
                 
                 Debug.Log($"<color=cyan>[BombManager]</color> [Draggable 트리거 감지] 활성 Draggable: <color=green>{active}</color> | " +
                           $"트리거된 개수: <color=orange>{triggered}</color>");
+
+                // Draggable 개수 변경 이벤트 발생
+                OnDraggableCountChanged?.Invoke(triggered);
             }
         }
     }

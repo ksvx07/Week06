@@ -75,7 +75,7 @@ public static class StageSaveManager
         if(existing != null)
         {
             existing.isTried = true;
-            existing.clearStar = Mathf.Max(existing.clearStar, stage.ClearStar);
+            existing.clearStar = Mathf.Max(existing.clearStar, earnedStars);
             existing.stageImagePath = snapShotPath;
         }
         else
@@ -84,8 +84,8 @@ public static class StageSaveManager
             {
                 sceneName = stage.SceneName,
                 isTried = stage.IsTried,
-                clearStar = stage.ClearStar,
-                stageImagePath = stage.StageImagePath
+                clearStar = earnedStars,
+                stageImagePath = snapShotPath
             });
         }
 
