@@ -118,7 +118,7 @@ MonoBehaviour:
   xSpeed: 2000
   ySpeed: 2000
   keyOrbitSpeed: 80
-  zoomSpeed: 5
+  zoomSpeed: 10
   keyZoomSpeed: 20
   yMinLimit: -20
   yMaxLimit: 80
