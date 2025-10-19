@@ -443,6 +443,7 @@ MonoBehaviour:
   manualMoveSpeed: 25
   stressDecayRate: 1
   CursorPosition: {x: 0, y: 0, z: 0}
+  isGrabbed: 0
 --- !u!114 &4216368566357117787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -534,13 +535,14 @@ MonoBehaviour:
   maxLineWidth: 0.2
   minLineWidth: 0.05
   dangerThreshold: 0.9
-  grabMaxDistance: 3000
+  grabJoint: {fileID: 0}
+  grabMaxDistance: 500
   grabAngularDrag: 2
   grabLinearDrag: 0.5
   springStiffness: 1000
   springDamper: 300
   jointBreakForce: 1000
   minGrabDistance: 5
-  maxGrabDistance: 3000
+  maxGrabDistance: 500
   scrollAcceleration: 300
   scrollDamping: 3
