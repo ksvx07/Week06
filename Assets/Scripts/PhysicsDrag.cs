@@ -111,6 +111,7 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
             {
                 CursorManager.Instance.SetCursorToGrab();
             }
+            CursorManager.Instance.SetCursorUIImagePosition(distanceChangeVelocity);
         }
     }
 
