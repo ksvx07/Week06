@@ -2208,6 +2208,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ===ClearManager===
       objectReference: {fileID: 0}
+    - target: {fileID: 7709129789687782561, guid: be5abab8e62f0fc42ba9d444ade6bfee, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 55
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

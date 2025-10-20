@@ -40,6 +40,10 @@ public class ClimaxController_Advanced : MonoBehaviour
     [Header("Advanced FX Settings")]
     [Tooltip("카메라 셰이크를 위한 Cinemachine Impulse Source입니다.")]
     [SerializeField] private CinemachineImpulseSource impulseSource;
+    [Tooltip("폭발 시 생성할 VFX 프리팹입니다.")]
+    [SerializeField] private GameObject explosionVFXPrefab;
+    [Tooltip("VFX가 자동으로 소멸되는 시간(초)입니다.")]
+    [SerializeField] private float vfxLifetime = 3.0f;
     [Tooltip("히트스탑이 시작되기 전까지 대기할 프레임 수입니다.")]
     [SerializeField] private int hitstopDelayFrames = 50;
     [Tooltip("히트스탑(시간 정지) 지속 시간(초)입니다.")]
@@ -286,14 +290,62 @@ public class ClimaxController_Advanced : MonoBehaviour
     {
         if (bombObject == null) return;
 
+        // 폭발 위치는 폭탄 오브젝트의 위치
+        Vector3 explosionPos = bombObject.transform.position;
+
+        // VFX 생성 (추가)
+        if (explosionVFXPrefab != null)
+        {
+            GameObject vfxInstance = Instantiate(explosionVFXPrefab, explosionPos, Quaternion.identity);
+
+            // ParticleSystem 찾아서 재생
+            ParticleSystem particleSystem = vfxInstance.GetComponent<ParticleSystem>();
+            if (particleSystem != null)
+            {
+                // 시뮬레이션 공간 확인 및 수정
+                var main = particleSystem.main;
+                if (main.simulationSpace == ParticleSystemSimulationSpace.Local)
+                {
+                    var mainModule = particleSystem.main;
+                    mainModule.simulationSpace = ParticleSystemSimulationSpace.World;
+                }
+
+                particleSystem.Play();
+                Debug.Log($"[ClimaxController] ParticleSystem 재생: {explosionPos}");
+            }
+            else
+            {
+                // 자식 오브젝트에 ParticleSystem이 있을 수 있음
+                ParticleSystem[] particleSystems = vfxInstance.GetComponentsInChildren<ParticleSystem>();
+                if (particleSystems.Length > 0)
+                {
+                    foreach (var ps in particleSystems)
+                    {
+                        var main = ps.main;
+                        if (main.simulationSpace == ParticleSystemSimulationSpace.Local)
+                        {
+                            var mainModule = ps.main;
+                            mainModule.simulationSpace = ParticleSystemSimulationSpace.World;
+                        }
+
+                        ps.Play();
+                    }
+                    Debug.Log($"[ClimaxController] {particleSystems.Length}개의 ParticleSystem 재생: {explosionPos}");
+                }
+            }
+
+            // 자동 소멸
+            if (vfxLifetime > 0)
+            {
+                Destroy(vfxInstance, vfxLifetime);
+            }
+        }
+
         // 카메라 셰이크
         if (impulseSource != null)
         {
             impulseSource.GenerateImpulse();
         }
-
-        // 폭발 위치는 폭탄 오브젝트의 위치
-        Vector3 explosionPos = bombObject.transform.position;
 
         // 모드별 처리
         switch (mode)
@@ -301,7 +353,7 @@ public class ClimaxController_Advanced : MonoBehaviour
             case ExplosionMode.FullExplosion:
                 // 스케줄 폭발: 모든 컨테이너 처리 + floor에 Rigidbody 추가
                 Debug.Log($"[ClimaxController] FullExplosion 모드: {bombObject.name}");
-                
+
                 if (jengaBlocksContainer != null)
                 {
                     ApplyExplosionOptimized(jengaBlocksContainer, explosionPos, explosionForce, explosionRadius, upwardModifier, false);
@@ -316,7 +368,7 @@ public class ClimaxController_Advanced : MonoBehaviour
             case ExplosionMode.CollisionExplosion:
                 // 충돌 폭발: 젠가 블록만 처리 (floor Rigidbody 추가 스킵)
                 Debug.Log($"[ClimaxController] CollisionExplosion 모드: {bombObject.name}");
-                
+
                 if (jengaBlocksContainer != null)
                 {
                     ApplyExplosionOptimized(jengaBlocksContainer, explosionPos, explosionForce, explosionRadius, upwardModifier, false);
