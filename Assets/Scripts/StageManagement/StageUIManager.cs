@@ -70,7 +70,7 @@ public class StageUIManager : MonoBehaviour
             if(stage.SceneName == "JMKey")
             {
                 hiddenStage = obj;
-                if (!isAllCleared)
+                if (isAllCleared)
                 {
                     obj.SetActive(false);
                 }
