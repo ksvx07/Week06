@@ -12,9 +12,10 @@ public class CursorManager : SingletonObject<CursorManager>
 
     [SerializeField] private RectTransform cursorUITransform;
     [SerializeField] private Image cursorUIImage;
+    private Vector2 cursorUIImageOriginalPosition;
     public float manualMoveSpeed = 15f;
     [SerializeField] private float stressDecayRate = 1f;
-    public Vector3 CursorPosition;
+    public Vector2 CursorPosition;
 
     private float currentStress = 0f;
     public bool isGrabbed = false;
@@ -30,6 +31,7 @@ public class CursorManager : SingletonObject<CursorManager>
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         mainCamera = Camera.main; // <<< 추가: Camera.main을 캐싱하여 성능 향상
+        cursorUIImageOriginalPosition = cursorUIImage.transform.localPosition;
         SetCursorToDefault();
         cursorUIImage.color = Color.white;
         currentStress = 0f;
@@ -103,6 +105,7 @@ public class CursorManager : SingletonObject<CursorManager>
     {
         isGrabbed = false;
         cursorUIImage.sprite = cursorSprite;
+        cursorUIImage.transform.localPosition = cursorUIImageOriginalPosition;
     }
     public void SetCursorToGrab()
     {
@@ -124,6 +127,12 @@ public class CursorManager : SingletonObject<CursorManager>
     public void SetCursorToBackWheel()
     {
         cursorUIImage.sprite = backWheelSprite;
+    }
+
+    public void SetCursorUIImagePosition(float speed)
+    {
+        float modifiedSpeed = speed * 1f;
+        cursorUIImage.transform.localPosition = new Vector2(cursorUIImageOriginalPosition.x, cursorUIImageOriginalPosition.y + modifiedSpeed);
     }
 
     // --- Helper Method ---
