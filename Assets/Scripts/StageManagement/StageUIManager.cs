@@ -15,6 +15,8 @@ public class StageUIManager : MonoBehaviour
     [Header("Hidden Stage Lock")]
     [SerializeField] private GameObject _hiddenStageLock;  // Scene의 3D 가림막 오브젝트
     [SerializeField] private string _hiddenStageName = "JMKey";
+    [SerializeField] private GameObject _unlockObject1;  // 해금 시 활성화할 오브젝트 1
+    [SerializeField] private GameObject _unlockObject2;  // 해금 시 활성화할 오브젝트 2
 
     [Header("Hidden Object Monitoring")]
     [SerializeField] private GameObject _hiddenObj2;  // HiddenObj_2 오브젝트
@@ -115,16 +117,11 @@ public class StageUIManager : MonoBehaviour
                 hiddenStage = obj;
                 hiddenStageButton = objBtn;
 
-                if (!isAllCleared)
-                {
-                    // UI는 보이되 버튼 비활성화
-                    objBtn.interactable = false;
-                }
-                else
-                {
-                    // 해금 완료 시 버튼 활성화
-                    objBtn.interactable = true;
-                }
+                // 항상 비활성화 상태로 시작
+                objBtn.interactable = false;
+                
+                // 이미 해금 완료 상태여도 HiddenObj_2 위치 변화 + 5초 대기 필요
+                // (즉시 활성화 로직 제거)
             }
         }
     }
@@ -285,7 +282,7 @@ public class StageUIManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 가림막 비활성화 및 HiddenObj_2 모니터링 시작
+    /// 가림막 비활성화 및 추가 오브젝트 활성화, HiddenObj_2 모니터링 시작
     /// </summary>
     void DeactivateLock()
     {
@@ -294,8 +291,55 @@ public class StageUIManager : MonoBehaviour
 
         Debug.Log("[StageUIManager] ✅ 가림막 비활성화 완료 (모든 별 획득)");
 
+        // ✅ 추가: 해금 시 오브젝트들 활성화
+        ActivateUnlockObjects();
+
         // HiddenObj_2 모니터링 시작
         StartMonitoringHiddenObj2();
+    }
+
+    /// <summary>
+    /// ✅ 신규: 해금 시 추가 오브젝트들 활성화
+    /// </summary>
+    void ActivateUnlockObjects()
+    {
+        if (_unlockObject1 != null)
+        {
+            _unlockObject1.SetActive(true);
+            Debug.Log($"[StageUIManager] 🔓 UnlockObject1 활성화: {_unlockObject1.name}");
+        }
+        else
+        {
+            Debug.LogWarning("[StageUIManager] UnlockObject1이 할당되지 않았습니다.");
+        }
+
+        if (_unlockObject2 != null)
+        {
+            _unlockObject2.SetActive(true);
+            Debug.Log($"[StageUIManager] 🔓 UnlockObject2 활성화: {_unlockObject2.name}");
+        }
+        else
+        {
+            Debug.LogWarning("[StageUIManager] UnlockObject2가 할당되지 않았습니다.");
+        }
+    }
+
+    /// <summary>
+    /// ✅ 신규: 해금 오브젝트들 비활성화 (디버그용)
+    /// </summary>
+    void DeactivateUnlockObjects()
+    {
+        if (_unlockObject1 != null)
+        {
+            _unlockObject1.SetActive(false);
+            Debug.Log($"[StageUIManager] 🔒 UnlockObject1 비활성화: {_unlockObject1.name}");
+        }
+
+        if (_unlockObject2 != null)
+        {
+            _unlockObject2.SetActive(false);
+            Debug.Log($"[StageUIManager] 🔒 UnlockObject2 비활성화: {_unlockObject2.name}");
+        }
     }
 
     /// <summary>
@@ -313,6 +357,9 @@ public class StageUIManager : MonoBehaviour
             // Material 참조 초기화 (재생성을 위해)
             lockMaterial = null;
             lockRenderer = null;
+
+            // ✅ 추가: 해금 오브젝트들도 비활성화
+            DeactivateUnlockObjects();
 
             Debug.Log("[StageUIManager] 가림막 재활성화 완료");
         }
@@ -351,12 +398,12 @@ public class StageUIManager : MonoBehaviour
             Debug.Log($"[StageUIManager] HiddenObj_2 위치 변화 감지! 거리: {distance:F4}m");
             Debug.Log($"[StageUIManager] 이전: {lastHiddenObj2Position} → 현재: {currentPosition}");
 
-            // 1초 후 버튼 활성화 시작
+            // 0.5초 후 버튼 활성화 시작
             if (unlockDelayCoroutine != null)
             {
                 StopCoroutine(unlockDelayCoroutine);
             }
-            unlockDelayCoroutine = StartCoroutine(UnlockHiddenStageAfterDelay(1.0f));
+            unlockDelayCoroutine = StartCoroutine(UnlockHiddenStageAfterDelay(0.5f));
 
             // 모니터링 중지 (한 번만 실행)
             isMonitoringHiddenObj2 = false;
