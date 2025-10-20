@@ -10,7 +10,7 @@ public class CursorManager : SingletonObject<CursorManager>
 
     [SerializeField] private RectTransform cursorUITransform;
     [SerializeField] private Image cursorUIImage;
-    [SerializeField] private float manualMoveSpeed = 15f;
+    public static float manualMoveSpeed = 15f;
     [SerializeField] private float stressDecayRate = 1f;
     public Vector3 CursorPosition;
 
@@ -56,11 +56,7 @@ public class CursorManager : SingletonObject<CursorManager>
         }
 
 
-        if (isGrabbed && Input.GetMouseButton(1))
-        {
-
-        }
-        else
+        if (!isGrabbed || !Input.GetMouseButton(1))
         {
             // 기존의 수동 조작 모드: 마우스 움직임으로 커서를 이동시킵니다.
             Vector2 delta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")) * manualMoveSpeed;
