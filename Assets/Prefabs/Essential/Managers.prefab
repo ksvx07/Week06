@@ -544,7 +544,7 @@ MonoBehaviour:
   springStiffness: 1000
   springDamper: 300
   jointBreakForce: 1000
-  minGrabDistance: 5
+  minGrabDistance: 0.3
   maxGrabDistance: 500
   scrollAcceleration: 3
   scrollDamping: 3
