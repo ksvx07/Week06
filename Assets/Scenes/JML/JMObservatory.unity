@@ -303,6 +303,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3192752561574662312, guid: e3b815a1c38ec1c4e9646c4987b13013, type: 3}
+      propertyPath: explosionVFX
+      value: 
+      objectReference: {fileID: 417761080263594737, guid: 7800b8f6b712bfe49bd663eeb3ebe1e4, type: 3}
     - target: {fileID: 4800799759466396948, guid: e3b815a1c38ec1c4e9646c4987b13013, type: 3}
       propertyPath: m_LocalPosition.x
       value: -331.25156
@@ -347,6 +351,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5564051036679696138, guid: e3b815a1c38ec1c4e9646c4987b13013, type: 3}
+      propertyPath: explosionVFXPrefab
+      value: 
+      objectReference: {fileID: 417761080263594737, guid: 7800b8f6b712bfe49bd663eeb3ebe1e4, type: 3}
     - target: {fileID: 5564051036679696138, guid: e3b815a1c38ec1c4e9646c4987b13013, type: 3}
       propertyPath: jengaBlocksContainer
       value: 
