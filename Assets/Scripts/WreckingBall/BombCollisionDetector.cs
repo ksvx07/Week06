@@ -83,13 +83,53 @@ public class BombCollisionDetector : MonoBehaviour
         {
             GameObject vfxInstance = Instantiate(explosionVFX, contactPoint, Quaternion.identity);
             
+            // ParticleSystem 컴포넌트 찾아서 재생
+            ParticleSystem particleSystem = vfxInstance.GetComponent<ParticleSystem>();
+            if (particleSystem != null)
+            {
+                // 시뮬레이션 공간 확인 및 수정
+                var main = particleSystem.main;
+                if (main.simulationSpace == ParticleSystemSimulationSpace.Local)
+                {
+                    Debug.LogWarning($"[BombCollisionDetector] ParticleSystem이 Local 시뮬레이션 공간을 사용 중입니다. World로 변경합니다.");
+                    var mainModule = particleSystem.main;
+                    mainModule.simulationSpace = ParticleSystemSimulationSpace.World;
+                }
+                
+                particleSystem.Play();
+                Debug.Log($"[BombCollisionDetector] ParticleSystem 재생: {contactPoint}");
+            }
+            else
+            {
+                // 자식 오브젝트에 ParticleSystem이 있을 수 있음
+                ParticleSystem[] particleSystems = vfxInstance.GetComponentsInChildren<ParticleSystem>();
+                if (particleSystems.Length > 0)
+                {
+                    foreach (var ps in particleSystems)
+                    {
+                        // 각 파티클 시스템의 시뮬레이션 공간 확인
+                        var main = ps.main;
+                        if (main.simulationSpace == ParticleSystemSimulationSpace.Local)
+                        {
+                            var mainModule = ps.main;
+                            mainModule.simulationSpace = ParticleSystemSimulationSpace.World;
+                        }
+                        
+                        ps.Play();
+                    }
+                    Debug.Log($"[BombCollisionDetector] {particleSystems.Length}개의 ParticleSystem 재생: {contactPoint}");
+                }
+                else
+                {
+                    Debug.LogWarning($"[BombCollisionDetector] VFX 프리팹에 ParticleSystem 컴포넌트가 없습니다!");
+                }
+            }
+            
             // 자동 소멸
             if (vfxLifetime > 0)
             {
                 Destroy(vfxInstance, vfxLifetime);
             }
-            
-            Debug.Log($"[BombCollisionDetector] VFX 생성: {contactPoint}");
         }
 
         // UnityEvent 호출 (Inspector 연결용)
