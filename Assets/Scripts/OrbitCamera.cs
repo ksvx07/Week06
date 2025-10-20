@@ -57,8 +57,8 @@ public class OrbitCamera : MonoBehaviour
             // --- 1. 마우스 궤도 회전 (우클릭) ---
             if (Input.GetMouseButton(1))
             {
-                x += Input.GetAxis("Mouse X") * xSpeed * Time.deltaTime;
-                y -= Input.GetAxis("Mouse Y") * ySpeed * Time.deltaTime;
+                x += Input.GetAxis("Mouse X") * xSpeed;
+                y -= Input.GetAxis("Mouse Y") * ySpeed;
 
                 // <<< 2번 요청: 마우스 우클릭 중 휠 줌 기능 제거 (해당 코드 삭제)
             }
