@@ -655,6 +655,7 @@ MonoBehaviour:
   _emptyStar: {fileID: 21300000, guid: 71edb984587961f469f63ac58f687178, type: 3}
   _maxStars: 3
   _stageNameText: {fileID: 3290558939700160441}
+  _stagePivotTransform: {fileID: 4865853924315465652}
 --- !u!1 &7335519718451862429
 GameObject:
   m_ObjectHideFlags: 0

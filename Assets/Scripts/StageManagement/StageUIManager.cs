@@ -32,7 +32,7 @@ public class StageUIManager : MonoBehaviour
     private bool isAllCleared = false;  // 히든 스테이지 해금용도
     private GameObject hiddenStage;
     private Button hiddenStageButton;
-    
+
     // 가림막 관련
     private Material lockMaterial;
     private Renderer lockRenderer;
@@ -42,7 +42,7 @@ public class StageUIManager : MonoBehaviour
     private Vector3 lastHiddenObj2Position;
     private bool isMonitoringHiddenObj2 = false;
     private Coroutine unlockDelayCoroutine;
-    
+
     // 디버그 관련
     private Coroutine fillStarsCoroutine;
     #endregion
@@ -92,11 +92,35 @@ public class StageUIManager : MonoBehaviour
     }
     #endregion
 
+    private Vector2[] stageOffsets = new Vector2[]
+    {
+        new Vector2(-0.1f, 0.1f),
+        new Vector2(0.1f, -0.1f),
+        new Vector2(-0.1f, -0.1f),
+        new Vector2(0.1f, 0.1f),
+        new Vector2(0.0f, 0.1f),
+        new Vector2(0.0f, -0.1f),
+        new Vector2(-0.1f, 0.0f),
+        new Vector2(0.1f, 0.0f),
+    };
+
+    private float[] stageRotations = new float[]
+    {
+        -5f,
+        5f,
+        10f,
+        -10f,
+        0f,
+        7f,
+        -3f,
+        1f,
+    };
+
     #region Private Methods
     void SetStageUI()
     {
         AllStagesCleared();
-
+        int i = 0;
         // 스테이지 프리팹 Instantiage 및 초기화
         foreach (var stage in stageDataSOs)
         {
@@ -104,7 +128,8 @@ public class StageUIManager : MonoBehaviour
 
             Stage objStage = obj.GetComponent<Stage>();
             objStage.Init(stage);
-
+            objStage.RePosition(stageOffsets[i], stageRotations[i]);
+            i++;
             // 버튼 씬 전환 이벤트 등록
             Button objBtn = obj.GetComponentInChildren<Button>();
             stageBtns.Add(objBtn);
@@ -119,7 +144,7 @@ public class StageUIManager : MonoBehaviour
 
                 // 항상 비활성화 상태로 시작
                 objBtn.interactable = false;
-                
+
                 // 이미 해금 완료 상태여도 HiddenObj_2 위치 변화 + 5초 대기 필요
                 // (즉시 활성화 로직 제거)
             }
@@ -168,7 +193,7 @@ public class StageUIManager : MonoBehaviour
         }
 
         int maxStar = normalStageCount * 3;
-        
+
         // 모든 스테이지 3별 여부 판단
         isAllCleared = allStagesFullyCleared && (starCount >= maxStar);
 
@@ -353,7 +378,7 @@ public class StageUIManager : MonoBehaviour
         {
             _hiddenStageLock.SetActive(true);
             lockDeactivated = false;
-            
+
             // Material 참조 초기화 (재생성을 위해)
             lockMaterial = null;
             lockRenderer = null;
