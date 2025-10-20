@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class ClearManager: MonoBehaviour
+public class ClearManager : MonoBehaviour
 {
     [Header("UI")]
     [SerializeField] private Button _exitBtn;
@@ -21,6 +21,8 @@ public class ClearManager: MonoBehaviour
     [Header("CountDown")]
     [SerializeField] private GameObject _countDownPanel;
     [SerializeField] private TextMeshProUGUI _countDownText;
+    [SerializeField] private GameObject _cameraRect;
+    [SerializeField] private Image _cameraFlashImage;
     private Coroutine _countDownCoroutine;
 
     [Header("Snapshot")]
@@ -83,22 +85,22 @@ public class ClearManager: MonoBehaviour
     void ClearStarChange(int draggable)
     {
         // 2별
-        if(draggable <= _2star && draggable > _3star)
+        if (draggable <= _2star && draggable > _3star)
         {
             var target = _starPanel.transform.GetChild(2);
             target.GetComponent<Image>().sprite = _emptyStar;
             _clearStarCount = 2;
 
         }// 1별
-        else if(draggable <= _1star && draggable > _2star)
+        else if (draggable <= _1star && draggable > _2star)
         {
             var target = _starPanel.transform.GetChild(1);
             target.GetComponent<Image>().sprite = _emptyStar;
             _clearStarCount = 1;
         }// 포기
-        else if(draggable == 10000)
+        else if (draggable == 10000)
         {
-            for(int i = 0; i < 3; i++)
+            for (int i = 0; i < 3; i++)
             {
                 var target = _starPanel.transform.GetChild(i);
                 target.GetComponent<Image>().sprite = _emptyStar;
@@ -109,24 +111,52 @@ public class ClearManager: MonoBehaviour
 
     void ClearChecker()
     {
-        if(_countDownCoroutine != null)
+        if (_countDownCoroutine != null)
         {
             Debug.Log("카운트다운 코루틴 진행 중");
             return;
         }
 
         _countDownCoroutine = StartCoroutine(CountDownCoroutine());
-           
+
+    }
+
+    void ResetCountDownNum()
+    {
+        _countDownText.color = new Color(_countDownText.color.r, _countDownText.color.g, _countDownText.color.b, 1f);
+    }
+
+    void FadeOutCountDownNum()
+    {
+        _countDownText.color -= new Color(0f, 0f, 0f, 1f * Time.deltaTime);
+    }
+
+    void FlashingEffect()
+    {
+        _cameraFlashImage.color = new Color(1f, 1f, 1f, 1f);
+    }
+
+    void FaseOutFlashImage()
+    {
+        _cameraFlashImage.color -= new Color(0f, 0f, 0f, 0.8f * Time.deltaTime);
+    }
+
+    void Update()
+    {
+        FadeOutCountDownNum();
+        FaseOutFlashImage();
     }
 
     IEnumerator CountDownCoroutine()
     {
         _countDownPanel.SetActive(true);
+        _cameraRect.SetActive(true);
 
         // 3초 카운트 다운
         for (int i = 3; i > 0; i--)
         {
             _countDownText.text = i.ToString();
+            ResetCountDownNum();
             yield return new WaitForSeconds(1);
         }
 
@@ -136,6 +166,10 @@ public class ClearManager: MonoBehaviour
         SnapShot();
 
         // 카메라 찰칵 연출은 여기서
+        _cameraRect.SetActive(false);
+        _cameraFlashImage.gameObject.SetActive(true);
+        FlashingEffect();
+
 
         // 클리어 패널 활성화
         ShowClearPanel();
