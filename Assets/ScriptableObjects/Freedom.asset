@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fc10894df3b3c742a44a1a61aacb4bd, type: 3}
   m_Name: Freedom
   m_EditorClassIdentifier: 
-  _stageImage: {fileID: 21300000, guid: 38564588e500e1146a7be533a27ef02b, type: 3}
+  _stageImage: {fileID: 21300000, guid: 31e5ad4e712fc734c9baa1e191896fed, type: 3}
   _stageName: "\uBBF8\uAD6D : \uC790\uC720\uC758 \uC5EC\uC2E0\uC0C1"
   _sceneName: Freedom
   _clearStar: 0
