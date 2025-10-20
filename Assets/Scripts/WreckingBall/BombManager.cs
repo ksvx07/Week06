@@ -9,11 +9,18 @@ using System;
 public class BombManager : MonoBehaviour
 {
     private static BombManager instance;
+    private static bool isQuitting = false;
 
     public static BombManager Instance
     {
         get
         {
+            // Don't create new instance if application is quitting or during scene unload
+            if (isQuitting)
+            {
+                return null;
+            }
+
             if (instance == null)
             {
                 instance = FindFirstObjectByType<BombManager>();
@@ -56,11 +63,25 @@ public class BombManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+            isQuitting = false;
         }
         else if (instance != this)
         {
             Destroy(gameObject);
         }
+    }
+
+    private void OnDestroy()
+    {
+        if (instance == this)
+        {
+            isQuitting = true;
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+        isQuitting = true;
     }
 
     private void Start()
@@ -83,7 +104,7 @@ public class BombManager : MonoBehaviour
             {
                 LogBombStatus("폭탄 개수 변경 감지");
                 lastActiveBombCount = currentCount;
-                
+
                 // 폭탄 개수 변경 이벤트 발생
                 OnBombCountChanged?.Invoke(currentCount);
             }
@@ -99,12 +120,12 @@ public class BombManager : MonoBehaviour
         if (draggable != null && !triggeredDraggables.Contains(draggable))
         {
             triggeredDraggables.Add(draggable);
-            
+
             if (enableAutoDebugLog)
             {
                 int active = GetActiveDraggableCount();
                 int triggered = TriggeredDraggableCount;
-                
+
                 Debug.Log($"<color=cyan>[BombManager]</color> [Draggable 트리거 감지] 활성 Draggable: <color=green>{active}</color> | " +
                           $"트리거된 개수: <color=orange>{triggered}</color>");
 
@@ -120,7 +141,7 @@ public class BombManager : MonoBehaviour
     public int GetActiveBombCount()
     {
         GameObject[] bombs = GameObject.FindGameObjectsWithTag(bombTag);
-        
+
         if (bombs == null || bombs.Length == 0)
         {
             return 0;
@@ -161,7 +182,7 @@ public class BombManager : MonoBehaviour
     public int GetActiveDraggableCount()
     {
         GameObject[] draggables = GameObject.FindGameObjectsWithTag(draggableTag);
-        
+
         if (draggables == null || draggables.Length == 0)
         {
             return 0;
@@ -185,7 +206,7 @@ public class BombManager : MonoBehaviour
     public void ResetDraggableCount()
     {
         triggeredDraggables.Clear();
-        
+
         if (enableAutoDebugLog)
         {
             Debug.Log($"<color=cyan>[BombManager]</color> Draggable 카운트 초기화됨.");

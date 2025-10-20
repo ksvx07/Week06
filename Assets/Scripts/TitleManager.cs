@@ -7,12 +7,20 @@ public class TitleManager : MonoBehaviour
     bool isStart = false;
     private void OnEnable()
     {
-        BombManager.Instance.OnBombCountChanged += RemainBombUpdate;
+        // BombManager가 존재하는지 확인
+        if (BombManager.Instance != null)
+        {
+            BombManager.Instance.OnBombCountChanged += RemainBombUpdate;
+        }
     }
 
     private void OnDisable()
     {
-        BombManager.Instance.OnBombCountChanged -= RemainBombUpdate;
+        // BombManager가 이미 파괴되었을 수 있으므로 null 체크
+        if (BombManager.Instance != null)
+        {
+            BombManager.Instance.OnBombCountChanged -= RemainBombUpdate;
+        }
     }
 
     void RemainBombUpdate(int remainBomb)
