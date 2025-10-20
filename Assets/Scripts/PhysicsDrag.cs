@@ -98,6 +98,19 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
             {
                 distanceChangeVelocity = 0f;
             }
+
+            if (distanceChangeVelocity > 0.05f)
+            {
+                CursorManager.Instance.SetCursorToForwardWheel();
+            }
+            else if (distanceChangeVelocity < -0.05f)
+            {
+                CursorManager.Instance.SetCursorToBackWheel();
+            }
+            else
+            {
+                CursorManager.Instance.SetCursorToGrab();
+            }
         }
     }
 

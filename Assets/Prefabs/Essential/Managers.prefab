@@ -408,6 +408,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cursorSprite: {fileID: 21300000, guid: 3578298880bf7354a89608391a53dc7d, type: 3}
   grabSprite: {fileID: 21300000, guid: 36b880c27324f9543a363b3ea82f01ea, type: 3}
+  forwardWheelSprite: {fileID: 0}
+  backWheelSprite: {fileID: 0}
   stressGradient:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 1, a: 1}
@@ -544,5 +546,5 @@ MonoBehaviour:
   jointBreakForce: 1000
   minGrabDistance: 5
   maxGrabDistance: 500
-  scrollAcceleration: 300
+  scrollAcceleration: 3
   scrollDamping: 3

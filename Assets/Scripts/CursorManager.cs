@@ -116,6 +116,16 @@ public class CursorManager : SingletonObject<CursorManager>
             currentStress = stress;
     }
 
+    public void SetCursorToForwardWheel()
+    {
+        cursorUIImage.sprite = forwardWheelSprite;
+    }
+
+    public void SetCursorToBackWheel()
+    {
+        cursorUIImage.sprite = backWheelSprite;
+    }
+
     // --- Helper Method ---
 
     private void ClampCursorToScreen()
