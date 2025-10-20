@@ -10,7 +10,7 @@ public class CursorManager : SingletonObject<CursorManager>
 
     [SerializeField] private RectTransform cursorUITransform;
     [SerializeField] private Image cursorUIImage;
-    public static float manualMoveSpeed = 15f;
+    public float manualMoveSpeed = 15f;
     [SerializeField] private float stressDecayRate = 1f;
     public Vector3 CursorPosition;
 
