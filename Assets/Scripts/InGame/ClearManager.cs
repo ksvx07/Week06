@@ -295,6 +295,9 @@ public class ClearManager : MonoBehaviour
     // 잔여 폭탄 폭발 이후, 스냅샷 찍고 나감
     private void ExitBtn()
     {
+        _countDownPanel.SetActive(true);
+        _cameraRect.SetActive(true);
+
         // 잔여 폭탄 폭발
         climax.StartClimaxSequence();
         StartCoroutine(WaitForClimax());
@@ -306,6 +309,7 @@ public class ClearManager : MonoBehaviour
         ClearStarChange(10000);
 
     }
+
 
     private void SendClearInfo()
     {
@@ -327,8 +331,26 @@ public class ClearManager : MonoBehaviour
 
     IEnumerator WaitForClimax()
     {
-        yield return new WaitForSeconds(_waitClimax);
+        for (int i = 2; i > 0; i--)
+        {
+            _countDownText.text = i.ToString();
+            ResetCountDownNum();
+            yield return new WaitForSeconds(1);
+        }
+        // yield return new WaitForSeconds(_waitClimax);
+
+        _countDownCoroutine = null;
+
+        // 스냅샷 호출
+
+        // 카메라 찰칵 연출은 여기서
+        _cameraRect.SetActive(false);
+        _cameraFlashImage.gameObject.SetActive(true);
+        FlashingEffect();
+
         SnapShot();
+        ShowClearPanel();
+        _nextStageBtn.gameObject.SetActive(false);
         yield return new WaitForSeconds(_waitClimax);
 
         SceneManager.LoadScene("STAGE");
