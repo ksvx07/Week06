@@ -6,6 +6,8 @@ public class CursorManager : SingletonObject<CursorManager>
 {
     [SerializeField] private Sprite cursorSprite;
     [SerializeField] private Sprite grabSprite;
+    [SerializeField] private Sprite forwardWheelSprite;
+    [SerializeField] private Sprite backWheelSprite;
     [SerializeField] private Gradient stressGradient;
 
     [SerializeField] private RectTransform cursorUITransform;
