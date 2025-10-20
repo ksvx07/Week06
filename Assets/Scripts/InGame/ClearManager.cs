@@ -133,12 +133,23 @@ public class ClearManager : MonoBehaviour
 
     void FlashingEffect()
     {
+        flashAlpha = 1.5f;
         _cameraFlashImage.color = new Color(1f, 1f, 1f, 1f);
     }
 
+    private float flashAlpha = 1f;
+
     void FaseOutFlashImage()
     {
-        _cameraFlashImage.color -= new Color(0f, 0f, 0f, 0.8f * Time.deltaTime);
+        if (flashAlpha > 1f)
+            _cameraFlashImage.color = new Color(1f, 1f, 1f, 1f);
+
+        else
+            _cameraFlashImage.color = new Color(1f, 1f, 1f, flashAlpha);
+
+        flashAlpha -= 0.8f * Time.deltaTime;
+        if (flashAlpha < 0f)
+            flashAlpha = 0f;
     }
 
     void Update()
@@ -163,13 +174,13 @@ public class ClearManager : MonoBehaviour
         _countDownCoroutine = null;
 
         // 스냅샷 호출
-        SnapShot();
 
         // 카메라 찰칵 연출은 여기서
         _cameraRect.SetActive(false);
         _cameraFlashImage.gameObject.SetActive(true);
         FlashingEffect();
 
+        SnapShot();
 
         // 클리어 패널 활성화
         ShowClearPanel();
