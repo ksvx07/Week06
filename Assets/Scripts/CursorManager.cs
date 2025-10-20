@@ -131,7 +131,7 @@ public class CursorManager : SingletonObject<CursorManager>
 
     public void SetCursorUIImagePosition(float speed)
     {
-        float modifiedSpeed = speed * 1f;
+        float modifiedSpeed = speed * 2f;
         cursorUIImage.transform.localPosition = new Vector2(cursorUIImageOriginalPosition.x, cursorUIImageOriginalPosition.y + modifiedSpeed);
     }
 
