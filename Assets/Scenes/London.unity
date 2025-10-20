@@ -1642,6 +1642,10 @@ PrefabInstance:
       propertyPath: genPosYmin
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 2660148696074591189, guid: 2d956ff1a0b5f154892d61889bc1edaf, type: 3}
+      propertyPath: scrollAcceleration
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6615268351107095612, guid: 2d956ff1a0b5f154892d61889bc1edaf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -6,11 +6,13 @@ public class CursorManager : SingletonObject<CursorManager>
 {
     [SerializeField] private Sprite cursorSprite;
     [SerializeField] private Sprite grabSprite;
+    [SerializeField] private Sprite forwardWheelSprite;
+    [SerializeField] private Sprite backWheelSprite;
     [SerializeField] private Gradient stressGradient;
 
     [SerializeField] private RectTransform cursorUITransform;
     [SerializeField] private Image cursorUIImage;
-    public static float manualMoveSpeed = 15f;
+    public float manualMoveSpeed = 15f;
     [SerializeField] private float stressDecayRate = 1f;
     public Vector3 CursorPosition;
 
@@ -112,6 +114,16 @@ public class CursorManager : SingletonObject<CursorManager>
     {
         if (stress > currentStress)
             currentStress = stress;
+    }
+
+    public void SetCursorToForwardWheel()
+    {
+        cursorUIImage.sprite = forwardWheelSprite;
+    }
+
+    public void SetCursorToBackWheel()
+    {
+        cursorUIImage.sprite = backWheelSprite;
     }
 
     // --- Helper Method ---

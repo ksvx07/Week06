@@ -76,7 +76,7 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
             // 1. 휠 입력으로 속도(가속도)를 더합니다.
             if (scrollInput != 0)
             {
-                distanceChangeVelocity += scrollInput * scrollAcceleration * Time.deltaTime;
+                distanceChangeVelocity += scrollInput * scrollAcceleration;
             }
 
             // // 2. 현재 속도를 감속(Damping)시킵니다. (서서히 멈춤)
@@ -97,6 +97,19 @@ public class PhysicsDrag : SingletonObject<PhysicsDrag>
             if (hitBoundary)
             {
                 distanceChangeVelocity = 0f;
+            }
+
+            if (distanceChangeVelocity > 0.05f)
+            {
+                CursorManager.Instance.SetCursorToForwardWheel();
+            }
+            else if (distanceChangeVelocity < -0.05f)
+            {
+                CursorManager.Instance.SetCursorToBackWheel();
+            }
+            else
+            {
+                CursorManager.Instance.SetCursorToGrab();
             }
         }
     }
